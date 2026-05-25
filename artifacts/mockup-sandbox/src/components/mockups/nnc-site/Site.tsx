@@ -59,6 +59,19 @@ export function Site() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const submitEnrollment = async () => {
+    const res = await fetch("/api/enroll", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: "Submission failed" }));
+      throw new Error(err.error || "Submission failed");
+    }
+    return res.json();
+  };
+
   return (
     <div className="min-h-screen bg-nnc-cream text-nnc-charcoal font-sans">
       <Toaster position="top-center" />
@@ -69,7 +82,7 @@ export function Site() {
         {currentScreen === "enroll" && <ScreenEnroll onNavigate={navigateTo} />}
         {currentScreen === "intake" && <ScreenIntake onNavigate={navigateTo} formData={formData.intake} updateData={(d: any) => updateFormData("intake", d)} />}
         {currentScreen === "consent" && <ScreenConsent onNavigate={navigateTo} formData={formData.consent} updateData={(d: any) => updateFormData("consent", d)} />}
-        {currentScreen === "booking" && <ScreenBooking onNavigate={navigateTo} formData={formData.booking} updateData={(d: any) => updateFormData("booking", d)} />}
+        {currentScreen === "booking" && <ScreenBooking onNavigate={navigateTo} formData={formData.booking} updateData={(d: any) => updateFormData("booking", d)} onSubmit={submitEnrollment} />}
         {currentScreen === "confirmation" && <ScreenConfirmation onNavigate={navigateTo} formData={formData} />}
       </main>
 
@@ -1627,7 +1640,7 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
               </div>
 
               <div className="space-y-2">
-                <p className="text-sm text-nnc-charcoal/70 italic mb-2">Note: This is a preview demo. Submissions are stored only in your browser for now.</p>
+                <p className="text-sm text-nnc-charcoal/70 italic mb-2">Your information is transmitted securely and reviewed only by Neuro Nutri Clinic staff.</p>
                 <Label>Type your full legal name to sign</Label>
                 <Input 
                   value={formData.signature || ''} 
@@ -1686,16 +1699,23 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
   );
 }
 
-function ScreenBooking({ onNavigate, formData, updateData }: { onNavigate: (s: any) => void, formData: any, updateData: (d: any) => void }) {
-  const handleNext = () => {
+function ScreenBooking({ onNavigate, formData, updateData, onSubmit }: { onNavigate: (s: any) => void, formData: any, updateData: (d: any) => void, onSubmit: () => Promise<any> }) {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleNext = async () => {
     if (!formData.date || !formData.time) {
       toast.error("Please select a date and time");
       return;
     }
-    // Simulate API call
-    setTimeout(() => {
+    setSubmitting(true);
+    try {
+      await onSubmit();
       onNavigate("confirmation");
-    }, 600);
+    } catch (e: any) {
+      toast.error(e?.message || "Could not submit your enrollment. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const timeSlots = ["9:00 AM", "10:30 AM", "1:00 PM", "2:30 PM", "4:00 PM"];
@@ -1760,10 +1780,10 @@ function ScreenBooking({ onNavigate, formData, updateData }: { onNavigate: (s: a
         <Button 
           onClick={handleNext} 
           size="lg"
-          disabled={!formData.date || !formData.time}
+          disabled={!formData.date || !formData.time || submitting}
           className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-12 shadow-nnc-soft"
         >
-          Confirm Appointment
+          {submitting ? "Submitting…" : "Confirm Appointment"}
         </Button>
       </div>
     </div>
@@ -1772,13 +1792,9 @@ function ScreenBooking({ onNavigate, formData, updateData }: { onNavigate: (s: a
 
 function ScreenConfirmation({ onNavigate, formData }: { onNavigate: (s: any) => void, formData: any }) {
   
-  // Clean up on mount to signify completion
+  // Clean up draft on mount — the enrollment has already been persisted server-side
   useEffect(() => {
     localStorage.removeItem("nnc-draft");
-    // Save to submissions array
-    const existing = JSON.parse(localStorage.getItem("nnc-submissions") || "[]");
-    existing.push({ ...formData, submittedAt: new Date().toISOString() });
-    localStorage.setItem("nnc-submissions", JSON.stringify(existing));
   }, []);
 
   const dateObj = formData.booking?.date ? new Date(formData.booking.date + "T00:00:00") : new Date();
