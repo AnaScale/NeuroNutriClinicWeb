@@ -118,18 +118,30 @@ function Nav({ onNavigate, currentScreen }: { onNavigate: (screen: any) => void,
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-nnc-ivory/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="container mx-auto px-6 md:px-12 grid md:grid-cols-[1fr_auto_1fr] items-center gap-6">
+        <nav className="hidden md:flex items-center justify-end gap-8">
+          {navLinks.slice(0, 3).map((link) => (
+            <button 
+              key={link.label}
+              onClick={() => goHome(link.anchor)}
+              className="text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors"
+            >
+              {link.label}
+            </button>
+          ))}
+        </nav>
+
         <button 
           type="button"
           aria-label="Neuro Nutri Clinic — Home"
-          className="flex items-center gap-3 cursor-pointer text-left appearance-none bg-transparent border-none p-0 m-0"
+          className="cursor-pointer appearance-none bg-transparent border-none p-0 m-0 justify-self-center"
           onClick={() => goHome()}
         >
-          <img src="/__mockup/images/nnc-logo.png" alt="Neuro Nutri Clinic" className="h-24 md:h-28 object-contain" />
+          <img src="/__mockup/images/nnc-logo.png" alt="Neuro Nutri Clinic" className="h-32 md:h-40 lg:h-44 object-contain" />
         </button>
 
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+        <nav className="hidden md:flex items-center justify-start gap-8">
+          {navLinks.slice(3).map((link) => (
             <button 
               key={link.label}
               onClick={() => goHome(link.anchor)}
@@ -146,9 +158,10 @@ function Nav({ onNavigate, currentScreen }: { onNavigate: (screen: any) => void,
           </Button>
         </nav>
 
+        <div className="md:hidden flex items-center justify-end">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
+            <Button variant="ghost" size="icon">
               <Menu className="h-6 w-6 text-nnc-olive" />
             </Button>
           </SheetTrigger>
@@ -172,6 +185,7 @@ function Nav({ onNavigate, currentScreen }: { onNavigate: (screen: any) => void,
             </div>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
     </header>
   );
