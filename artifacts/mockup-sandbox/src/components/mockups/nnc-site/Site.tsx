@@ -60,7 +60,7 @@ export function Site() {
   };
 
   return (
-    <div className="min-h-screen bg-nnc-cream text-nnc-charcoal font-sans selection:bg-nnc-sage selection:text-white">
+    <div className="min-h-screen bg-nnc-cream text-nnc-charcoal font-sans">
       <Toaster position="top-center" />
       <Nav onNavigate={navigateTo} currentScreen={currentScreen} />
       
