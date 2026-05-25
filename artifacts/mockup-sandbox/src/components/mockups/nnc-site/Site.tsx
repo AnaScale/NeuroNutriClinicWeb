@@ -125,11 +125,7 @@ function Nav({ onNavigate, currentScreen }: { onNavigate: (screen: any) => void,
           className="flex items-center gap-3 cursor-pointer text-left appearance-none bg-transparent border-none p-0 m-0"
           onClick={() => goHome()}
         >
-          <img src="/__mockup/images/nnc-logo.png" alt="Neuro Nutri Clinic Logo" className="h-16 md:h-20 object-contain" />
-          <div className="flex flex-col">
-            <span className="font-serif font-semibold text-lg leading-tight tracking-wide text-nnc-olive">Neuro Nutri Clinic</span>
-            <span className="text-[10px] tracking-widest uppercase text-nnc-sage">Integrative Health</span>
-          </div>
+          <img src="/__mockup/images/nnc-logo.png" alt="Neuro Nutri Clinic" className="h-24 md:h-28 object-contain" />
         </button>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -186,11 +182,8 @@ function Footer() {
     <footer className="bg-nnc-charcoal text-nnc-cream/80 py-16">
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-3 mb-6 bg-nnc-ivory p-4 rounded-xl inline-flex">
-            <img src="/__mockup/images/nnc-logo.png" alt="Neuro Nutri Clinic Logo" className="h-24 md:h-28 object-contain" />
-            <div className="flex flex-col">
-              <span className="font-serif font-semibold text-xl leading-tight tracking-wide text-nnc-olive">Neuro Nutri Clinic</span>
-            </div>
+          <div className="mb-6 bg-nnc-ivory p-6 rounded-xl inline-flex">
+            <img src="/__mockup/images/nnc-logo.png" alt="Neuro Nutri Clinic" className="h-40 md:h-48 object-contain" />
           </div>
           <p className="max-w-md mb-6 leading-relaxed">
             Where Neuroscience Meets Nutritional Precision. We provide a science-backed, sustainable roadmap to health, empowering you to optimize brain performance and reclaim vitality.
