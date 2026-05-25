@@ -14,22 +14,22 @@
 
 .bg-nnc-cream { background-color: #F9F8F6; }
 .bg-nnc-ivory { background-color: #FDFDFD; }
-.bg-nnc-sage { background-color: #A3B19B; }
-.bg-nnc-olive { background-color: #556B48; }
+.bg-nnc-sage { background-color: #8FBF7A; }
+.bg-nnc-olive { background-color: #4E8C3C; }
 .bg-nnc-blush { background-color: #EEDCD3; }
 .bg-nnc-rose { background-color: #D3A7A6; }
 .bg-nnc-charcoal { background-color: #333633; }
 
 .text-nnc-cream { color: #F9F8F6; }
 .text-nnc-ivory { color: #FDFDFD; }
-.text-nnc-sage { color: #A3B19B; }
-.text-nnc-olive { color: #556B48; }
+.text-nnc-sage { color: #8FBF7A; }
+.text-nnc-olive { color: #4E8C3C; }
 .text-nnc-blush { color: #EEDCD3; }
 .text-nnc-rose { color: #D3A7A6; }
 .text-nnc-charcoal { color: #333633; }
 
-.border-nnc-sage { border-color: #A3B19B; }
-.border-nnc-olive { border-color: #556B48; }
+.border-nnc-sage { border-color: #8FBF7A; }
+.border-nnc-olive { border-color: #4E8C3C; }
 
 .shadow-nnc-soft {
   box-shadow: 0 10px 40px -10px rgba(85, 107, 72, 0.08);
