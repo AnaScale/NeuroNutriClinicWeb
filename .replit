@@ -16,8 +16,3 @@ externalPort = 80
 
 [nix]
 channel = "stable-25_05"
-
-[deployment]
-deploymentTarget = "autoscale"
-run = ["bash", "-c", "cd artifacts/mockup-sandbox && npm run start:prod"]
-build = ["bash", "-c", "cd artifacts/mockup-sandbox && npm install && npm run build:prod"]
