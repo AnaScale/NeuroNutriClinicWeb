@@ -11,6 +11,36 @@ const MAX_BODY_BYTES = 256 * 1024;
 const SESSION_COOKIE = "nnc_session";
 const SESSION_TTL_DAYS = 30;
 
+// ---------- admin bootstrap ----------
+// Provisions the admin user from ADMIN_BOOTSTRAP_PASSWORD env on server start.
+// Public signup never grants admin, so this is the only path to admin access.
+let bootstrapPromise: Promise<void> | null = null;
+async function ensureAdminBootstrap(): Promise<void> {
+  if (bootstrapPromise) return bootstrapPromise;
+  bootstrapPromise = (async () => {
+    const pw = process.env.ADMIN_BOOTSTRAP_PASSWORD;
+    if (!pw || pw.length < 8) {
+      console.warn("[nnc-api] ADMIN_BOOTSTRAP_PASSWORD not set or too short — admin will not be provisioned");
+      return;
+    }
+    const pool = getPool();
+    const hash = await bcrypt.hash(pw, 10);
+    // Insert admin if missing; if it exists with no password_hash, set it.
+    await pool.query(
+      `INSERT INTO users (email, name, password_hash, is_admin)
+       VALUES ($1, $2, $3, TRUE)
+       ON CONFLICT (email) DO UPDATE
+         SET is_admin = TRUE,
+             password_hash = COALESCE(users.password_hash, EXCLUDED.password_hash)`,
+      [ADMIN_EMAIL, "Shirin Akhavi", hash]
+    );
+    console.log("[nnc-api] Admin account ensured for", ADMIN_EMAIL);
+  })().catch((e) => {
+    console.error("[nnc-api] Admin bootstrap failed:", e);
+  });
+  return bootstrapPromise;
+}
+
 // ---------- helpers ----------
 
 function readJsonBody(req: IncomingMessage): Promise<any> {
@@ -284,23 +314,33 @@ async function handleSignup(req: IncomingMessage, res: ServerResponse) {
   const email = parsed.data.email.toLowerCase().trim();
   const name = parsed.data.name?.trim() || null;
   const passwordHash = await bcrypt.hash(parsed.data.password, 10);
-  const isAdmin = email === ADMIN_EMAIL;
+
+  // Optional claim token to link the just-submitted enrollment to this new account
+  const claim = z
+    .object({ claimEnrollmentId: z.number().int().positive(), claimToken: z.string().min(20) })
+    .safeParse(body);
 
   const pool = getPool();
   try {
+    // SECURITY: signup NEVER grants admin. Admin is provisioned only by server bootstrap.
     const r = await pool.query(
       `INSERT INTO users (email, name, password_hash, is_admin)
-       VALUES ($1, $2, $3, $4)
+       VALUES ($1, $2, $3, FALSE)
        RETURNING id, email, name, is_admin`,
-      [email, name, passwordHash, isAdmin]
+      [email, name, passwordHash]
     );
     const user = r.rows[0] as SessionUser;
 
-    // Auto-link any anonymous enrollments with this email
-    await pool.query(
-      `UPDATE enrollments SET user_id = $1 WHERE user_id IS NULL AND lower(patient_email) = $2`,
-      [user.id, email]
-    );
+    // SECURITY: only link an enrollment if the caller proves they own it via the
+    // claim token that was returned to them when they submitted the enrollment.
+    if (claim.success) {
+      await pool.query(
+        `UPDATE enrollments
+         SET user_id = $1, claim_token = NULL
+         WHERE id = $2 AND claim_token = $3 AND user_id IS NULL`,
+        [user.id, claim.data.claimEnrollmentId, claim.data.claimToken]
+      );
+    }
 
     const { id, expiresAt } = await createSession(user.id);
     const maxAge = Math.floor((expiresAt.getTime() - Date.now()) / 1000);
@@ -403,18 +443,16 @@ async function handleEnroll(req: IncomingMessage, res: ServerResponse) {
     return;
   }
 
-  // Link to user: explicit session user wins, otherwise match by email
-  let userId: number | null = sessionUser?.id ?? null;
-  if (!userId && patientEmail) {
-    const u = await getPool().query(`SELECT id FROM users WHERE lower(email) = $1`, [patientEmail]);
-    if (u.rowCount && u.rowCount > 0) userId = u.rows[0].id;
-  }
+  // Link to user only via authenticated session. Email is unverified, so we never
+  // auto-link by email. Anonymous enrollments get a one-time claim token instead.
+  const userId: number | null = sessionUser?.id ?? null;
+  const claimToken = userId === null ? randomBytes(32).toString("hex") : null;
 
   const pool = getPool();
   const insertResult = await pool.query(
     `INSERT INTO enrollments
-      (patient_name, patient_email, patient_phone, tier, appointment_date, appointment_time, intake_data, consent_data, booking_data, user_id)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+      (patient_name, patient_email, patient_phone, tier, appointment_date, appointment_time, intake_data, consent_data, booking_data, user_id, claim_token)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
      RETURNING id, created_at`,
     [
       patientName,
@@ -427,6 +465,7 @@ async function handleEnroll(req: IncomingMessage, res: ServerResponse) {
       JSON.stringify(consent),
       JSON.stringify(booking),
       userId,
+      claimToken,
     ]
   );
 
@@ -459,6 +498,7 @@ async function handleEnroll(req: IncomingMessage, res: ServerResponse) {
     email: emailStatus,
     notifyTarget: ADMIN_EMAIL,
     linkedToUser: userId !== null,
+    claimToken, // returned only for anonymous enrollments; used to securely claim on signup
   });
 }
 
@@ -473,9 +513,9 @@ async function handleMyEnrollments(req: IncomingMessage, res: ServerResponse) {
             appointment_date, appointment_time,
             intake_data, consent_data, booking_data, created_at
      FROM enrollments
-     WHERE user_id = $1 OR (user_id IS NULL AND lower(patient_email) = $2)
+     WHERE user_id = $1
      ORDER BY created_at DESC`,
-    [user.id, user.email.toLowerCase()]
+    [user.id]
   );
   sendJson(res, 200, { enrollments: r.rows });
 }
@@ -497,10 +537,9 @@ async function handleReschedule(req: IncomingMessage, res: ServerResponse, enrol
      SET appointment_date = $1,
          appointment_time = $2,
          booking_data = booking_data || jsonb_build_object('date', $1::text, 'time', $2::text)
-     WHERE id = $3
-       AND (user_id = $4 OR (user_id IS NULL AND lower(patient_email) = $5))
+     WHERE id = $3 AND user_id = $4
      RETURNING id, appointment_date, appointment_time`,
-    [parsed.data.date, parsed.data.time, enrollmentId, user.id, user.email.toLowerCase()]
+    [parsed.data.date, parsed.data.time, enrollmentId, user.id]
   );
   if (r.rowCount === 0) {
     sendJson(res, 404, { error: "Enrollment not found" });
@@ -524,10 +563,9 @@ async function handleUpdateIntake(req: IncomingMessage, res: ServerResponse, enr
   const r = await getPool().query(
     `UPDATE enrollments
      SET intake_data = $1
-     WHERE id = $2
-       AND (user_id = $3 OR (user_id IS NULL AND lower(patient_email) = $4))
+     WHERE id = $2 AND user_id = $3
      RETURNING id`,
-    [JSON.stringify(parsed.data.intake), enrollmentId, user.id, user.email.toLowerCase()]
+    [JSON.stringify(parsed.data.intake), enrollmentId, user.id]
   );
   if (r.rowCount === 0) {
     sendJson(res, 404, { error: "Enrollment not found" });
@@ -585,6 +623,8 @@ export function apiPlugin(): Plugin {
   return {
     name: "nnc-api",
     configureServer(server) {
+      // Provision admin once on startup
+      void ensureAdminBootstrap();
       server.middlewares.use("/api/", async (req, res, next) => {
         const url = req.url || "/";
         const pathname = url.split("?")[0];

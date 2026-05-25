@@ -34,6 +34,7 @@ export function Site() {
     consent: {},
     booking: {}
   });
+  const [lastEnrollment, setLastEnrollment] = useState<{ id: number; claimToken: string | null } | null>(null);
 
   const [currentUser, setCurrentUser] = useState<AuthUser>(null);
   const [authLoaded, setAuthLoaded] = useState(false);
@@ -85,7 +86,9 @@ export function Site() {
       const err = await res.json().catch(() => ({ error: "Submission failed" }));
       throw new Error(err.error || "Submission failed");
     }
-    return res.json();
+    const data = await res.json();
+    setLastEnrollment({ id: data.id, claimToken: data.claimToken ?? null });
+    return data;
   };
 
   const handleLogout = async () => {
@@ -106,7 +109,7 @@ export function Site() {
         {currentScreen === "intake" && <ScreenIntake onNavigate={navigateTo} formData={formData.intake} updateData={(d: any) => updateFormData("intake", d)} />}
         {currentScreen === "consent" && <ScreenConsent onNavigate={navigateTo} formData={formData.consent} updateData={(d: any) => updateFormData("consent", d)} />}
         {currentScreen === "booking" && <ScreenBooking onNavigate={navigateTo} formData={formData.booking} updateData={(d: any) => updateFormData("booking", d)} onSubmit={submitEnrollment} />}
-        {currentScreen === "confirmation" && <ScreenConfirmation onNavigate={navigateTo} formData={formData} currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+        {currentScreen === "confirmation" && <ScreenConfirmation onNavigate={navigateTo} formData={formData} currentUser={currentUser} setCurrentUser={setCurrentUser} lastEnrollment={lastEnrollment} />}
         {currentScreen === "login" && <ScreenLogin onNavigate={navigateTo} setCurrentUser={setCurrentUser} />}
         {currentScreen === "signup" && <ScreenSignup onNavigate={navigateTo} setCurrentUser={setCurrentUser} />}
         {currentScreen === "dashboard" && <ScreenDashboard onNavigate={navigateTo} currentUser={currentUser} authLoaded={authLoaded} />}
@@ -1847,7 +1850,7 @@ function ScreenBooking({ onNavigate, formData, updateData, onSubmit }: { onNavig
   );
 }
 
-function ScreenConfirmation({ onNavigate, formData, currentUser, setCurrentUser }: { onNavigate: (s: any) => void, formData: any, currentUser: AuthUser, setCurrentUser: (u: AuthUser) => void }) {
+function ScreenConfirmation({ onNavigate, formData, currentUser, setCurrentUser, lastEnrollment }: { onNavigate: (s: any) => void, formData: any, currentUser: AuthUser, setCurrentUser: (u: AuthUser) => void, lastEnrollment: { id: number; claimToken: string | null } | null }) {
   const [showSignup, setShowSignup] = useState(false);
   const [password, setPassword] = useState("");
   const [creating, setCreating] = useState(false);
@@ -1866,11 +1869,16 @@ function ScreenConfirmation({ onNavigate, formData, currentUser, setCurrentUser 
     }
     setCreating(true);
     try {
+      const payload: any = { email: patientEmail, password, name: patientName };
+      if (lastEnrollment?.id && lastEnrollment?.claimToken) {
+        payload.claimEnrollmentId = lastEnrollment.id;
+        payload.claimToken = lastEnrollment.claimToken;
+      }
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ email: patientEmail, password, name: patientName }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not create account");
