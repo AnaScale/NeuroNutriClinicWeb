@@ -19,6 +19,7 @@ import { format } from "date-fns";
 import { ArrowRight, Menu, CheckCircle2, ChevronRight, Sparkles, Brain, Leaf, HeartHandshake, Microscope, ArrowLeft, Plus, Trash2, CalendarDays, LogIn, LogOut, User as UserIcon, Shield, Edit3, ChevronDown, ChevronUp } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import "./_group.css";
+import nncLogoUrl from "/images/nnc-logo.png?url";
 
 export type AuthUser = { id: number; email: string; name: string | null; isAdmin: boolean } | null;
 
@@ -180,7 +181,7 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
           className="cursor-pointer appearance-none bg-transparent border-none p-0 m-0 justify-self-center"
           onClick={() => goHome()}
         >
-          <img src="/__mockup/images/nnc-logo.png" alt="Neuro Nutri Clinic" className="h-32 md:h-40 lg:h-44 object-contain" />
+          <img src={nncLogoUrl} alt="Neuro Nutri Clinic" className="h-32 md:h-40 lg:h-44 object-contain" />
         </button>
 
         <nav className="hidden md:flex items-center justify-start gap-8">
@@ -270,7 +271,7 @@ function Footer() {
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-2">
           <div className="mb-6 bg-nnc-ivory p-6 rounded-xl inline-flex">
-            <img src="/__mockup/images/nnc-logo.png" alt="Neuro Nutri Clinic" className="h-40 md:h-48 object-contain" />
+            <img src={nncLogoUrl} alt="Neuro Nutri Clinic" className="h-40 md:h-48 object-contain" />
           </div>
           <p className="max-w-md mb-6 leading-relaxed">
             Where Neuroscience Meets Nutritional Precision. We provide a science-backed, sustainable roadmap to health, empowering you to optimize brain performance and reclaim vitality.

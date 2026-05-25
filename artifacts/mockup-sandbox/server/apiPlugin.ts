@@ -496,7 +496,6 @@ async function handleEnroll(req: IncomingMessage, res: ServerResponse) {
     id,
     createdAt: created_at,
     email: emailStatus,
-    notifyTarget: ADMIN_EMAIL,
     linkedToUser: userId !== null,
     claimToken, // returned only for anonymous enrollments; used to securely claim on signup
   });
@@ -619,36 +618,43 @@ const routes: Route[] = [
   { method: "GET", match: (p) => (p === "/api/admin/enrollments" ? true : null), handler: (req, res) => handleAdminEnrollments(req, res) },
 ];
 
+function attachApiMiddleware(middlewares: { use: (path: string, fn: any) => void }) {
+  middlewares.use("/api/", async (req: any, res: any, next: any) => {
+    const url = req.url || "/";
+    const pathname = url.split("?")[0];
+    const fullPath = "/api" + pathname; // url is relative to /api/ mount
+    const method = (req.method || "GET").toUpperCase();
+
+    for (const route of routes) {
+      const m = route.match(fullPath);
+      if (!m) continue;
+      if (route.method !== method) {
+        sendJson(res, 405, { error: "Method not allowed" });
+        return;
+      }
+      try {
+        const params = m === true ? [] : (Array.from(m).slice(1) as string[]);
+        await route.handler(req, res, params);
+      } catch (e: any) {
+        console.error(`[nnc-api] ${method} ${fullPath} error:`, e);
+        sendJson(res, 500, { error: e?.message || "Internal error" });
+      }
+      return;
+    }
+    next();
+  });
+}
+
 export function apiPlugin(): Plugin {
   return {
     name: "nnc-api",
     configureServer(server) {
-      // Provision admin once on startup
       void ensureAdminBootstrap();
-      server.middlewares.use("/api/", async (req, res, next) => {
-        const url = req.url || "/";
-        const pathname = url.split("?")[0];
-        const fullPath = "/api" + pathname; // url is relative to /api/ mount
-        const method = (req.method || "GET").toUpperCase();
-
-        for (const route of routes) {
-          const m = route.match(fullPath);
-          if (!m) continue;
-          if (route.method !== method) {
-            sendJson(res, 405, { error: "Method not allowed" });
-            return;
-          }
-          try {
-            const params = m === true ? [] : (Array.from(m).slice(1) as string[]);
-            await route.handler(req, res, params);
-          } catch (e: any) {
-            console.error(`[nnc-api] ${method} ${fullPath} error:`, e);
-            sendJson(res, 500, { error: e?.message || "Internal error" });
-          }
-          return;
-        }
-        next();
-      });
+      attachApiMiddleware(server.middlewares);
+    },
+    configurePreviewServer(server) {
+      void ensureAdminBootstrap();
+      attachApiMiddleware(server.middlewares);
     },
   };
 }
