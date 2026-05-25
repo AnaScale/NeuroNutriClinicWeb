@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "f2MkDXoooJbHr_q6uMkaw"
+uri = "file://neuro-nutri-clinic-vercel.tar.gz"
+type = "unspecified"
+title = "Neuro Nutri Clinic — Vercel-ready project"

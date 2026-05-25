@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap');
+
+.font-serif {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-script {
+  font-family: 'Caveat', cursive;
+}
+
+.bg-nnc-cream { background-color: #F9F8F6; }
+.bg-nnc-ivory { background-color: #FDFDFD; }
+.bg-nnc-sage { background-color: #8FBF7A; }
+.bg-nnc-olive { background-color: #4E8C3C; }
+.bg-nnc-blush { background-color: #EEDCD3; }
+.bg-nnc-rose { background-color: #D3A7A6; }
+.bg-nnc-charcoal { background-color: #333633; }
+
+.text-nnc-cream { color: #F9F8F6; }
+.text-nnc-ivory { color: #FDFDFD; }
+.text-nnc-sage { color: #8FBF7A; }
+.text-nnc-olive { color: #4E8C3C; }
+.text-nnc-blush { color: #EEDCD3; }
+.text-nnc-rose { color: #D3A7A6; }
+.text-nnc-charcoal { color: #333633; }
+
+.border-nnc-sage { border-color: #8FBF7A; }
+.border-nnc-olive { border-color: #4E8C3C; }
+
+.shadow-nnc-soft {
+  box-shadow: 0 10px 40px -10px rgba(85, 107, 72, 0.08);
+}
+
+/* Background opacity variants */
+.bg-nnc-blush\/20 { background-color: rgba(238, 220, 211, 0.2); }
+.bg-nnc-blush\/30 { background-color: rgba(238, 220, 211, 0.3); }
+.bg-nnc-cream\/30 { background-color: rgba(249, 248, 246, 0.3); }
+.bg-nnc-cream\/50 { background-color: rgba(249, 248, 246, 0.5); }
+.bg-nnc-ivory\/90 { background-color: rgba(253, 253, 253, 0.9); }
+.bg-nnc-olive\/5  { background-color: rgba(78, 140, 60, 0.05); }
+.bg-nnc-olive\/10 { background-color: rgba(78, 140, 60, 0.1); }
+.bg-nnc-olive\/20 { background-color: rgba(78, 140, 60, 0.2); }
+.bg-nnc-sage\/10  { background-color: rgba(143, 191, 122, 0.1); }
+.bg-nnc-sage\/20  { background-color: rgba(143, 191, 122, 0.2); }
+
+/* Border opacity variants */
+.border-nnc-cream\/10 { border-color: rgba(249, 248, 246, 0.1); }
+.border-nnc-olive\/40 { border-color: rgba(78, 140, 60, 0.4); }
+.border-nnc-sage\/10  { border-color: rgba(143, 191, 122, 0.1); }
+.border-nnc-sage\/20  { border-color: rgba(143, 191, 122, 0.2); }
+.border-nnc-sage\/30  { border-color: rgba(143, 191, 122, 0.3); }
+.border-nnc-sage\/40  { border-color: rgba(143, 191, 122, 0.4); }
+
+/* Text opacity variants */
+.text-nnc-charcoal\/30 { color: rgba(51, 54, 51, 0.3); }
+.text-nnc-charcoal\/40 { color: rgba(51, 54, 51, 0.4); }
+.text-nnc-charcoal\/50 { color: rgba(51, 54, 51, 0.5); }
+.text-nnc-charcoal\/60 { color: rgba(51, 54, 51, 0.6); }
+.text-nnc-charcoal\/70 { color: rgba(51, 54, 51, 0.7); }
+.text-nnc-charcoal\/80 { color: rgba(51, 54, 51, 0.8); }
+.text-nnc-cream\/40 { color: rgba(249, 248, 246, 0.4); }
+.text-nnc-cream\/60 { color: rgba(249, 248, 246, 0.6); }
+.text-nnc-cream\/80 { color: rgba(249, 248, 246, 0.8); }
