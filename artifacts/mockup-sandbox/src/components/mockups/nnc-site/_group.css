@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap');
+
+.font-serif {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-script {
+  font-family: 'Caveat', cursive;
+}
+
+.bg-nnc-cream { background-color: #F9F8F6; }
+.bg-nnc-ivory { background-color: #FDFDFD; }
+.bg-nnc-sage { background-color: #A3B19B; }
+.bg-nnc-olive { background-color: #556B48; }
+.bg-nnc-blush { background-color: #EEDCD3; }
+.bg-nnc-rose { background-color: #D3A7A6; }
+.bg-nnc-charcoal { background-color: #333633; }
+
+.text-nnc-cream { color: #F9F8F6; }
+.text-nnc-ivory { color: #FDFDFD; }
+.text-nnc-sage { color: #A3B19B; }
+.text-nnc-olive { color: #556B48; }
+.text-nnc-blush { color: #EEDCD3; }
+.text-nnc-rose { color: #D3A7A6; }
+.text-nnc-charcoal { color: #333633; }
+
+.border-nnc-sage { border-color: #A3B19B; }
+.border-nnc-olive { border-color: #556B48; }
+
+.shadow-nnc-soft {
+  box-shadow: 0 10px 40px -10px rgba(85, 107, 72, 0.08);
+}
