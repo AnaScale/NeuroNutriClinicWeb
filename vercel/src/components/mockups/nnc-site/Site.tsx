@@ -689,10 +689,15 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
 function ScreenEnroll({ onNavigate }: { onNavigate: (screen: any) => void }) {
   return (
     <div className="container mx-auto px-6 md:px-12 max-w-3xl py-12 animate-in slide-in-from-bottom-4 duration-500">
-      <div className="text-center mb-12">
+      <div className="text-center mb-10">
         <Badge className="bg-nnc-olive/10 text-nnc-olive hover:bg-nnc-olive/20 mb-4 border-none">Patient Onboarding</Badge>
-        <h1 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-4">Welcome to Your Journey</h1>
-        <p className="text-nnc-charcoal/70 text-lg">We need a clear picture of your internal landscape before we begin.</p>
+        <h1 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-6">Welcome to Your Clinical Intake</h1>
+        <p className="text-nnc-charcoal/70 text-lg leading-relaxed mb-4">
+          Before we begin our clinical work, we need to map your unique internal landscape. By looking at the intersections of your unique biochemistry, nervous system health, and daily lifestyle pillars, we can look beyond surface-level symptoms and target the genuine root causes of your health concerns.
+        </p>
+        <p className="text-nnc-charcoal/70 text-lg leading-relaxed">
+          Please complete the following three steps to finalize your booking with Shirin.
+        </p>
       </div>
 
       <div className="bg-white rounded-3xl p-8 md:p-12 shadow-nnc-soft border border-nnc-sage/20">
@@ -700,38 +705,50 @@ function ScreenEnroll({ onNavigate }: { onNavigate: (screen: any) => void }) {
           <div className="absolute top-8 bottom-8 left-[23px] w-px bg-nnc-sage/20" />
           
           <div className="flex gap-6 relative z-10">
-            <div className="w-12 h-12 rounded-full bg-nnc-blush flex items-center justify-center text-nnc-charcoal font-serif font-bold text-xl shrink-0 border-4 border-white shadow-sm">1</div>
+            <div className="w-12 h-12 rounded-full bg-nnc-blush flex items-center justify-center text-2xl shrink-0 border-4 border-white shadow-sm">📋</div>
             <div>
-              <h3 className="font-serif text-2xl text-nnc-charcoal mb-2">Comprehensive Intake</h3>
-              <p className="text-nnc-charcoal/70 leading-relaxed">A detailed evaluation of your life history, diet, and lifestyle designed to uncover the root causes of your symptoms. This form is extensive—please allow 15-20 minutes to complete.</p>
+              <h3 className="font-serif text-2xl text-nnc-charcoal mb-1">Step 1: Comprehensive Clinical Intake Form</h3>
+              <p className="text-sm font-medium text-nnc-olive mb-3">Estimated Time: 15–20 minutes</p>
+              <p className="text-nnc-charcoal/70 leading-relaxed mb-3">
+                <span className="font-medium text-nnc-charcoal">What it covers:</span> A deep-dive evaluation of your life history, symptom patterns, dietary defaults, and systemic stressors.
+              </p>
+              <p className="text-nnc-charcoal/70 leading-relaxed">
+                Please ensure you answer as thoroughly as possible, as this form builds the biochemical and physiological foundation for your initial consultation.
+              </p>
+              <Button 
+                onClick={() => onNavigate("intake")}
+                className="mt-5 bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-6"
+              >
+                Start Step 1: Intake Form <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
             </div>
           </div>
           
           <div className="flex gap-6 relative z-10">
-            <div className="w-12 h-12 rounded-full bg-nnc-cream border-2 border-nnc-sage/30 flex items-center justify-center text-nnc-charcoal/40 font-serif font-bold text-xl shrink-0 bg-white">2</div>
-            <div className="opacity-60">
-              <h3 className="font-serif text-2xl text-nnc-charcoal mb-2">Consent & Tier Selection</h3>
-              <p className="text-nnc-charcoal/70 leading-relaxed">Review our clinical scope of practice, financial policies, and select the level of care that best suits your goals.</p>
+            <div className="w-12 h-12 rounded-full bg-nnc-cream border-2 border-nnc-sage/30 flex items-center justify-center text-2xl shrink-0 bg-white">⚖️</div>
+            <div className="opacity-70">
+              <h3 className="font-serif text-2xl text-nnc-charcoal mb-2">Step 2: Consent & Tier Selection</h3>
+              <p className="text-nnc-charcoal/70 leading-relaxed">
+                <span className="font-medium text-nnc-charcoal">What it covers:</span> A transparent review of our clinic's professional scope of practice under Ontario guidelines, financial policies, and an interactive portal to select the specific tier of care that best aligns with your health and wellness goals.
+              </p>
             </div>
           </div>
           
           <div className="flex gap-6 relative z-10">
-            <div className="w-12 h-12 rounded-full bg-nnc-cream border-2 border-nnc-sage/30 flex items-center justify-center text-nnc-charcoal/40 font-serif font-bold text-xl shrink-0 bg-white">3</div>
-            <div className="opacity-60">
-              <h3 className="font-serif text-2xl text-nnc-charcoal mb-2">Book Consultation</h3>
-              <p className="text-nnc-charcoal/70 leading-relaxed">Select a date and time for your initial Deep-Dive consultation with Shirin.</p>
+            <div className="w-12 h-12 rounded-full bg-nnc-cream border-2 border-nnc-sage/30 flex items-center justify-center text-2xl shrink-0 bg-white">🧠</div>
+            <div className="opacity-70">
+              <h3 className="font-serif text-2xl text-nnc-charcoal mb-2">Step 3: Schedule Your Deep-Dive Consultation</h3>
+              <p className="text-nnc-charcoal/70 leading-relaxed">
+                <span className="font-medium text-nnc-charcoal">What it covers:</span> Access to Shirin's clinical calendar to select your preferred date and time for your initial 1-on-1 virtual consultation.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-nnc-sage/20 flex justify-end">
-          <Button 
-            onClick={() => onNavigate("intake")}
-            size="lg"
-            className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-8 w-full md:w-auto"
-          >
-            Start Step 1: Intake Form <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
+        <div className="mt-10 pt-8 border-t border-nnc-sage/20">
+          <p className="text-sm text-nnc-charcoal/60 leading-relaxed">
+            <span className="font-medium text-nnc-charcoal">💡 Ready to begin?</span> Click the button above to launch Step 1: Intake Form. If you need to step away, your progress will be saved automatically as long as you use the same browser window.
+          </p>
         </div>
       </div>
     </div>
