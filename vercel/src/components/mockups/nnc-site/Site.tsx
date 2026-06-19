@@ -473,23 +473,32 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             <div className="bg-white rounded-3xl p-8 md:p-12 shadow-nnc-soft border border-nnc-sage/20">
               <div className="prose prose-lg text-nnc-charcoal/80 max-w-none">
                 <p className="text-xl font-serif text-nnc-olive italic mb-8 border-l-4 border-nnc-sage pl-6">
-                  "My background in International Commerce and R&D allows me to look behind the label; I leverage years of experience in global raw material sourcing and product formulation to ensure that every supplement recommended meets the highest standards of purity, bioavailability, and clinical efficacy."
+                  "My background in International Commerce and R&D allows me to look far beneath the label. I leverage my years of experience in global raw material sourcing and product formulation to ensure that every single remedy and supplement recommended in my practice meets the highest global standards of purity, bioavailability, and clinical efficacy."
                 </p>
                 <p>
-                  At Neuro Nutri Clinic, I believe that true health is not just the absence of symptoms—it is the optimization of your mental, emotional, and physical potential. My mission is to move you away from "guessing" with supplements and towards a precision-based protocol rooted in cellular science.
+                  At Neuro Nutri Clinic, I believe that true health is not merely the absence of symptoms—it is the optimization of your mental, emotional, and physical potential. My mission is to move you away from "supplement guesswork" and guide you toward a precision-based protocol rooted in cellular science.
                 </p>
                 <p>
-                  I specialize in the connection between the brain and the gut. By combining the diagnostic frameworks of Amen University (Brain Health) and Psychiatry Redefined with the energetic healing of Homeopathy, I offer a truly integrative "Neuro-Nutritional" approach.
+                  I specialize in the intricate, powerful connection between the brain and the gut. By combining the cutting-edge neuroscience and psychiatric frameworks of Amen University (Brain Health) and Psychiatry Redefined with the gentle, deep restorative healing of Homeopathy, I offer a truly integrative "Neuro-Nutritional" approach to wellness.
                 </p>
                 
                 <h4 className="font-serif text-2xl text-nnc-charcoal mt-10 mb-4">A Decade of Dedication</h4>
                 <p>
-                  My practice is built on a foundation of rigorous standards and long-term commitment. I have been a member in good standing of the International Organization of Nutritional Consultants (IONC) since 2014, adhering to the strict ethical standards of Orthomolecular health. In 2017, my commitment to academic excellence was recognized by the Golden Key International Honor Society.
+                  My practice is built on a foundation of rigorous clinical standards and an unwavering, long-term commitment to my clients.
+                </p>
+                <p>
+                  <strong className="text-nnc-charcoal">Orthomolecular Standards:</strong> I have been a member in good standing of the International Organization of Nutritional Consultants (IONC) since 2014, strictly adhering to the highest ethical and therapeutic standards of Orthomolecular health.
+                </p>
+                <p>
+                  <strong className="text-nnc-charcoal">Academic Excellence:</strong> In 2017, my commitment to advanced education and clinical research was recognized with an induction into the prestigious Golden Key International Honour Society.
                 </p>
 
                 <h4 className="font-serif text-2xl text-nnc-charcoal mt-10 mb-4">Why I Do This</h4>
                 <p>
-                  I founded Neuro Nutri Clinic because I saw too many people "falling through the cracks" of standard healthcare. They were told their blood work was "normal," yet they felt exhausted, anxious, and foggy. I am here to validate your experience with data and provide you with a roadmap to recovery that is sustainable, scientific, and deeply supportive.
+                  I founded Neuro Nutri Clinic because I grew tired of seeing people "falling through the cracks" of the standard healthcare model. Far too often, individuals are told their blood work is completely "normal," yet they continue to live exhausted, anxious, and cognitively drained.
+                </p>
+                <p>
+                  I am here to validate your lived experience with objective biological data. Together, we will build a roadmap to recovery that is scientifically validated, sustainably structured, and deeply supportive of your unique physiology.
                 </p>
               </div>
             </div>
