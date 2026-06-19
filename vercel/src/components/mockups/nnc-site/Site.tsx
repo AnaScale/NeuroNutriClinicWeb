@@ -12,20 +12,17 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { toast, Toaster } from "sonner";
 import { format } from "date-fns";
-import { ArrowRight, Menu, CheckCircle2, ChevronRight, Sparkles, Brain, Leaf, HeartHandshake, Microscope, ArrowLeft, Plus, Trash2, CalendarDays, LogIn, LogOut, User as UserIcon, Shield, Edit3, ChevronDown, ChevronUp } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
+import { ArrowRight, Menu, CheckCircle2, ChevronRight, Sparkles, Brain, Leaf, HeartHandshake, Microscope, ArrowLeft, Plus, CalendarDays } from "lucide-react";
 import "./_group.css";
-
-export type AuthUser = { id: number; email: string; name: string | null; isAdmin: boolean } | null;
 
 // MAIN SITE COMPONENT
 export function Site() {
   const [currentScreen, setCurrentScreen] = useState<
-    "home" | "enroll" | "intake" | "consent" | "booking" | "confirmation" | "login" | "signup" | "dashboard" | "admin"
+    "home" | "enroll" | "intake" | "consent" | "booking" | "confirmation"
   >("home");
 
   // State to hold all form data
@@ -34,20 +31,6 @@ export function Site() {
     consent: {},
     booking: {}
   });
-  const [lastEnrollment, setLastEnrollment] = useState<{ id: number; claimToken: string | null } | null>(null);
-
-  const [currentUser, setCurrentUser] = useState<AuthUser>(null);
-  const [authLoaded, setAuthLoaded] = useState(false);
-
-  // Fetch current user on mount
-  useEffect(() => {
-    fetch("/api/auth/me", { credentials: "include" })
-      .then(r => r.ok ? r.json() : { user: null })
-      .then(d => setCurrentUser(d.user))
-      .catch(() => setCurrentUser(null))
-      .finally(() => setAuthLoaded(true));
-  }, []);
-
   // Load from local storage
   useEffect(() => {
     const saved = localStorage.getItem("nnc-draft");
@@ -87,33 +70,21 @@ export function Site() {
       throw new Error(err.error || "Submission failed");
     }
     const data = await res.json();
-    setLastEnrollment({ id: data.id, claimToken: data.claimToken ?? null });
     return data;
-  };
-
-  const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
-    setCurrentUser(null);
-    navigateTo("home");
-    toast.success("Signed out");
   };
 
   return (
     <div className="min-h-screen bg-nnc-cream text-nnc-charcoal font-sans">
       <Toaster position="top-center" />
-      <Nav onNavigate={navigateTo} currentScreen={currentScreen} currentUser={currentUser} onLogout={handleLogout} />
-      
+      <Nav onNavigate={navigateTo} currentScreen={currentScreen} />
+
       <main className="pt-24 pb-20">
         {currentScreen === "home" && <ScreenHome onNavigate={navigateTo} />}
         {currentScreen === "enroll" && <ScreenEnroll onNavigate={navigateTo} />}
         {currentScreen === "intake" && <ScreenIntake onNavigate={navigateTo} formData={formData.intake} updateData={(d: any) => updateFormData("intake", d)} />}
         {currentScreen === "consent" && <ScreenConsent onNavigate={navigateTo} formData={formData.consent} updateData={(d: any) => updateFormData("consent", d)} />}
         {currentScreen === "booking" && <ScreenBooking onNavigate={navigateTo} formData={formData.booking} updateData={(d: any) => updateFormData("booking", d)} onSubmit={submitEnrollment} />}
-        {currentScreen === "confirmation" && <ScreenConfirmation onNavigate={navigateTo} formData={formData} currentUser={currentUser} setCurrentUser={setCurrentUser} lastEnrollment={lastEnrollment} />}
-        {currentScreen === "login" && <ScreenLogin onNavigate={navigateTo} setCurrentUser={setCurrentUser} />}
-        {currentScreen === "signup" && <ScreenSignup onNavigate={navigateTo} setCurrentUser={setCurrentUser} />}
-        {currentScreen === "dashboard" && <ScreenDashboard onNavigate={navigateTo} currentUser={currentUser} authLoaded={authLoaded} />}
-        {currentScreen === "admin" && <ScreenAdmin onNavigate={navigateTo} currentUser={currentUser} authLoaded={authLoaded} />}
+        {currentScreen === "confirmation" && <ScreenConfirmation onNavigate={navigateTo} formData={formData} />}
       </main>
 
       <Footer />
@@ -121,9 +92,9 @@ export function Site() {
   );
 }
 
-function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate: (screen: any) => void, currentScreen: string, currentUser: AuthUser, onLogout: () => void }) {
+function Nav({ onNavigate, currentScreen }: { onNavigate: (screen: any) => void, currentScreen: string }) {
   const [scrolled, setScrolled] = useState(false);
-  
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -164,7 +135,7 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
       <div className="container mx-auto px-6 md:px-12 grid md:grid-cols-[1fr_auto_1fr] items-center gap-6">
         <nav className="hidden md:flex items-center justify-end gap-8">
           {navLinks.slice(0, 3).map((link) => (
-            <button 
+            <button
               key={link.label}
               onClick={() => goHome(link.anchor)}
               className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors"
@@ -186,7 +157,7 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
 
         <nav className="hidden md:flex items-center justify-start gap-8">
           {navLinks.slice(3).map((link) => (
-            <button 
+            <button
               key={link.label}
               onClick={() => goHome(link.anchor)}
               className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors"
@@ -194,26 +165,7 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
               {link.label}
             </button>
           ))}
-          {currentUser ? (
-            <>
-              <button onClick={() => onNavigate("dashboard")} className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
-                <UserIcon className="w-4 h-4" /> Dashboard
-              </button>
-              {currentUser.isAdmin && (
-                <button onClick={() => onNavigate("admin")} className="nav-underline text-sm font-medium text-nnc-rose hover:text-nnc-charcoal transition-colors flex items-center gap-1.5">
-                  <Shield className="w-4 h-4" /> Admin
-                </button>
-              )}
-              <button onClick={onLogout} className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
-                <LogOut className="w-4 h-4" /> Sign out
-              </button>
-            </>
-          ) : (
-            <button onClick={() => onNavigate("login")} className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
-              <LogIn className="w-4 h-4" /> Sign in
-            </button>
-          )}
-          <Button 
+          <Button
             onClick={() => onNavigate("enroll")}
             className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-6 py-2 shadow-nnc-soft transition-all"
           >
@@ -231,7 +183,7 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
           <SheetContent side="right" className="bg-nnc-cream border-l-nnc-sage/20">
             <div className="flex flex-col gap-6 mt-12">
               {navLinks.map((link) => (
-                <button 
+                <button
                   key={link.label}
                   onClick={() => goHome(link.anchor)}
                   className="text-xl font-serif text-left border-b border-nnc-sage/20 pb-4 text-nnc-charcoal hover:text-nnc-olive"
@@ -239,18 +191,7 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
                   {link.label}
                 </button>
               ))}
-              {currentUser ? (
-                <>
-                  <button onClick={() => onNavigate("dashboard")} className="text-xl font-serif text-left border-b border-nnc-sage/20 pb-4 text-nnc-charcoal hover:text-nnc-olive">Dashboard</button>
-                  {currentUser.isAdmin && (
-                    <button onClick={() => onNavigate("admin")} className="text-xl font-serif text-left border-b border-nnc-sage/20 pb-4 text-nnc-rose hover:text-nnc-charcoal">Admin</button>
-                  )}
-                  <button onClick={onLogout} className="text-xl font-serif text-left border-b border-nnc-sage/20 pb-4 text-nnc-charcoal hover:text-nnc-olive">Sign out</button>
-                </>
-              ) : (
-                <button onClick={() => onNavigate("login")} className="text-xl font-serif text-left border-b border-nnc-sage/20 pb-4 text-nnc-charcoal hover:text-nnc-olive">Sign in</button>
-              )}
-              <Button 
+              <Button
                 onClick={() => onNavigate("enroll")}
                 className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full w-full py-6 mt-4"
               >
@@ -283,7 +224,7 @@ function Footer() {
             Where Neuroscience Meets Nutritional Precision. We provide a science-backed, sustainable roadmap to health, empowering you to optimize brain performance and reclaim vitality.
           </p>
         </div>
-        
+
         <div>
           <h4 className="font-serif text-xl text-nnc-ivory mb-6">Contact</h4>
           <ul className="space-y-4 text-sm">
@@ -292,7 +233,7 @@ function Footer() {
             <li>Location: Toronto, Ontario, Canada</li>
           </ul>
         </div>
-        
+
         <div>
           <h4 className="font-serif text-xl text-nnc-ivory mb-6">Credentials</h4>
           <ul className="space-y-2 text-sm text-nnc-cream/60">
@@ -303,7 +244,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-6 md:px-12 mt-16 pt-8 border-t border-nnc-cream/10 text-center text-xs text-nnc-cream/40 relative z-10">
         <p>&copy; {new Date().getFullYear()} Neuro Nutri Clinic. All rights reserved.</p>
         <p className="mt-2">Disclaimer: Services are integrative and supportive, and do not replace medical diagnosis, psychiatric care, or emergency treatment.</p>
@@ -906,7 +847,7 @@ function ScreenEnroll({ onNavigate }: { onNavigate: (screen: any) => void }) {
       <div className="bg-white rounded-3xl p-8 md:p-12 shadow-nnc-soft border border-nnc-sage/20">
         <div className="space-y-8 relative">
           <div className="absolute top-8 bottom-8 left-[23px] w-px bg-nnc-sage/20" />
-          
+
           <div className="flex gap-6 relative z-10">
             <div className="w-12 h-12 rounded-full bg-nnc-blush flex items-center justify-center text-2xl shrink-0 border-4 border-white shadow-sm">📋</div>
             <div>
@@ -918,7 +859,7 @@ function ScreenEnroll({ onNavigate }: { onNavigate: (screen: any) => void }) {
               <p className="text-nnc-charcoal/70 leading-relaxed">
                 Please ensure you answer as thoroughly as possible, as this form builds the biochemical and physiological foundation for your initial consultation.
               </p>
-              <Button 
+              <Button
                 onClick={() => onNavigate("intake")}
                 className="mt-5 bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-6"
               >
@@ -926,7 +867,7 @@ function ScreenEnroll({ onNavigate }: { onNavigate: (screen: any) => void }) {
               </Button>
             </div>
           </div>
-          
+
           <div className="flex gap-6 relative z-10">
             <div className="w-12 h-12 rounded-full bg-nnc-cream border-2 border-nnc-sage/30 flex items-center justify-center text-2xl shrink-0 bg-white">⚖️</div>
             <div className="opacity-70">
@@ -936,7 +877,7 @@ function ScreenEnroll({ onNavigate }: { onNavigate: (screen: any) => void }) {
               </p>
             </div>
           </div>
-          
+
           <div className="flex gap-6 relative z-10">
             <div className="w-12 h-12 rounded-full bg-nnc-cream border-2 border-nnc-sage/30 flex items-center justify-center text-2xl shrink-0 bg-white">🧠</div>
             <div className="opacity-70">
@@ -983,7 +924,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
       </div>
 
       <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-nnc-sage/20 mb-8 space-y-16">
-        
+
         {/* Patient Info */}
         <section className="space-y-6">
           <div className="border-b border-nnc-sage/20 pb-2 mb-6">
@@ -1105,7 +1046,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
           </div>
           <div className="space-y-4">
             {[
-              "Mother", "Father", "Grand-father (Mother side)", "Grand-mother (Mother side)", 
+              "Mother", "Father", "Grand-father (Mother side)", "Grand-mother (Mother side)",
               "Grand-father (Father side)", "Grand-mother (Father side)", "Sister", "Brother", "Children"
             ].map(member => (
               <div key={member} className="space-y-2">
@@ -1175,7 +1116,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               <Label>Swollen gums</Label>
               <Input value={formData.swollenGums || ''} onChange={e => handleChange("swollenGums", e.target.value)} className="bg-nnc-cream border-nnc-sage/30 rounded-xl" />
             </div>
-            
+
             {/* Bowel Health */}
             <div className="space-y-2">
               <Label>Constipation/Diarrhea</Label>
@@ -1275,7 +1216,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               <Label>EMF exposure / Time at computer per day</Label>
               <Input value={formData.emfComputerTime || ''} onChange={e => handleChange("emfComputerTime", e.target.value)} className="bg-nnc-cream border-nnc-sage/30 rounded-xl" />
             </div>
-            
+
             {/* Sleep Basics */}
             <div className="space-y-2">
               <Label>Sleep: How long / When you go to sleep</Label>
@@ -1378,7 +1319,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               return (
                 <div key={symptom} className="bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
                   <div className="flex items-start gap-3 mb-3">
-                    <Checkbox 
+                    <Checkbox
                       id={key}
                       checked={isChecked}
                       onCheckedChange={(c) => handleChange(key, { ...formData[key], checked: !!c })}
@@ -1392,10 +1333,10 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
                         <span>Intensity: {intensity}</span>
                         <span>Severe</span>
                       </div>
-                      <Slider 
-                        defaultValue={[5]} 
-                        max={10} 
-                        min={1} 
+                      <Slider
+                        defaultValue={[5]}
+                        max={10}
+                        min={1}
                         step={1}
                         value={[intensity]}
                         onValueChange={(v) => handleChange(key, { ...formData[key], intensity: v[0] })}
@@ -1416,7 +1357,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              "Chronic stress", "Anxiety", "Mood swings", "Trauma history", 
+              "Chronic stress", "Anxiety", "Mood swings", "Trauma history",
               "Burnout", "Emotional eating", "Other (Emotional)"
             ].map(symptom => {
               const key = `symptom_emot_${symptom.replace(/[^a-z0-9]/gi, '')}`;
@@ -1425,7 +1366,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               return (
                 <div key={symptom} className="bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
                   <div className="flex items-start gap-3 mb-3">
-                    <Checkbox 
+                    <Checkbox
                       id={key}
                       checked={isChecked}
                       onCheckedChange={(c) => handleChange(key, { ...formData[key], checked: !!c })}
@@ -1450,7 +1391,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              "Bloating / gas", "Constipation", "Diarrhea", "Acid reflux / heartburn", 
+              "Bloating / gas", "Constipation", "Diarrhea", "Acid reflux / heartburn",
               "Food sensitivities", "Cravings (sugar, salt, caffeine)", "Low energy / fatigue", "Other (Digestive)"
             ].map(symptom => {
               const key = `symptom_dig_${symptom.replace(/[^a-z0-9]/gi, '')}`;
@@ -1459,7 +1400,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               return (
                 <div key={symptom} className="bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
                   <div className="flex items-start gap-3 mb-3">
-                    <Checkbox 
+                    <Checkbox
                       id={key}
                       checked={isChecked}
                       onCheckedChange={(c) => handleChange(key, { ...formData[key], checked: !!c })}
@@ -1484,7 +1425,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              "Thyroid imbalance", "Blood sugar imbalance", "Weight changes", 
+              "Thyroid imbalance", "Blood sugar imbalance", "Weight changes",
               "PMS / menopause / andropause", "Low libido", "Other (Hormonal)"
             ].map(symptom => {
               const key = `symptom_horm_${symptom.replace(/[^a-z0-9]/gi, '')}`;
@@ -1493,7 +1434,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               return (
                 <div key={symptom} className="bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
                   <div className="flex items-start gap-3 mb-3">
-                    <Checkbox 
+                    <Checkbox
                       id={key}
                       checked={isChecked}
                       onCheckedChange={(c) => handleChange(key, { ...formData[key], checked: !!c })}
@@ -1525,7 +1466,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               <Label>Hours/night</Label>
               <Input type="number" value={formData.sleepHours || ''} onChange={e => handleChange("sleepHours", e.target.value)} className="bg-nnc-cream border-nnc-sage/30 rounded-xl" />
             </div>
-            
+
             <div className="space-y-3 md:col-span-2 bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
               <Label>Check all that apply to your sleep:</Label>
               <div className="flex flex-wrap gap-4">
@@ -1558,7 +1499,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               <Label>Smoking / Rec Drugs (amount & frequency)</Label>
               <Input value={formData.smokingDrugsDetail || ''} onChange={e => handleChange("smokingDrugsDetail", e.target.value)} className="bg-nnc-cream border-nnc-sage/30 rounded-xl" />
             </div>
-            
+
             <div className="md:col-span-2 space-y-4 pt-4">
               <Label>Rate your current levels (1-10):</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -1613,7 +1554,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               <div className="col-span-3">Frequency</div>
               <div className="col-span-3">Reason</div>
             </div>
-            
+
             {Array.from({ length: formData.medRows || 5 }).map((_, idx) => {
               const med = formData.medications?.[idx] || {};
               return (
@@ -1692,11 +1633,11 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
             <h2 className="font-serif text-2xl text-nnc-olive">3-Day Diet, Sleep, Lifestyle & Mood Journal</h2>
             <p className="text-sm text-nnc-charcoal/60 mt-1">Please complete this log for three days (include at least one weekend). This information helps identify nutrition–mood–sleep–stress patterns.</p>
           </div>
-          
+
           {[1, 2, 3].map(day => (
             <div key={day} className="bg-nnc-cream/30 p-6 rounded-2xl border border-nnc-sage/20 space-y-6">
               <h3 className="font-serif text-xl font-medium">DAY {day}</h3>
-              
+
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <div className="space-y-2">
                   <Label className="text-xs">Water</Label>
@@ -1726,7 +1667,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
                   <div className="col-span-5">Food and Beverage</div>
                   <div className="col-span-5">Notes (cravings, symptoms, mood)</div>
                 </div>
-                
+
                 {[0, 1, 2, 3].map(row => {
                   const entry = formData[`day${day}_log`] ? formData[`day${day}_log`][row] || {} : {};
                   return (
@@ -1825,7 +1766,7 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
 }
 
 function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: any) => void, formData: any, updateData: (d: any) => void }) {
-  
+
   const handleNext = () => {
     if (!formData.tier) {
       toast.error("Please select a Service Tier");
@@ -1850,12 +1791,12 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
 
       <div className="grid md:grid-cols-3 gap-8">
         <div className="md:col-span-2 space-y-8">
-          
+
           <div className="bg-white rounded-3xl p-8 shadow-sm border border-nnc-sage/20">
             <h2 className="font-serif text-2xl text-nnc-olive mb-6">Service Tier Selection</h2>
-            
+
             <RadioGroup 
-              value={formData.tier || ""} 
+              value={formData.tier || ""}
               onValueChange={(v) => updateData({ tier: v })}
               className="space-y-4"
             >
@@ -1907,12 +1848,12 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
 
           <div className="bg-white rounded-3xl p-8 shadow-sm border border-nnc-sage/20">
             <h2 className="font-serif text-2xl text-nnc-olive mb-6">Consent & Scope of Practice</h2>
-            
+
             <div className="prose prose-sm text-nnc-charcoal/70 mb-8 max-h-[300px] overflow-y-auto pr-4 custom-scrollbar">
               <p>I acknowledge that I am seeking the services of Shirin Akhavi, an Integrative Holistic Practitioner and founder of Neuro Nutri Clinic.</p>
               <p>I understand that Shirin Akhavi utilizes a diverse clinical expertise—including Holistic Nutrition, Homeopathy, Live Blood Cell Analysis, Hair Mineral Analysis, Bach Flowers, Cell Salts and Brain Health Coaching—to support my wellness journey. I recognize that her approach is highly personalized; depending on my specific needs and the service tier I have selected, she will apply one or a combination of these integrative modalities as deemed suitable to address my biochemical, energetic, and neurological health.</p>
               <p>I am choosing to engage in this collaborative process to support my overall well-being and understand that these services are integrative and supportive in nature and do not replace medical diagnosis, psychiatric care, or emergency treatment.</p>
-              
+
               <h4 className="font-bold text-nnc-charcoal mt-4 mb-2">I acknowledge that:</h4>
               <ul className="list-disc pl-4 space-y-1">
                 <li>I am responsible for my own healthcare decisions.</li>
@@ -1929,8 +1870,8 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
 
             <div className="bg-nnc-cream p-6 rounded-2xl space-y-6">
               <div className="flex items-start gap-3">
-                <Checkbox 
-                  id="agree" 
+                <Checkbox
+                  id="agree"
                   checked={formData.agreed || false}
                   onCheckedChange={(c) => updateData({ agreed: !!c })}
                   className="mt-1"
@@ -1943,8 +1884,8 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
               <div className="space-y-2">
                 <p className="text-sm text-nnc-charcoal/70 italic mb-2">Your information is transmitted securely and reviewed only by Neuro Nutri Clinic staff.</p>
                 <Label>Type your full legal name to sign</Label>
-                <Input 
-                  value={formData.signature || ''} 
+                <Input
+                  value={formData.signature || ''}
                   onChange={e => updateData({ signature: e.target.value })}
                   placeholder="John Doe"
                   className="bg-white border-nnc-sage/30 rounded-xl text-lg"
@@ -1967,7 +1908,7 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
           </div>
 
         </div>
-        
+
         <div>
           <div className="bg-white rounded-3xl p-6 shadow-sm border border-nnc-sage/20 sticky top-28">
             <h3 className="font-serif text-xl text-nnc-charcoal mb-4 pb-4 border-b border-nnc-sage/20">Summary</h3>
@@ -1985,9 +1926,9 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
                 {formData.agreed && formData.signature ? <CheckCircle2 className="w-4 h-4 text-nnc-sage" /> : <span className="text-nnc-charcoal/30">Pending</span>}
               </div>
             </div>
-            
+
             <Button 
-              onClick={handleNext} 
+              onClick={handleNext}
               className="w-full bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full shadow-nnc-soft"
               disabled={!formData.tier || !formData.agreed || !formData.signature}
             >
@@ -2049,7 +1990,7 @@ function ScreenBooking({ onNavigate, formData, updateData, onSubmit }: { onNavig
 
         <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-nnc-sage/20">
           <h2 className="font-serif text-xl text-nnc-olive mb-6 border-b border-nnc-sage/20 pb-4">Select Time</h2>
-          
+
           {!formData.date ? (
             <div className="h-[300px] flex flex-col items-center justify-center text-nnc-charcoal/40 text-center p-6">
               <CalendarDays className="w-12 h-12 mb-4 opacity-20" />
@@ -2078,8 +2019,8 @@ function ScreenBooking({ onNavigate, formData, updateData, onSubmit }: { onNavig
       </div>
 
       <div className="mt-8 flex justify-end">
-        <Button 
-          onClick={handleNext} 
+        <Button
+          onClick={handleNext}
           size="lg"
           disabled={!formData.date || !formData.time || submitting}
           className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-12 shadow-nnc-soft"
@@ -2091,56 +2032,20 @@ function ScreenBooking({ onNavigate, formData, updateData, onSubmit }: { onNavig
   );
 }
 
-function ScreenConfirmation({ onNavigate, formData, currentUser, setCurrentUser, lastEnrollment }: { onNavigate: (s: any) => void, formData: any, currentUser: AuthUser, setCurrentUser: (u: AuthUser) => void, lastEnrollment: { id: number; claimToken: string | null } | null }) {
-  const [showSignup, setShowSignup] = useState(false);
-  const [password, setPassword] = useState("");
-  const [creating, setCreating] = useState(false);
-  const patientEmail = formData.intake?.email || "";
-  const patientName = formData.intake?.fullName || "";
-
+function ScreenConfirmation({ onNavigate, formData }: { onNavigate: (s: any) => void, formData: any }) {
   // Clean up draft on mount — the enrollment has already been persisted server-side
   useEffect(() => {
     localStorage.removeItem("nnc-draft");
   }, []);
 
-  const handleCreateAccount = async () => {
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 characters");
-      return;
-    }
-    setCreating(true);
-    try {
-      const payload: any = { email: patientEmail, password, name: patientName };
-      if (lastEnrollment?.id && lastEnrollment?.claimToken) {
-        payload.claimEnrollmentId = lastEnrollment.id;
-        payload.claimToken = lastEnrollment.claimToken;
-      }
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not create account");
-      setCurrentUser(data.user);
-      toast.success("Account created — your enrollment is linked");
-      onNavigate("dashboard");
-    } catch (e: any) {
-      toast.error(e?.message || "Could not create account");
-    } finally {
-      setCreating(false);
-    }
-  };
-
   const dateObj = formData.booking?.date ? new Date(formData.booking.date + "T00:00:00") : new Date();
-  
+
   return (
     <div className="container mx-auto px-4 md:px-8 max-w-2xl py-16 animate-in zoom-in-95 duration-500 text-center">
       <div className="w-24 h-24 bg-nnc-sage/20 rounded-full flex items-center justify-center mx-auto mb-8 text-nnc-olive">
         <CheckCircle2 className="w-12 h-12" />
       </div>
-      
+
       <h1 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-4">You're Enrolled</h1>
       <p className="text-lg text-nnc-charcoal/70 mb-12">Your enrollment has been recorded for our team to review.</p>
 
@@ -2172,45 +2077,9 @@ function ScreenConfirmation({ onNavigate, formData, currentUser, setCurrentUser,
         </CardContent>
       </Card>
 
-      {!currentUser && patientEmail && (
-        <Card className="bg-nnc-sage/10 border-nnc-sage/30 shadow-nnc-soft mb-8 text-left">
-          <CardContent className="p-6 md:p-8">
-            {!showSignup ? (
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 justify-between">
-                <div>
-                  <h3 className="font-serif text-xl text-nnc-olive mb-1">Create an account</h3>
-                  <p className="text-sm text-nnc-charcoal/70">Track your appointment, reschedule, or update your intake any time.</p>
-                </div>
-                <Button onClick={() => setShowSignup(true)} className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-6 shrink-0">
-                  Create account
-                </Button>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                <h3 className="font-serif text-xl text-nnc-olive">Create your account</h3>
-                <p className="text-sm text-nnc-charcoal/70">Email: <strong>{patientEmail}</strong></p>
-                <Label htmlFor="signup-pw">Choose a password (min 8 characters)</Label>
-                <Input id="signup-pw" type="password" value={password} onChange={e => setPassword(e.target.value)} className="rounded-xl" />
-                <div className="flex gap-2 pt-2">
-                  <Button onClick={handleCreateAccount} disabled={creating} className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full">
-                    {creating ? "Creating…" : "Create account"}
-                  </Button>
-                  <Button variant="ghost" onClick={() => setShowSignup(false)} className="rounded-full">Cancel</Button>
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
-
       <div className="flex flex-wrap items-center justify-center gap-3">
-        {currentUser && (
-          <Button onClick={() => onNavigate("dashboard")} className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-8">
-            Go to Dashboard
-          </Button>
-        )}
-        <Button 
-          onClick={() => onNavigate("home")} 
+        <Button
+          onClick={() => onNavigate("home")}
           variant="outline"
           className="border-nnc-sage/30 text-nnc-olive hover:bg-nnc-sage/10 rounded-full px-8"
         >
@@ -2221,603 +2090,3 @@ function ScreenConfirmation({ onNavigate, formData, currentUser, setCurrentUser,
   );
 }
 
-// ---------- AUTH SCREENS ----------
-
-function ScreenLogin({ onNavigate, setCurrentUser }: { onNavigate: (s: any) => void, setCurrentUser: (u: AuthUser) => void }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Sign in failed");
-      setCurrentUser(data.user);
-      toast.success(`Welcome back, ${data.user.name || data.user.email}`);
-      onNavigate(data.user.isAdmin ? "admin" : "dashboard");
-    } catch (err: any) {
-      toast.error(err?.message || "Sign in failed");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="container mx-auto px-4 md:px-8 max-w-md py-12 animate-in fade-in slide-in-from-bottom-4 duration-300">
-      <div className="bg-white rounded-3xl p-8 md:p-10 shadow-nnc-soft border border-nnc-sage/20">
-        <h1 className="font-serif text-3xl text-nnc-charcoal mb-2">Sign in</h1>
-        <p className="text-sm text-nnc-charcoal/60 mb-8">Access your appointments and intake details.</p>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="space-y-2">
-            <Label htmlFor="login-email">Email</Label>
-            <Input id="login-email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} className="rounded-xl" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="login-password">Password</Label>
-            <Input id="login-password" type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)} className="rounded-xl" />
-          </div>
-          <Button type="submit" disabled={submitting} className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full w-full py-6">
-            {submitting ? "Signing in…" : "Sign in"}
-          </Button>
-        </form>
-        <p className="text-sm text-nnc-charcoal/60 mt-6 text-center">
-          New here?{" "}
-          <button onClick={() => onNavigate("signup")} className="text-nnc-olive hover:text-nnc-charcoal font-medium underline-offset-2 hover:underline">
-            Create an account
-          </button>
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function ScreenSignup({ onNavigate, setCurrentUser }: { onNavigate: (s: any) => void, setCurrentUser: (u: AuthUser) => void }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password, name }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not create account");
-      setCurrentUser(data.user);
-      toast.success("Welcome to Neuro Nutri Clinic");
-      onNavigate("dashboard");
-    } catch (err: any) {
-      toast.error(err?.message || "Could not create account");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="container mx-auto px-4 md:px-8 max-w-md py-12 animate-in fade-in slide-in-from-bottom-4 duration-300">
-      <div className="bg-white rounded-3xl p-8 md:p-10 shadow-nnc-soft border border-nnc-sage/20">
-        <h1 className="font-serif text-3xl text-nnc-charcoal mb-2">Create account</h1>
-        <p className="text-sm text-nnc-charcoal/60 mb-8">For patients to track appointments and update intake details.</p>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="space-y-2">
-            <Label htmlFor="signup-name">Full name</Label>
-            <Input id="signup-name" autoComplete="name" value={name} onChange={e => setName(e.target.value)} className="rounded-xl" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="signup-email">Email</Label>
-            <Input id="signup-email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} className="rounded-xl" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="signup-pw">Password (min 8 characters)</Label>
-            <Input id="signup-pw" type="password" autoComplete="new-password" required value={password} onChange={e => setPassword(e.target.value)} className="rounded-xl" />
-          </div>
-          <Button type="submit" disabled={submitting} className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full w-full py-6">
-            {submitting ? "Creating account…" : "Create account"}
-          </Button>
-        </form>
-        <p className="text-sm text-nnc-charcoal/60 mt-6 text-center">
-          Already have an account?{" "}
-          <button onClick={() => onNavigate("login")} className="text-nnc-olive hover:text-nnc-charcoal font-medium underline-offset-2 hover:underline">
-            Sign in
-          </button>
-        </p>
-      </div>
-    </div>
-  );
-}
-
-// ---------- DASHBOARD ----------
-
-type Enrollment = {
-  id: number;
-  patient_name: string;
-  patient_email: string;
-  patient_phone: string;
-  tier: string;
-  appointment_date: string;
-  appointment_time: string;
-  intake_data: Record<string, any>;
-  consent_data: Record<string, any>;
-  booking_data: Record<string, any>;
-  created_at: string;
-  user_id?: number | null;
-};
-
-function tierLabel(tier: string) {
-  if (tier === "tier2") return "Tier 2: Comprehensive";
-  if (tier === "tier3") return "Tier 3: Plus";
-  if (tier === "tier1") return "Tier 1: Basic";
-  return tier || "—";
-}
-
-function isFuture(dateStr: string) {
-  if (!dateStr) return false;
-  return new Date(dateStr + "T00:00:00") >= new Date(new Date().toDateString());
-}
-
-function ScreenDashboard({ onNavigate, currentUser, authLoaded }: { onNavigate: (s: any) => void, currentUser: AuthUser, authLoaded: boolean }) {
-  const [enrollments, setEnrollments] = useState<Enrollment[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [rescheduling, setRescheduling] = useState<Enrollment | null>(null);
-  const [editingIntake, setEditingIntake] = useState<Enrollment | null>(null);
-
-  const reload = () => {
-    setEnrollments(null);
-    fetch("/api/my/enrollments", { credentials: "include" })
-      .then(async r => {
-        if (r.status === 401) throw new Error("Please sign in");
-        if (!r.ok) throw new Error((await r.json()).error || "Failed to load");
-        return r.json();
-      })
-      .then(d => setEnrollments(d.enrollments))
-      .catch(e => setError(e.message));
-  };
-
-  useEffect(() => {
-    if (!authLoaded) return;
-    if (!currentUser) {
-      onNavigate("login");
-      return;
-    }
-    reload();
-  }, [authLoaded, currentUser?.id]);
-
-  if (!authLoaded || !currentUser) {
-    return <div className="container mx-auto px-4 md:px-8 max-w-3xl py-16 text-center text-nnc-charcoal/50">Loading…</div>;
-  }
-
-  const upcoming = enrollments?.find(e => isFuture(e.appointment_date));
-
-  return (
-    <div className="container mx-auto px-4 md:px-8 max-w-4xl py-8 animate-in fade-in duration-300">
-      <div className="mb-8">
-        <h1 className="font-serif text-4xl text-nnc-charcoal">Welcome, {currentUser.name || currentUser.email}</h1>
-        <p className="text-nnc-charcoal/60">Your appointments and intake details.</p>
-      </div>
-
-      {error && (
-        <Card className="bg-red-50 border-red-200 mb-8"><CardContent className="p-4 text-sm text-red-800">{error}</CardContent></Card>
-      )}
-
-      {enrollments === null && !error && (
-        <div className="text-nnc-charcoal/50 text-center py-12">Loading…</div>
-      )}
-
-      {enrollments && enrollments.length === 0 && (
-        <Card className="bg-white border-nnc-sage/20 shadow-nnc-soft">
-          <CardContent className="p-10 text-center">
-            <CalendarDays className="w-12 h-12 mx-auto mb-4 text-nnc-sage" />
-            <h3 className="font-serif text-2xl text-nnc-charcoal mb-2">No appointments yet</h3>
-            <p className="text-nnc-charcoal/60 mb-6">Book your first consultation to get started.</p>
-            <Button onClick={() => onNavigate("enroll")} className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-8">Book Consultation</Button>
-          </CardContent>
-        </Card>
-      )}
-
-      {upcoming && (
-        <Card className="bg-white border-nnc-sage/30 shadow-nnc-soft mb-8 overflow-hidden">
-          <div className="bg-nnc-olive text-white px-6 py-4">
-            <div className="text-xs uppercase tracking-widest opacity-80">Next appointment</div>
-            <div className="font-serif text-2xl mt-1">{format(new Date(upcoming.appointment_date + "T00:00:00"), "EEEE, MMMM do, yyyy")}</div>
-            <div className="text-sm opacity-90">{upcoming.appointment_time} • {tierLabel(upcoming.tier)}</div>
-          </div>
-          <CardContent className="p-6 flex flex-wrap gap-2">
-            <Button onClick={() => setRescheduling(upcoming)} variant="outline" className="border-nnc-sage/30 text-nnc-olive hover:bg-nnc-sage/10 rounded-full">
-              <CalendarDays className="w-4 h-4 mr-2" /> Reschedule
-            </Button>
-            <Button onClick={() => setEditingIntake(upcoming)} variant="outline" className="border-nnc-sage/30 text-nnc-olive hover:bg-nnc-sage/10 rounded-full">
-              <Edit3 className="w-4 h-4 mr-2" /> Edit intake
-            </Button>
-          </CardContent>
-        </Card>
-      )}
-
-      {enrollments && enrollments.length > 0 && (
-        <div>
-          <h2 className="font-serif text-2xl text-nnc-charcoal mb-4">All enrollments</h2>
-          <div className="space-y-3">
-            {enrollments.map(e => (
-              <EnrollmentRow key={e.id} enrollment={e} onReschedule={() => setRescheduling(e)} onEditIntake={() => setEditingIntake(e)} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      <RescheduleDialog
-        enrollment={rescheduling}
-        onClose={() => setRescheduling(null)}
-        onSaved={() => { setRescheduling(null); reload(); }}
-      />
-      <EditIntakeDialog
-        enrollment={editingIntake}
-        onClose={() => setEditingIntake(null)}
-        onSaved={() => { setEditingIntake(null); reload(); }}
-      />
-    </div>
-  );
-}
-
-function EnrollmentRow({ enrollment, onReschedule, onEditIntake }: { enrollment: Enrollment, onReschedule: () => void, onEditIntake: () => void }) {
-  const [expanded, setExpanded] = useState(false);
-  const dateObj = enrollment.appointment_date ? new Date(enrollment.appointment_date + "T00:00:00") : null;
-  const future = isFuture(enrollment.appointment_date);
-
-  return (
-    <Card className="bg-white border-nnc-sage/20 shadow-sm overflow-hidden">
-      <CardContent className="p-0">
-        <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-nnc-cream/50 transition-colors">
-          <div className="flex items-center gap-4">
-            {dateObj && (
-              <div className="bg-nnc-cream rounded-lg px-3 py-2 text-center min-w-[60px]">
-                <div className="text-xs font-bold text-nnc-rose uppercase">{format(dateObj, 'MMM')}</div>
-                <div className="text-xl font-serif text-nnc-charcoal leading-none mt-0.5">{format(dateObj, 'dd')}</div>
-              </div>
-            )}
-            <div>
-              <div className="font-medium text-nnc-charcoal">{enrollment.appointment_time} • {tierLabel(enrollment.tier)}</div>
-              <div className="text-xs text-nnc-charcoal/50">Submitted {format(new Date(enrollment.created_at), 'MMM d, yyyy')}{future ? "" : " • past"}</div>
-            </div>
-          </div>
-          {expanded ? <ChevronUp className="w-5 h-5 text-nnc-charcoal/40" /> : <ChevronDown className="w-5 h-5 text-nnc-charcoal/40" />}
-        </button>
-        {expanded && (
-          <div className="border-t border-nnc-sage/10 p-5 space-y-4 bg-nnc-cream/20">
-            <DetailBlock title="Booking" obj={enrollment.booking_data} />
-            <DetailBlock title="Intake" obj={enrollment.intake_data} />
-            <DetailBlock title="Consent" obj={enrollment.consent_data} />
-            {future && (
-              <div className="flex gap-2 pt-2">
-                <Button onClick={onReschedule} variant="outline" size="sm" className="border-nnc-sage/30 text-nnc-olive hover:bg-nnc-sage/10 rounded-full">
-                  <CalendarDays className="w-4 h-4 mr-2" /> Reschedule
-                </Button>
-                <Button onClick={onEditIntake} variant="outline" size="sm" className="border-nnc-sage/30 text-nnc-olive hover:bg-nnc-sage/10 rounded-full">
-                  <Edit3 className="w-4 h-4 mr-2" /> Edit intake
-                </Button>
-              </div>
-            )}
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  );
-}
-
-function formatLabel(k: string) {
-  return k.replace(/([A-Z])/g, ' $1').replace(/[_-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).trim();
-}
-
-function DetailBlock({ title, obj }: { title: string, obj: Record<string, any> }) {
-  const entries = Object.entries(obj || {}).filter(([, v]) => v !== "" && v !== null && v !== undefined);
-  return (
-    <div>
-      <h4 className="text-xs font-semibold uppercase tracking-widest text-nnc-olive mb-2">{title}</h4>
-      {entries.length === 0 ? (
-        <p className="text-sm text-nnc-charcoal/40 italic">No data</p>
-      ) : (
-        <dl className="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-x-4 gap-y-1 text-sm">
-          {entries.map(([k, v]) => (
-            <React.Fragment key={k}>
-              <dt className="text-nnc-charcoal/60">{formatLabel(k)}</dt>
-              <dd className="text-nnc-charcoal break-words">{
-                typeof v === 'boolean' ? (v ? 'Yes' : 'No') :
-                Array.isArray(v) ? (v.length === 0 ? '—' : v.map(x => typeof x === 'object' ? JSON.stringify(x) : String(x)).join(', ')) :
-                typeof v === 'object' ? JSON.stringify(v) :
-                String(v)
-              }</dd>
-            </React.Fragment>
-          ))}
-        </dl>
-      )}
-    </div>
-  );
-}
-
-function RescheduleDialog({ enrollment, onClose, onSaved }: { enrollment: Enrollment | null, onClose: () => void, onSaved: () => void }) {
-  const [date, setDate] = useState<string | undefined>(undefined);
-  const [time, setTime] = useState<string | undefined>(undefined);
-  const [saving, setSaving] = useState(false);
-  const timeSlots = ["9:00 AM", "10:30 AM", "1:00 PM", "2:30 PM", "4:00 PM"];
-
-  useEffect(() => {
-    if (enrollment) {
-      setDate(enrollment.appointment_date);
-      setTime(enrollment.appointment_time);
-    }
-  }, [enrollment?.id]);
-
-  if (!enrollment) return null;
-
-  const save = async () => {
-    if (!date || !time) {
-      toast.error("Please select a date and time");
-      return;
-    }
-    setSaving(true);
-    try {
-      const res = await fetch(`/api/my/enrollments/${enrollment.id}/reschedule`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ date, time }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not reschedule");
-      toast.success("Appointment updated");
-      onSaved();
-    } catch (e: any) {
-      toast.error(e?.message || "Could not reschedule");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  return (
-    <Dialog open={!!enrollment} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-2xl bg-white">
-        <DialogHeader>
-          <DialogTitle className="font-serif text-2xl text-nnc-charcoal">Reschedule appointment</DialogTitle>
-          <DialogDescription>Pick a new date and time. We'll notify the clinic.</DialogDescription>
-        </DialogHeader>
-        <div className="grid md:grid-cols-2 gap-6 py-2">
-          <div>
-            <Label className="mb-2 block">Date</Label>
-            <Calendar
-              mode="single"
-              selected={date ? new Date(date + "T00:00:00") : undefined}
-              onSelect={(d) => { if (d) setDate(format(d, "yyyy-MM-dd")); }}
-              disabled={(d) => d < new Date(new Date().toDateString()) || d.getDay() === 0 || d.getDay() === 6}
-              className="rounded-xl border border-nnc-sage/20 p-3"
-            />
-          </div>
-          <div>
-            <Label className="mb-2 block">Time</Label>
-            <div className="grid grid-cols-2 gap-2">
-              {timeSlots.map(t => (
-                <Button key={t} variant={time === t ? "default" : "outline"} onClick={() => setTime(t)} className={`rounded-xl ${time === t ? 'bg-nnc-olive text-white' : 'border-nnc-sage/30 text-nnc-charcoal hover:border-nnc-olive'}`}>
-                  {t}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-        <DialogFooter>
-          <Button variant="ghost" onClick={onClose}>Cancel</Button>
-          <Button onClick={save} disabled={saving} className="bg-nnc-olive hover:bg-nnc-charcoal text-white">
-            {saving ? "Saving…" : "Save changes"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-const INTAKE_FIELDS: { key: string; label: string; type: "text" | "textarea" }[] = [
-  { key: "fullName", label: "Full name", type: "text" },
-  { key: "email", label: "Email", type: "text" },
-  { key: "phone", label: "Phone", type: "text" },
-  { key: "reasonForSeeking", label: "Reason for seeking care", type: "textarea" },
-  { key: "goals", label: "Health goals", type: "textarea" },
-  { key: "currentMedications", label: "Current medications", type: "textarea" },
-  { key: "supplements", label: "Supplements", type: "textarea" },
-  { key: "allergies", label: "Allergies", type: "textarea" },
-  { key: "diet", label: "Current diet", type: "textarea" },
-  { key: "sleep", label: "Sleep notes", type: "textarea" },
-];
-
-function EditIntakeDialog({ enrollment, onClose, onSaved }: { enrollment: Enrollment | null, onClose: () => void, onSaved: () => void }) {
-  const [intake, setIntake] = useState<Record<string, any>>({});
-  const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    if (enrollment) setIntake({ ...enrollment.intake_data });
-  }, [enrollment?.id]);
-
-  if (!enrollment) return null;
-
-  const save = async () => {
-    setSaving(true);
-    try {
-      const res = await fetch(`/api/my/enrollments/${enrollment.id}/intake`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ intake }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not save");
-      toast.success("Intake updated");
-      onSaved();
-    } catch (e: any) {
-      toast.error(e?.message || "Could not save");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  // Show known fields first, then any extras the patient previously filled
-  const extras = Object.keys(intake).filter(k => !INTAKE_FIELDS.find(f => f.key === k));
-
-  return (
-    <Dialog open={!!enrollment} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-2xl bg-white max-h-[85vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="font-serif text-2xl text-nnc-charcoal">Edit intake</DialogTitle>
-          <DialogDescription>Update the information you shared. Changes are saved to your file.</DialogDescription>
-        </DialogHeader>
-        <div className="space-y-4 py-2">
-          {INTAKE_FIELDS.map(f => (
-            <div key={f.key} className="space-y-1.5">
-              <Label htmlFor={`intake-${f.key}`}>{f.label}</Label>
-              {f.type === "textarea" ? (
-                <Textarea id={`intake-${f.key}`} rows={3} value={String(intake[f.key] ?? "")} onChange={e => setIntake({ ...intake, [f.key]: e.target.value })} className="rounded-xl" />
-              ) : (
-                <Input id={`intake-${f.key}`} value={String(intake[f.key] ?? "")} onChange={e => setIntake({ ...intake, [f.key]: e.target.value })} className="rounded-xl" />
-              )}
-            </div>
-          ))}
-          {extras.length > 0 && (
-            <details className="pt-2">
-              <summary className="text-sm text-nnc-charcoal/60 cursor-pointer">Additional fields ({extras.length})</summary>
-              <div className="space-y-3 pt-3">
-                {extras.map(k => {
-                  const v = intake[k];
-                  const stringy = typeof v === "string" || typeof v === "number";
-                  return (
-                    <div key={k} className="space-y-1.5">
-                      <Label htmlFor={`extra-${k}`}>{formatLabel(k)}</Label>
-                      {stringy ? (
-                        <Input id={`extra-${k}`} value={String(v ?? "")} onChange={e => setIntake({ ...intake, [k]: e.target.value })} className="rounded-xl" />
-                      ) : (
-                        <p className="text-xs text-nnc-charcoal/50 italic">Complex value — not editable here ({JSON.stringify(v).slice(0, 60)}…)</p>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </details>
-          )}
-        </div>
-        <DialogFooter>
-          <Button variant="ghost" onClick={onClose}>Cancel</Button>
-          <Button onClick={save} disabled={saving} className="bg-nnc-olive hover:bg-nnc-charcoal text-white">
-            {saving ? "Saving…" : "Save changes"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-// ---------- ADMIN ----------
-
-function ScreenAdmin({ onNavigate, currentUser, authLoaded }: { onNavigate: (s: any) => void, currentUser: AuthUser, authLoaded: boolean }) {
-  const [enrollments, setEnrollments] = useState<Enrollment[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    if (!authLoaded) return;
-    if (!currentUser) { onNavigate("login"); return; }
-    if (!currentUser.isAdmin) { onNavigate("home"); return; }
-    fetch("/api/admin/enrollments", { credentials: "include" })
-      .then(async r => {
-        if (!r.ok) throw new Error((await r.json()).error || "Failed to load");
-        return r.json();
-      })
-      .then(d => setEnrollments(d.enrollments))
-      .catch(e => setError(e.message));
-  }, [authLoaded, currentUser?.id]);
-
-  if (!authLoaded || !currentUser || !currentUser.isAdmin) {
-    return <div className="container mx-auto px-4 md:px-8 max-w-3xl py-16 text-center text-nnc-charcoal/50">Loading…</div>;
-  }
-
-  const filtered = (enrollments ?? []).filter(e => {
-    if (!query) return true;
-    const q = query.toLowerCase();
-    return (
-      (e.patient_name || "").toLowerCase().includes(q) ||
-      (e.patient_email || "").toLowerCase().includes(q) ||
-      (e.patient_phone || "").toLowerCase().includes(q) ||
-      (e.appointment_date || "").includes(q)
-    );
-  });
-
-  return (
-    <div className="container mx-auto px-4 md:px-8 max-w-6xl py-8 animate-in fade-in duration-300">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-        <div>
-          <Badge className="bg-nnc-rose/15 text-nnc-rose hover:bg-nnc-rose/25 mb-2 border-none">Admin</Badge>
-          <h1 className="font-serif text-4xl text-nnc-charcoal">All Enrollments</h1>
-          <p className="text-nnc-charcoal/60">{enrollments?.length ?? 0} total · showing {filtered.length}</p>
-        </div>
-        <div className="w-full md:w-80">
-          <Input placeholder="Search name, email, phone, date" value={query} onChange={e => setQuery(e.target.value)} className="rounded-full" />
-        </div>
-      </div>
-
-      {error && (
-        <Card className="bg-red-50 border-red-200 mb-8"><CardContent className="p-4 text-sm text-red-800">{error}</CardContent></Card>
-      )}
-
-      {enrollments === null && !error && (
-        <div className="text-nnc-charcoal/50 text-center py-12">Loading…</div>
-      )}
-
-      {enrollments && enrollments.length === 0 && (
-        <Card className="bg-white border-nnc-sage/20"><CardContent className="p-10 text-center text-nnc-charcoal/60">No enrollments yet.</CardContent></Card>
-      )}
-
-      {filtered.length > 0 && (
-        <div className="bg-white border border-nnc-sage/20 rounded-2xl overflow-hidden shadow-nnc-soft">
-          <div className="hidden md:grid grid-cols-[1.5fr_1.5fr_1fr_1fr_120px_40px] gap-4 px-5 py-3 border-b border-nnc-sage/20 bg-nnc-cream text-xs uppercase tracking-widest text-nnc-charcoal/60 font-medium">
-            <div>Patient</div><div>Email</div><div>Date</div><div>Time</div><div>Tier</div><div></div>
-          </div>
-          {filtered.map(e => {
-            const open = expandedId === e.id;
-            const dateObj = e.appointment_date ? new Date(e.appointment_date + "T00:00:00") : null;
-            return (
-              <div key={e.id} className="border-b border-nnc-sage/10 last:border-0">
-                <button onClick={() => setExpandedId(open ? null : e.id)} className="w-full grid grid-cols-1 md:grid-cols-[1.5fr_1.5fr_1fr_1fr_120px_40px] gap-2 md:gap-4 px-5 py-4 text-left hover:bg-nnc-cream/40 transition-colors text-sm">
-                  <div className="font-medium text-nnc-charcoal">{e.patient_name || <em className="text-nnc-charcoal/40">unnamed</em>}</div>
-                  <div className="text-nnc-charcoal/70 truncate">{e.patient_email || '—'}</div>
-                  <div className="text-nnc-charcoal/70">{dateObj ? format(dateObj, 'MMM d, yyyy') : '—'}</div>
-                  <div className="text-nnc-charcoal/70">{e.appointment_time || '—'}</div>
-                  <div><Badge variant="outline" className="border-nnc-sage/30 text-nnc-olive">{tierLabel(e.tier)}</Badge></div>
-                  <div className="flex justify-end">{open ? <ChevronUp className="w-4 h-4 text-nnc-charcoal/40" /> : <ChevronDown className="w-4 h-4 text-nnc-charcoal/40" />}</div>
-                </button>
-                {open && (
-                  <div className="px-5 pb-5 pt-1 bg-nnc-cream/30 space-y-4">
-                    <div className="grid sm:grid-cols-3 gap-3 text-sm">
-                      <div><span className="text-nnc-charcoal/50">Phone:</span> {e.patient_phone || '—'}</div>
-                      <div><span className="text-nnc-charcoal/50">Submitted:</span> {format(new Date(e.created_at), 'MMM d, yyyy h:mm a')}</div>
-                      <div><span className="text-nnc-charcoal/50">Account:</span> {e.user_id ? <Badge variant="outline" className="border-nnc-sage/30 text-nnc-olive">linked</Badge> : <span className="text-nnc-charcoal/40">anonymous</span>}</div>
-                    </div>
-                    <DetailBlock title="Booking" obj={e.booking_data} />
-                    <DetailBlock title="Intake" obj={e.intake_data} />
-                    <DetailBlock title="Consent" obj={e.consent_data} />
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
