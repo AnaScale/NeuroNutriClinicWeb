@@ -358,10 +358,16 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
               </div>
               <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-6">Our Philosophy</h2>
               <p className="text-lg text-nnc-charcoal/70 mb-6 leading-relaxed">
-                Whether you are struggling with chronic insomnia, brain fog, or emotional imbalances like anxiety and ADHD, we look beneath the surface.
+                Whether you are navigating physical health challenges like digestive issues, blood sugar imbalances, and hormonal irregularities, or managing mental and emotional concerns such as anxiety, brain fog, and ADHD, we look beneath the surface.
+              </p>
+              <p className="text-lg text-nnc-charcoal/70 mb-6 leading-relaxed">
+                We believe that true healing happens at the intersection of mind and body. By uniting classical homeopathy with targeted lifestyle modifications and precise nutritional protocols, we address the unique terrain of your biology.
+              </p>
+              <p className="text-lg text-nnc-charcoal/70 mb-6 leading-relaxed">
+                To take the guesswork out of your care, we utilize advanced functional testing—including Hair Tissue Mineral Analysis (HTMA), Applied Nutritional Microscopy, and Fatty Acid Analysis. These tools allow us to pinpoint the exact environmental toxicities, cellular mineral deficiencies, and systemic inflammatory markers that are holding you back.
               </p>
               <p className="text-lg text-nnc-charcoal/70 leading-relaxed">
-                By utilizing advanced tools—such as Hair Mineral Analysis, Applied Nutritional Microscopy and Fatty Acid Analysis—we identify the specific mineral deficiencies and inflammatory markers that are holding you back.
+                We don't just mask your symptoms; we illuminate the root cause, giving you the clarity and biochemical support you need to fully reclaim your health.
               </p>
             </div>
             <div className="bg-nnc-cream p-10 rounded-3xl shadow-sm border border-nnc-sage/10 relative overflow-hidden">
