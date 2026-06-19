@@ -1,5 +1,40 @@
 uploads = []
-generated = []
+
+[[generated]]
+id = "BzK3Uhr30KkxlulgXiGuI"
+uri = "file://artifacts/mockup-sandbox/public/images/hero-editorial.png"
+type = "image"
+title = "Abstract neuro botanical art"
+
+[[generated]]
+id = "tvh8Vqde0XKEOlF50fAVR"
+uri = "file://artifacts/mockup-sandbox/public/images/clinic-interior.png"
+type = "image"
+title = "Luxury clinic interior"
+
+[[generated]]
+id = "Qoua3cjJvizTp4PnwpMYA"
+uri = "file://artifacts/mockup-sandbox/public/images/microscope-art.png"
+type = "image"
+title = "Artistic cellular structure"
+
+[[generated]]
+id = "b_VI_XYixVB36xmTB6TuW"
+uri = "file://artifacts/mockup-sandbox/public/images/botanical-hero.png"
+type = "image"
+title = "hero botanical background"
+
+[[generated]]
+id = "Wp85BSbMDQ6RKRqE-gB1E"
+uri = "file://artifacts/mockup-sandbox/public/images/botanical-texture-1.png"
+type = "image"
+title = "botanical texture abstract"
+
+[[generated]]
+id = "r7nAdqnE7DgD0Le2O3rvf"
+uri = "file://artifacts/mockup-sandbox/public/images/botanical-shirin-placeholder.png"
+type = "image"
+title = "shirin akhavi portrait abstract"
 
 [[outputs]]
 id = "f2MkDXoooJbHr_q6uMkaw"
