@@ -19,7 +19,6 @@ import { format } from "date-fns";
 import { ArrowRight, Menu, CheckCircle2, ChevronRight, Sparkles, Brain, Leaf, HeartHandshake, Microscope, ArrowLeft, Plus, Trash2, CalendarDays, LogIn, LogOut, User as UserIcon, Shield, Edit3, ChevronDown, ChevronUp } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import "./_group.css";
-const nncLogoUrl = "/images/nnc-logo.png";
 
 export type AuthUser = { id: number; email: string; name: string | null; isAdmin: boolean } | null;
 
@@ -178,10 +177,11 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
         <button 
           type="button"
           aria-label="Neuro Nutri Clinic — Home"
-          className="cursor-pointer appearance-none bg-transparent border-none p-0 m-0 justify-self-center"
+          className="cursor-pointer appearance-none bg-transparent border-none p-0 m-0 justify-self-center text-center leading-none"
           onClick={() => goHome()}
         >
-          <img src={nncLogoUrl} alt="Neuro Nutri Clinic" className="h-32 md:h-40 lg:h-44 object-contain" />
+          <span className="block font-serif text-2xl md:text-3xl tracking-tight text-nnc-charcoal">Neuro Nutri Clinic</span>
+          <span className="block font-script text-base md:text-lg text-nnc-olive mt-0.5">Integrative Holistic Health</span>
         </button>
 
         <nav className="hidden md:flex items-center justify-start gap-8">
@@ -272,8 +272,9 @@ function Footer() {
       <div className="absolute bottom-[-30%] left-[-10%] w-[35vw] h-[35vw] bg-nnc-sage/10 blur-[120px] blob-shape-2 pointer-events-none" />
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
         <div className="md:col-span-2">
-          <div className="mb-6 bg-nnc-ivory p-6 rounded-[2rem] inline-flex">
-            <img src={nncLogoUrl} alt="Neuro Nutri Clinic" className="h-40 md:h-48 object-contain" />
+          <div className="mb-6">
+            <span className="block font-serif text-3xl md:text-4xl tracking-tight text-nnc-ivory">Neuro Nutri Clinic</span>
+            <span className="block font-script text-lg text-nnc-rose mt-1">Integrative Holistic Health</span>
           </div>
           <p className="font-serif italic text-lg text-nnc-cream mb-4">
             Integrating neuroscience and holistic medicine.
