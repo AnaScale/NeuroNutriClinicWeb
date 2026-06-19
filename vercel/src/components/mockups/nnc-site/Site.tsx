@@ -708,70 +708,85 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       <section id="faq" className="py-24 bg-nnc-cream">
         <div className="container mx-auto px-6 md:px-12 max-w-4xl">
           <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-12 text-center">Frequently Asked Questions</h2>
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            <AccordionItem value="item-1" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">How do you specifically address Brain and Mental Health?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                We view mental health as a reflection of physical brain function. Using frameworks from Amen University and Psychiatry Redefined, we focus on the gut-brain axis and neurotransmitter balance. We optimize your "biological hardware" to improve focus, stabilize mood, and resolve the physiological triggers of anxiety and insomnia.
-              </AccordionContent>
-            </AccordionItem>
-            
-            <AccordionItem value="item-2" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">What is Applied Nutritional Microscopy?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                This is a live analysis of a single drop of blood. By viewing your cells in real-time under a high-powered microscope, we can see immediate markers of inflammation, oxidative stress, and nutritional deficiencies. This provides an instant visual "roadmap" for your customized protocol.
-              </AccordionContent>
-            </AccordionItem>
-            
-            <AccordionItem value="item-3" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">How does Hair Tissue Mineral Analysis (HTMA) work?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                HTMA is a non-invasive screening that uses a hair sample to measure the mineral content of your tissues. Unlike blood tests that show a "snapshot" of the moment, hair analysis provides a 3-month metabolic blueprint. This allows us to identify heavy metal toxicities and long-term mineral imbalances that are the root causes of low energy and chronic stress.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-4" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">What is the Zinzino BalanceTest (Fatty Acid Analysis)?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                This scientific dried-blood-spot test measures your Omega-6:3 ratio. It allows us to quantify systemic inflammation and precisely tailor your intake of essential fatty acids to optimize brain function and cardiovascular health.
-              </AccordionContent>
-            </AccordionItem>
-            
-            <AccordionItem value="item-5" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">What is the role of Homeopathy at Neuro Nutri Clinic?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                Homeopathy is used to stimulate your body's innate healing response. By selecting highly individualized remedies based on your unique physical and emotional symptoms, we address the "vital force" of the body. This helps resolve deep-seated imbalances and supports your system in a way that nutrition alone cannot.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-6" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">Why are Schussler Tissue Salts part of the protocol and why do I need to chew them?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                These are 12 essential micro-minerals prepared for immediate cellular absorption. They bypass complex digestive processes to restore mineral balance at the cellular level, which is crucial for nerve health, metabolic function, and physical recovery. We recommend chewing them because they are absorbed through the mucous membranes in the mouth, entering your bloodstream directly for faster and more efficient use by your body.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-7" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">How do Bach Flower Remedies help with Emotional Balancing?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                We utilize these essences to address the emotional aspect of health. They help clear negative emotional states like fear, uncertainty, or overwhelm. By balancing your emotional body alongside your physical nutritional needs, we create a truly integrative path to wellness.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-8" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">How do the 15-minute check-ins work?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                These are "laser-focused" sessions held via video or phone. We review your weekly tracker, adjust your remedy dosages if needed, and discuss one specific health hurdle. It's the highest level of accountability in the shortest amount of time.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-9" className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-              <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">Can I take these supplements with my current medication?</AccordionTrigger>
-              <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
-                While our protocols focus on natural minerals and vitamins, we always review your current medications during the Initial Deep-Dive Consultation to ensure everything is balanced and safe for your specific needs. Though you need to consult with your physician regarding this matter.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          {[
+            {
+              category: "General & Philosophy",
+              faqs: [
+                {
+                  q: "What is a \"Neuro-Nutritional\" approach?",
+                  a: "A neuro-nutritional approach looks at the profound, bidirectional connection between your gut, your biochemistry, and your brain. We view mental and emotional well-being—like focus, mood stability, and mental clarity—as intimately tied to your underlying cellular health. By using targeted nutrition, minerals, and homeopathy, we support the physical \"hardware\" and nervous system pathways that directly influence your mind.",
+                },
+                {
+                  q: "Do you replace my family doctor?",
+                  a: "No. We work strictly as complementary health practitioners. Our functional testing and assessments do not provide medical diagnoses, nor do we alter prescriptions or treat acute medical emergencies. We highly encourage you to maintain regular care with your primary physician, and we are always happy to work collaboratively alongside your healthcare team.",
+                },
+                {
+                  q: "I've been told my blood work is \"normal,\" but I still feel unwell. Can you help?",
+                  a: "This is exactly why Neuro Nutri Clinic was founded. Standard blood work often looks for advanced disease states. We look at health through a functional and cellular lens. By evaluating your mineral status, metabolic markers, and cellular terrain, we frequently uncover functional imbalances and nutritional deficiencies that explain why you feel exhausted, anxious, or foggy despite having \"normal\" labs.",
+                },
+                {
+                  q: "What is Hair Tissue Mineral Analysis (HTMA)?",
+                  a: "HTMA is a safe, non-invasive screening test that measures the mineral content of your hair. Because hair reflects metabolic activity over time, it acts as a cellular blueprint or mineral \"bank account.\" It allows us to evaluate your stress response, metabolic rate, heavy metal exposure, and vital mineral ratios (such as calcium, magnesium, sodium, and potassium) that affect your energy levels and thyroid function.",
+                },
+              ],
+            },
+            {
+              category: "Our Methods & Testing",
+              faqs: [
+                {
+                  q: "What is Applied Nutritional Microscopy?",
+                  a: "Also known as live blood viewing, this is an educational tool where we look at a single drop of your blood under a high-powered microscope in real-time. While it is strictly non-diagnostic, it allows us to visually evaluate your cellular terrain. We can observe structural shapes, markers of systemic stress, oxidative damage, digestive efficiency, and indicators of cellular inflammation, giving us immediate insights into your vitality.",
+                },
+                {
+                  q: "What are Schüssler Tissue Salts?",
+                  a: "Schüssler Tissue Salts are a system of 12 vital, micro-dosed mineral salts that support your body's physical \"hardware.\" Developed in the late 1900s, they are prepared in low potencies so they can be absorbed directly at the cellular level. Rather than acting as a heavy macro-supplement, tissue salts serve as cellular \"door-openers,\" helping your cells efficiently absorb and utilize minerals to ease physical tension, improve energy production, and correct deep-seated cellular deficiencies.",
+                },
+                {
+                  q: "What are Bach Flower Remedies?",
+                  a: "Bach Flower Remedies are a system of 38 natural flower infusions developed by Dr. Edward Bach to support your emotional \"software.\" They work on an energetic frequency to address emotional and mental stress patterns—such as fear, uncertainty, or mental fatigue. Instead of suppressing negative emotional states, Bach flowers stimulate the opposite positive virtues (like courage, clarity, and peace), helping to unburden the system's vital energy from the inside out.",
+                },
+                {
+                  q: "What is the difference between Nutrition and Homeopathy in your practice?",
+                  a: "We like to use the analogy of a computer: Nutritional Rebuilding is the Hardware—we use high-bioavailability nutrients, diet, and Schüssler Tissue Salts to rebuild your physical cells, fuel metabolic pathways, and calm the physical nervous system. Homeopathic Integration is the Software—once the hardware is supported, we introduce individualized homeopathic remedies. Homeopathy works gently on the body's \"vital force\" or energetic blueprint to help resolve deep-seated emotional patterns and stimulate your body's innate ability to balance itself.",
+                },
+                {
+                  q: "What is the Fatty Acid BalanceTest (Zinzino)?",
+                  a: "The BalanceTest is a certified, non-diagnostic Dried Blood Spot (DBS) evaluation that provides an accurate blueprint of your essential fatty acid profile over a 120-day cycle. Using a simple at-home finger-prick sample analyzed by an independent laboratory in Norway, it tracks six vital wellness markers: (1) The Omega-6:3 Balance—the ratio between pro-inflammatory and anti-inflammatory fats, targeting an optimal ratio of 3:1 or lower; (2) The Omega-3 Index—your overall percentage of marine Omega-3s, aiming for 8% or higher to support cognitive clarity and cellular vitality; (3) Cell Membrane Fluidity—cell wall flexibility, ensuring nutrients can easily enter your cells and metabolic waste can efficiently leave; (4) Cognitive Fatty Acid Score—the nutrient environment available to your nervous system, offering insights into focus, memory, and mood stability; (5) Protection Value—your total fatty acid profile's baseline potential to handle environmental stressors; and (6) Arachidonic Acid (AA) Index—monitoring the critical Omega-6 fat responsible for natural biological signaling to ensure it stays in a balanced zone. By removing the guesswork, this data allows us to build a precise nutritional protocol tailored to your unique cellular needs.",
+                },
+              ],
+            },
+            {
+              category: "Logistics & Bookings",
+              faqs: [
+                {
+                  q: "Can I buy just a single session?",
+                  a: "Yes. Our Tier 1: Core Focus session is a standalone, 60-minute deep-dive initial assessment focused on a single modality (Nutrition, Homeopathy, or Lifestyle Hygiene). However, for long-standing concerns regarding the brain-gut connection, we highly recommend Tier 2: The Integrated Protocol, as it looks at all modalities simultaneously to provide a comprehensive strategy.",
+                },
+                {
+                  q: "Are your services covered by health insurance?",
+                  a: "Many extended health insurance benefits packages in Ontario cover Registered Orthomolecular Health Practitioners (ROHP) or Registered Nutritional Consultants (RNC) through the IONC, as well as Registered Homeopaths. We recommend contacting your specific insurance provider to confirm your coverage for these designations. Receipts will be issued with professional registration numbers after your session.",
+                },
+                {
+                  q: "Do you offer virtual consultations?",
+                  a: "Yes! All of our intake consultations, assessments, and coaching calls can be conducted securely online. For functional testing like HTMA, the test kit can be sent directly to your home with easy-to-follow instructions. Applied Nutritional Microscopy must be done in-person at the clinic, as it requires a live sample.",
+                },
+              ],
+            },
+          ].map((group, gi) => (
+            <div key={group.category} className={gi > 0 ? "mt-12" : ""}>
+              <h3 className="font-serif text-2xl text-nnc-olive mb-5">{group.category}</h3>
+              <Accordion type="single" collapsible className="w-full space-y-4">
+                {group.faqs.map((faq, fi) => (
+                  <AccordionItem key={fi} value={`faq-${gi}-${fi}`} className="bg-white px-6 rounded-xl border border-nnc-sage/20">
+                    <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">{faq.q}</AccordionTrigger>
+                    <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          ))}
         </div>
       </section>
 
