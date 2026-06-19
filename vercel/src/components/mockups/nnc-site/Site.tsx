@@ -627,13 +627,62 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       <section id="services" className="py-24 bg-white">
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-6">Our Services</h2>
+            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-3">Our Services</h2>
+            <p className="text-xl text-nnc-olive font-serif mb-6">Tailored Care for Lasting Vitality</p>
             <p className="text-lg text-nnc-charcoal/70">
-              We don't believe in "one-size-fits-all" health. We offer targeted assessments and therapies that move from deep diagnostic analysis to consistent, habit-forming support.
+              We don't believe in "one-size-fits-all" health. True health optimization requires a personalized, tiered approach to wellness—moving fluidly from deep functional analysis to consistent, habit-forming support.
             </p>
           </div>
 
-          <div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="border-nnc-sage/20 shadow-sm hover:shadow-nnc-soft transition-all duration-300 relative overflow-hidden group bg-nnc-ivory">
+              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-sage transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+              <CardHeader>
+                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 1: Core Focus</CardTitle>
+                <CardDescription className="text-nnc-olive font-medium">60 minutes</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-serif mb-6">$250 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
+                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
+                  Designed for individuals seeking targeted support, this tier focuses intensely on a single modality—whether Holistic Nutrition, Homeopathy, or Lifestyle/mental health coaching. It includes one comprehensive, deep-dive initial assessment and a highly focused wellness plan to kickstart your journey.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-nnc-olive/40 shadow-md relative overflow-hidden transform md:-translate-y-4 bg-white">
+              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-olive" />
+              <div className="absolute top-4 right-4 bg-nnc-blush text-nnc-charcoal text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Most Popular</div>
+              <CardHeader>
+                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 2: The Integrated Protocol</CardTitle>
+                <CardDescription className="text-nnc-olive font-medium">90 minutes</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-4xl font-serif mb-6 text-nnc-olive">$350 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
+                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
+                  Our signature multi-dimensional approach. This tier seamlessly integrates all of our clinic modalities into one powerful, cohesive strategy. Highly synergistic in nature, this comprehensive assessment addresses your biochemical, nutritional, and cognitive health aspects simultaneously to fast-track your results.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() => onNavigate("enroll")} className="w-full bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full">Select Tier 2</Button>
+              </CardFooter>
+            </Card>
+
+            <Card className="border-nnc-sage/20 shadow-sm hover:shadow-nnc-soft transition-all duration-300 relative overflow-hidden group bg-nnc-ivory">
+              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-sage transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+              <CardHeader>
+                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 3: The Accountability Plus</CardTitle>
+                <CardDescription className="text-nnc-olive font-medium">Comprehensive Protocol + Weekly Coaching</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-serif mb-6">$450 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
+                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
+                  For those who want maximum guidance, this tier includes the complete Integrated Protocol layered with high-accountability support. To ensure your success, it features two 15-minute weekly coaching check-ins to closely monitor your progress, help clear obstacles, and dynamically refine your protocol in real-time.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-16 pt-12 border-t border-nnc-sage/20">
             <h3 className="font-serif text-2xl text-center mb-8">Targeted Assessments & Therapies</h3>
             <div className="grid md:grid-cols-3 gap-6 text-center">
               <div className="p-6 rounded-2xl bg-nnc-cream">
@@ -651,6 +700,17 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
                 <p className="text-sm text-nnc-charcoal/60 mb-3">Initial Consultation (60 min)</p>
                 <p className="font-serif text-lg text-nnc-olive">$125 <span className="text-xs">+ HST</span></p>
               </div>
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <div className="max-w-3xl mx-auto bg-nnc-ivory rounded-3xl p-8 border border-nnc-sage/20 text-center">
+              <h3 className="font-serif text-2xl text-nnc-charcoal mb-1">Follow-Up & Review Sessions</h3>
+              <p className="text-sm text-nnc-olive font-medium mb-1">45 Minutes</p>
+              <p className="font-serif text-lg text-nnc-olive mb-4">$195 <span className="text-xs">+ HST</span></p>
+              <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
+                Available to all existing clients who have completed a Tier 1 or Tier 2 assessment. These targeted sessions are used to review your follow-up functional testing results (such as your re-test Zinzino or HTMA markers), evaluate your progress, and safely fine-tune your nutritional and homeopathic protocols as your biological terrain optimizes.
+              </p>
             </div>
           </div>
         </div>
