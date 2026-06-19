@@ -35,6 +35,29 @@
   box-shadow: 0 10px 40px -10px rgba(196, 42, 155, 0.12);
 }
 
+.shadow-nnc-glow {
+  box-shadow: 0 0 40px 10px rgba(60, 195, 147, 0.1);
+}
+
+/* Botanical redesign utilities */
+.bg-gradient-botanical {
+  background: linear-gradient(135deg, rgba(243, 251, 247, 1) 0%, rgba(247, 219, 238, 0.4) 50%, rgba(253, 253, 253, 1) 100%);
+}
+
+.blob-shape {
+  border-radius: 50% 50% 50% 50% / 60% 40% 60% 40%;
+}
+.blob-shape-2 {
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+}
+
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.hover-lift:hover {
+  transform: translateY(-8px);
+}
+
 /* Animated underline for header navigation links */
 .nav-underline {
   position: relative;

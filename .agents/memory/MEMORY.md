@@ -1,0 +1,1 @@
+- [NNC Vercel site](nnc-vercel-site.md) — Site.tsx is a state-machine SPA (ScreenHome = public page, rest = booking/auth flow); Tailwind v4 brand colors MUST be registered in @theme in index.css or nnc-* variants silently fail.

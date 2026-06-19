@@ -267,10 +267,12 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
 
 function Footer() {
   return (
-    <footer className="bg-nnc-charcoal text-nnc-cream/80 py-16">
-      <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer className="bg-nnc-charcoal text-nnc-cream/80 py-16 rounded-t-[3rem] relative overflow-hidden">
+      <div className="absolute top-[-30%] right-[-5%] w-[40vw] h-[40vw] bg-nnc-olive/20 blur-[120px] blob-shape pointer-events-none" />
+      <div className="absolute bottom-[-30%] left-[-10%] w-[35vw] h-[35vw] bg-nnc-sage/10 blur-[120px] blob-shape-2 pointer-events-none" />
+      <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
         <div className="md:col-span-2">
-          <div className="mb-6 bg-nnc-ivory p-6 rounded-xl inline-flex">
+          <div className="mb-6 bg-nnc-ivory p-6 rounded-[2rem] inline-flex">
             <img src={nncLogoUrl} alt="Neuro Nutri Clinic" className="h-40 md:h-48 object-contain" />
           </div>
           <p className="font-serif italic text-lg text-nnc-cream mb-4">
@@ -301,7 +303,7 @@ function Footer() {
         </div>
       </div>
       
-      <div className="container mx-auto px-6 md:px-12 mt-16 pt-8 border-t border-nnc-cream/10 text-center text-xs text-nnc-cream/40">
+      <div className="container mx-auto px-6 md:px-12 mt-16 pt-8 border-t border-nnc-cream/10 text-center text-xs text-nnc-cream/40 relative z-10">
         <p>&copy; {new Date().getFullYear()} Neuro Nutri Clinic. All rights reserved.</p>
         <p className="mt-2">Disclaimer: Services are integrative and supportive, and do not replace medical diagnosis, psychiatric care, or emergency treatment.</p>
       </div>
@@ -310,307 +312,416 @@ function Footer() {
 }
 
 function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
+  const heroImage = "/images/botanical-hero.png";
+  const textureImage = "/images/botanical-texture-1.png";
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
+  const journey = [
+    { title: "Discovery & Assessment", text: "We begin by deeply exploring your life history, diet, and lifestyle through comprehensive intake forms. This foundational step allows us to map out the unique environmental and habits-based drivers of your symptoms, ensuring your care is completely customized from day one." },
+    { title: "Biological Insights (Advanced Testing)", text: "We move from theory to evidence. Utilizing cutting-edge diagnostics—including Applied Nutritional Microscopy, Fatty Acid & Inflammatory Testing (Zinzino), and Hair Tissue Mineral Analysis (HTMA)—we view your cells in real-time. By measuring your mineral 'bank account' and metabolic markers, we identify what your body might be missing and what toxicities need to be cleared." },
+    { title: "Nutritional Rebuilding (The Hardware)", text: "With data in hand, we implement your customized NNC diet and lifestyle protocol. Using high-bioavailability nutrients, targeted supplementation, and Schüssler Tissue Salts, we stabilize your physical 'hardware.' This step rebalances your internal biochemistry, fuels cellular repair, and calms an overactive nervous system." },
+    { title: "Homeopathic Integration (The Software)", text: "Once the physical foundation and lifestyle is stabilized, we introduce individualized homeopathy to upgrade the 'software.' By addressing the vital force, we utilize precise remedies to help resolve deep-seated emotional patterns, restore vital self-regulation, and stimulate your body's innate ability to heal itself from the inside out." },
+    { title: "Optimization & Peak Performance", text: "In the final phase, we fine-tune your protocol for sustainable, long-term maintenance. We ensure your physical, mental, and emotional systems are harmoniously synchronized—leaving you with a sharp, resilient mind and a vibrant, high-energy body ready to thrive." },
+  ];
+
+  const credentials = [
+    {
+      group: "🎓 University Degrees",
+      sub: "Postgraduate & Undergraduate",
+      items: [
+        {
+          icon: "🧠",
+          title: "Master of Science (MSc) in Applied Neuroscience, with Merit",
+          org: "King's College London (KCL), UK",
+          text: "Graduated with honors distinction from one of the world's premier institutions for healthcare, psychiatry, and neuroscience research. This advanced postgraduate degree provides an elite, evidence-based foundation in neurobiology, neuro-biochemistry, and the physiological mechanics of the nervous system, allowing for a deeply scientific, sophisticated approach to brain health and mental well-being.",
+        },
+        {
+          icon: "🔬",
+          title: "Specialized Honours Bachelor of Science (BSc) in Neuropsychology",
+          org: "Glendon Campus, York University, Canada",
+          text: "Graduated with Specialized Honours. A foundational, data-driven degree focusing on the biological approaches to human behavior, brain-behavior relationships, and the neural basis of cognitive function. This intensive curriculum provided rigorous training in research methodologies, neuroanatomy, and biological psychology, acting as the ideal scientific springboard for advanced neuroscientific study.",
+        },
+      ],
+    },
+    {
+      group: "⚖️ Ontario Regulated Board & Professional Designations",
+      sub: "",
+      items: [
+        {
+          icon: "📜",
+          title: "Registered Homeopath (Hom)",
+          org: "College of Homeopaths of Ontario (CHO)",
+          text: "Granted by the provincial regulatory body under the Regulated Health Professions Act, 1991 (RHPA). This designation ensures strict adherence to provincial healthcare regulations, clinical safety guidelines, and the highest standards of professional accountability and safety in Ontario.",
+        },
+        {
+          icon: "🧪",
+          title: "Registered Orthomolecular Health Practitioner (ROHP) / Registered Nutritional Consulting Practitioner (RNCP)",
+          org: "International Organization of Nutritional Consultants (IONC) — Member in Good Standing Since 2014",
+          text: "A specialist designation earned by graduates of the Institute of Holistic Nutrition (IHN). This professional focus prioritizes balancing the body's internal biochemistry, correcting deep cellular deficiencies, and neutralizing environmental toxicities using customized, orthomolecular nutritional protocols.",
+        },
+      ],
+    },
+    {
+      group: "🏥 Ivy League & Elite Medical School Certificates",
+      sub: "",
+      items: [
+        {
+          icon: "🧠",
+          title: "Brain Medicine: Integrating the Clinical Neurosciences",
+          org: "Harvard Medical School (HMS) — Postgraduate Medical Education",
+          text: "An elite, comprehensive postgraduate curriculum designed to synthesize cutting-edge advancements across the clinical neurosciences. This intensive medical education program provides an advanced understanding of neuroanatomy, neuro-biochemistry, and brain network mechanics, focusing on how systemic, environmental, and physiological factors influence the functional health of the human brain.",
+        },
+        {
+          icon: "📋",
+          title: "Lifestyle & Wellness Coaching Certificate",
+          org: "Harvard Medical School (HMS) — Executive Education",
+          text: "Advanced professional training focused on the clinical science of Lifestyle Medicine and evidence-based behavioral modification. Grounded in elite behavioral frameworks, this training specializes in translating cutting-edge health research into actionable, high-performance strategies across the six core pillars of vitality: functional nutrition, sleep optimization, movement metrics, and nervous system stress resilience.",
+        },
+        {
+          icon: "🗣️",
+          title: "Talking with Voices Clinical Framework",
+          org: "Stanford University School of Medicine — Department of Psychiatry and Behavioral Sciences (INSPIRE Training Program)",
+          text: "Completed intensive, specialized training focused on advanced therapeutic communication frameworks for complex auditory and cognitive perceptions. This evidence-based curriculum provides deep insight into compassionate, non-pathologizing approaches to understanding internal neural dialogue and supporting cognitive integration.",
+        },
+      ],
+    },
+    {
+      group: "🎯 Advanced Clinical Specialties & Distinctions",
+      sub: "",
+      items: [
+        {
+          icon: "🧠",
+          title: "Certified Brain Health Professional & Elite Coach",
+          org: "Amen University",
+          text: "Advanced dual professional certifications built upon the clinical, neuro-imaging frameworks developed by Dr. Daniel Amen. This specialized dual-training combines functional neurobiology to identify specific brain-gut axis dynamics, recognize distinct baseline brain types, and apply targeted metabolic, lifestyle, and neuro-nutrient protocols—alongside mastery of the systematic BRIGHTMINDS blueprint to address cellular risk factors, boost daily cognitive performance, and implement customized behavioral coaching models for lasting psychological safety and mental fitness.",
+        },
+        {
+          icon: "🧬",
+          title: "Advanced Training in Functional & Integrative Psychiatry Frameworks",
+          org: "Psychiatry Redefined (Dr. James Greenblatt, MD)",
+          text: "Completed specialized professional education in the foundational, root-cause paradigms of functional medicine for mental wellness. This science-backed training focuses on using objective lab metrics and biochemical testing to identify and correct the physiological root causes of cognitive and emotional distress—evaluating deep nutritional deficiencies, metabolic disturbances, amino acid pathways, and underlying gut-brain axis dynamics.",
+        },
+        {
+          icon: "🏅",
+          title: "Golden Key International Honour Society",
+          org: "Academic Distinction (Inducted in 2017)",
+          text: "An honor extended exclusively to the top 15% of university students and post-graduates globally, recognizing exceptional academic excellence, clinical research dedication, and leadership.",
+        },
+      ],
+    },
+  ];
+
+  const faqGroups = [
+    {
+      category: "General & Philosophy",
+      faqs: [
+        {
+          q: "What is a \"Neuro-Nutritional\" approach?",
+          a: "A neuro-nutritional approach looks at the profound, bidirectional connection between your gut, your biochemistry, and your brain. We view mental and emotional well-being—like focus, mood stability, and mental clarity—as intimately tied to your underlying cellular health. By using targeted nutrition, minerals, and homeopathy, we support the physical \"hardware\" and nervous system pathways that directly influence your mind.",
+        },
+        {
+          q: "Do you replace my family doctor?",
+          a: "No. We work strictly as complementary health practitioners. Our functional testing and assessments do not provide medical diagnoses, nor do we alter prescriptions or treat acute medical emergencies. We highly encourage you to maintain regular care with your primary physician, and we are always happy to work collaboratively alongside your healthcare team.",
+        },
+        {
+          q: "I've been told my blood work is \"normal,\" but I still feel unwell. Can you help?",
+          a: "This is exactly why Neuro Nutri Clinic was founded. Standard blood work often looks for advanced disease states. We look at health through a functional and cellular lens. By evaluating your mineral status, metabolic markers, and cellular terrain, we frequently uncover functional imbalances and nutritional deficiencies that explain why you feel exhausted, anxious, or foggy despite having \"normal\" labs.",
+        },
+        {
+          q: "What is Hair Tissue Mineral Analysis (HTMA)?",
+          a: "HTMA is a safe, non-invasive screening test that measures the mineral content of your hair. Because hair reflects metabolic activity over time, it acts as a cellular blueprint or mineral \"bank account.\" It allows us to evaluate your stress response, metabolic rate, heavy metal exposure, and vital mineral ratios (such as calcium, magnesium, sodium, and potassium) that affect your energy levels and thyroid function.",
+        },
+      ],
+    },
+    {
+      category: "Our Methods & Testing",
+      faqs: [
+        {
+          q: "What is Applied Nutritional Microscopy?",
+          a: "Also known as live blood viewing, this is an educational tool where we look at a single drop of your blood under a high-powered microscope in real-time. While it is strictly non-diagnostic, it allows us to visually evaluate your cellular terrain. We can observe structural shapes, markers of systemic stress, oxidative damage, digestive efficiency, and indicators of cellular inflammation, giving us immediate insights into your vitality.",
+        },
+        {
+          q: "What are Schüssler Tissue Salts?",
+          a: "Schüssler Tissue Salts are a system of 12 vital, micro-dosed mineral salts that support your body's physical \"hardware.\" Developed in the late 1900s, they are prepared in low potencies so they can be absorbed directly at the cellular level. Rather than acting as a heavy macro-supplement, tissue salts serve as cellular \"door-openers,\" helping your cells efficiently absorb and utilize minerals to ease physical tension, improve energy production, and correct deep-seated cellular deficiencies.",
+        },
+        {
+          q: "What are Bach Flower Remedies?",
+          a: "Bach Flower Remedies are a system of 38 natural flower infusions developed by Dr. Edward Bach to support your emotional \"software.\" They work on an energetic frequency to address emotional and mental stress patterns—such as fear, uncertainty, or mental fatigue. Instead of suppressing negative emotional states, Bach flowers stimulate the opposite positive virtues (like courage, clarity, and peace), helping to unburden the system's vital energy from the inside out.",
+        },
+        {
+          q: "What is the difference between Nutrition and Homeopathy in your practice?",
+          a: "We like to use the analogy of a computer: Nutritional Rebuilding is the Hardware—we use high-bioavailability nutrients, diet, and Schüssler Tissue Salts to rebuild your physical cells, fuel metabolic pathways, and calm the physical nervous system. Homeopathic Integration is the Software—once the hardware is supported, we introduce individualized homeopathic remedies. Homeopathy works gently on the body's \"vital force\" or energetic blueprint to help resolve deep-seated emotional patterns and stimulate your body's innate ability to balance itself.",
+        },
+        {
+          q: "What is the Fatty Acid BalanceTest (Zinzino)?",
+          a: "The BalanceTest is a certified, non-diagnostic Dried Blood Spot (DBS) evaluation that provides an accurate blueprint of your essential fatty acid profile over a 120-day cycle. Using a simple at-home finger-prick sample analyzed by an independent laboratory in Norway, it tracks six vital wellness markers: (1) The Omega-6:3 Balance—the ratio between pro-inflammatory and anti-inflammatory fats, targeting an optimal ratio of 3:1 or lower; (2) The Omega-3 Index—your overall percentage of marine Omega-3s, aiming for 8% or higher to support cognitive clarity and cellular vitality; (3) Cell Membrane Fluidity—cell wall flexibility, ensuring nutrients can easily enter your cells and metabolic waste can efficiently leave; (4) Cognitive Fatty Acid Score—the nutrient environment available to your nervous system, offering insights into focus, memory, and mood stability; (5) Protection Value—your total fatty acid profile's baseline potential to handle environmental stressors; and (6) Arachidonic Acid (AA) Index—monitoring the critical Omega-6 fat responsible for natural biological signaling to ensure it stays in a balanced zone. By removing the guesswork, this data allows us to build a precise nutritional protocol tailored to your unique cellular needs.",
+        },
+      ],
+    },
+    {
+      category: "Logistics & Bookings",
+      faqs: [
+        {
+          q: "Can I buy just a single session?",
+          a: "Yes. Our Tier 1: Core Focus session is a standalone, 60-minute deep-dive initial assessment focused on a single modality (Nutrition, Homeopathy, or Lifestyle Hygiene). However, for long-standing concerns regarding the brain-gut connection, we highly recommend Tier 2: The Integrated Protocol, as it looks at all modalities simultaneously to provide a comprehensive strategy.",
+        },
+        {
+          q: "Are your services covered by health insurance?",
+          a: "Many extended health insurance benefits packages in Ontario cover Registered Orthomolecular Health Practitioners (ROHP) or Registered Nutritional Consultants (RNC) through the IONC, as well as Registered Homeopaths. We recommend contacting your specific insurance provider to confirm your coverage for these designations. Receipts will be issued with professional registration numbers after your session.",
+        },
+        {
+          q: "Do you offer virtual consultations?",
+          a: "Yes! All of our intake consultations, assessments, and coaching calls can be conducted securely online. For functional testing like HTMA, the test kit can be sent directly to your home with easy-to-follow instructions. Applied Nutritional Microscopy must be done in-person at the clinic, as it requires a live sample.",
+        },
+      ],
+    },
+  ];
+
   return (
-    <div className="animate-in fade-in duration-700">
-      {/* Hero Section */}
-      <section className="relative pt-12 pb-24 md:pt-24 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-nnc-ivory to-nnc-cream pointer-events-none" />
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-nnc-blush/20 blur-3xl rounded-full translate-x-1/3 -translate-y-1/4 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-1/2 h-full bg-nnc-sage/10 blur-3xl rounded-full -translate-x-1/3 translate-y-1/4 pointer-events-none" />
-        
-        <div className="container mx-auto px-6 md:px-12 relative z-10 text-center max-w-4xl">
-          <Badge className="bg-nnc-olive/10 text-nnc-olive hover:bg-nnc-olive/20 mb-8 border-none px-4 py-1.5 font-medium tracking-wide">
-            Integrative Holistic Health Practice
-          </Badge>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-nnc-charcoal leading-[1.1] mb-6">
-            Where Neuroscience Meets Nutritional Precision
-          </h1>
-          <p className="font-serif italic text-xl md:text-2xl text-nnc-olive mb-6">
-            Integrating neuroscience and holistic medicine.
-          </p>
-          <p className="text-lg md:text-xl text-nnc-charcoal/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-            We don't just treat symptoms; we investigate the biological "why." Discover a science-backed, sustainable roadmap to health that optimizes your mind and body at the cellular level.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button 
-              onClick={() => onNavigate("enroll")}
-              size="lg"
-              className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-8 py-6 text-lg shadow-nnc-soft w-full sm:w-auto transition-all"
-            >
-              Book Your Initial Consultation
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => {
-                const el = document.getElementById("philosophy");
-                if (el) window.scrollTo({ top: el.offsetTop - 100, behavior: 'smooth' });
-              }}
-              className="border-nnc-sage/30 text-nnc-olive hover:bg-nnc-sage/10 rounded-full px-8 py-6 text-lg w-full sm:w-auto bg-transparent transition-all"
-            >
-              Learn More
-            </Button>
+    <div className="animate-in fade-in duration-700 overflow-hidden">
+      {/* ===== HERO ===== */}
+      <section className="relative min-h-[92vh] flex items-center pt-10 pb-16 md:pt-16 bg-gradient-botanical overflow-hidden">
+        <div className="absolute top-[-10%] right-[-5%] w-[60vw] h-[60vw] bg-nnc-sage/10 blur-[100px] blob-shape pointer-events-none" />
+        <div className="absolute bottom-[-15%] left-[-10%] w-[50vw] h-[50vw] bg-nnc-blush/30 blur-[100px] blob-shape-2 pointer-events-none" />
+
+        <div className="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-nnc-sage/20 text-nnc-sage font-medium text-sm tracking-wide mb-8">
+              <Leaf className="w-4 h-4" /> Integrative Holistic Health Practice
+            </div>
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-[5.25rem] leading-[1.05] text-nnc-charcoal mb-6">
+              Where <span className="text-nnc-sage italic font-normal">Neuroscience</span><br />
+              Meets Nutritional <span className="text-nnc-olive">Precision.</span>
+            </h1>
+            <p className="font-serif italic text-xl md:text-2xl text-nnc-olive mb-5">
+              Integrating neuroscience and holistic medicine.
+            </p>
+            <p className="text-lg text-nnc-charcoal/70 mb-10 leading-relaxed max-w-lg">
+              We don't just treat symptoms; we investigate the biological "why." Discover a science-backed, sustainable roadmap to health that optimizes your mind and body at the cellular level.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <Button
+                onClick={() => onNavigate("enroll")}
+                size="lg"
+                className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-8 py-6 text-base shadow-nnc-soft w-full sm:w-auto transition-all hover:scale-[1.02] group"
+              >
+                Book Your Consultation <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => scrollTo("philosophy")}
+                className="border-2 border-nnc-olive/30 text-nnc-olive hover:border-nnc-olive hover:bg-nnc-olive/5 rounded-full px-8 py-6 text-base w-full sm:w-auto bg-transparent transition-all"
+              >
+                Learn More
+              </Button>
+            </div>
+            <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm font-medium tracking-widest text-nnc-charcoal/50 uppercase">
+              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-olive/60" /> Neuroscience</span>
+              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-sage/60" /> Homeopathy</span>
+              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-rose/60" /> Nutrition</span>
+              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-charcoal/40" /> Lifestyle</span>
+            </div>
           </div>
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm md:text-base font-medium tracking-wide text-nnc-olive uppercase">
-            {["Neuroscience", "Homeopathy", "Nutrition", "Lifestyle"].map((item, i) => (
-              <span key={item} className="flex items-center gap-x-3">
-                {i > 0 && <span className="w-1.5 h-1.5 rounded-full bg-nnc-sage/60" />}
-                {item}
+
+          <div className="relative hidden lg:block h-[560px] w-full">
+            <div className="absolute inset-0 bg-nnc-sage/5 blob-shape-2 overflow-hidden shadow-nnc-glow">
+              <img src={heroImage} alt="Botanical neuroscience abstract" className="w-full h-full object-cover" />
+            </div>
+            <div className="absolute top-16 -left-6 bg-white/85 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white max-w-[230px] hover-lift">
+              <Brain className="w-8 h-8 text-nnc-olive mb-3" />
+              <h3 className="font-serif text-xl mb-1 text-nnc-charcoal">Brain Health</h3>
+              <p className="text-xs text-nnc-charcoal/60">Optimizing cognitive function & mood stability.</p>
+            </div>
+            <div className="absolute bottom-16 -right-4 bg-white/85 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white max-w-[230px] hover-lift">
+              <Microscope className="w-8 h-8 text-nnc-sage mb-3" />
+              <h3 className="font-serif text-xl mb-1 text-nnc-charcoal">Cellular Insight</h3>
+              <p className="text-xs text-nnc-charcoal/60">Advanced diagnostics incl. HTMA & Live Blood.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== PHILOSOPHY ===== */}
+      <section id="philosophy" className="py-28 md:py-32 bg-nnc-cream relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-nnc-sage/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <span className="font-script text-3xl text-nnc-olive block mb-3">Our Philosophy</span>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-nnc-charcoal leading-tight">
+              Healing happens at the intersection of mind & body.
+            </h2>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div className="relative">
+              <div className="aspect-[4/5] blob-shape overflow-hidden shadow-nnc-soft">
+                <img src={textureImage} alt="Soft botanical texture" className="w-full h-full object-cover" />
+              </div>
+              <div className="absolute -bottom-8 -right-4 md:-right-8 bg-nnc-ivory p-7 rounded-[2rem] shadow-xl max-w-sm border border-nnc-sage/10">
+                <p className="font-serif text-xl italic text-nnc-charcoal leading-relaxed">
+                  "We don't just mask your symptoms; we illuminate the root cause, giving you the clarity and biochemical support you need to fully reclaim your health."
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center mb-2">
+                <Brain className="w-6 h-6 text-nnc-olive" />
+              </div>
+              <p className="text-lg text-nnc-charcoal/70 leading-relaxed">
+                Whether you are navigating physical health challenges like digestive issues, blood sugar imbalances, and hormonal irregularities, or managing mental and emotional concerns such as anxiety, brain fog, and ADHD, we look beneath the surface.
+              </p>
+              <p className="text-lg text-nnc-charcoal/70 leading-relaxed">
+                We believe that true healing happens at the intersection of mind and body. By uniting classical homeopathy with targeted lifestyle modifications and precise nutritional protocols, we address the unique terrain of your biology.
+              </p>
+              <p className="text-lg text-nnc-charcoal/70 leading-relaxed">
+                To take the guesswork out of your care, we utilize advanced functional testing—including Hair Tissue Mineral Analysis (HTMA), Applied Nutritional Microscopy, and Fatty Acid Analysis. These tools allow us to pinpoint the exact environmental toxicities, cellular mineral deficiencies, and systemic inflammatory markers that are holding you back.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-20 max-w-5xl mx-auto">
+            <h3 className="font-serif text-3xl text-nnc-charcoal text-center mb-10">Advanced Diagnostics</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { t: "Applied Nutritional Microscopy", d: "Live analysis of cellular health and digestive terrain." },
+                { t: "Hair Tissue Mineral Analysis (HTMA)", d: "Long-term mineral balance and heavy metal screening." },
+                { t: "Zinzino BalanceTest", d: "Fatty acid profiling to measure systemic inflammation." },
+              ].map((item) => (
+                <div key={item.t} className="bg-white p-7 rounded-3xl border border-nnc-sage/10 shadow-sm hover-lift">
+                  <div className="w-10 h-10 rounded-full bg-nnc-sage/20 flex items-center justify-center mb-4">
+                    <div className="w-2.5 h-2.5 rounded-full bg-nnc-sage" />
+                  </div>
+                  <h4 className="font-serif text-xl text-nnc-charcoal mb-2">{item.t}</h4>
+                  <p className="text-sm text-nnc-charcoal/60 leading-relaxed">{item.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== WHO THIS IS FOR ===== */}
+      <section className="py-28 bg-nnc-ivory relative overflow-hidden">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="font-script text-3xl text-nnc-olive block mb-3">Is This You?</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Who This Is For</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              "Do you struggle with chronic insomnia, brain fog, anxiety, ADHD, or digestion and metabolic issues?",
+              "Are you looking for a science-backed alternative to \"one-size-fits-all\" supplements?",
+              "Are you ready to commit to cellular-level healing and lifestyle changes?",
+            ].map((q, i) => (
+              <div key={i} className="bg-nnc-cream p-8 rounded-[2rem] border border-nnc-sage/15 shadow-sm hover-lift flex flex-col gap-4">
+                <div className="w-10 h-10 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl">{i + 1}</div>
+                <p className="text-lg text-nnc-charcoal/80 leading-relaxed">{q}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== JOURNEY ===== */}
+      <section id="journey" className="py-28 md:py-32 bg-nnc-cream relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-nnc-blush/20 rounded-full blur-[100px] pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <span className="font-script text-3xl text-nnc-olive block mb-3">From Root Cause to Vitality</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">The NNC Journey</h2>
+          </div>
+          <div className="max-w-5xl mx-auto relative">
+            <div className="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-px bg-nnc-sage/20 md:-translate-x-1/2" />
+            <div className="space-y-12 md:space-y-16">
+              {journey.map((item, index) => (
+                <div key={index} className={`relative flex flex-col md:flex-row gap-8 md:gap-16 items-start ${index % 2 === 0 ? "md:flex-row-reverse" : ""}`}>
+                  <div className="absolute left-0 md:left-1/2 w-20 h-20 bg-nnc-ivory border-4 border-nnc-cream rounded-full flex items-center justify-center shadow-sm z-10 md:-translate-x-1/2">
+                    <span className="font-serif text-3xl text-nnc-olive">{index + 1}</span>
+                  </div>
+                  <div className={`ml-24 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:text-left" : "md:text-right"}`}>
+                    <div className={`bg-white p-8 rounded-3xl shadow-sm border border-nnc-sage/10 hover-lift ${index % 2 === 0 ? "md:ml-12" : "md:mr-12"}`}>
+                      <h3 className="font-serif text-2xl text-nnc-charcoal mb-3">{item.title}</h3>
+                      <p className="text-nnc-charcoal/70 leading-relaxed">{item.text}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== MEET SHIRIN ===== */}
+      <section id="about" className="py-28 md:py-32 bg-white relative overflow-hidden">
+        <div className="absolute top-1/3 right-0 w-64 h-64 bg-nnc-rose/20 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-nnc-sage/10 rounded-full blur-[90px] pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="font-script text-3xl text-nnc-olive block mb-3">Holistic Integrative Practitioner & Founder</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Meet Shirin Akhavi</h2>
+          </div>
+
+          <div className="max-w-4xl mx-auto bg-nnc-cream rounded-[2.5rem] p-8 md:p-14 shadow-nnc-soft border border-nnc-sage/15">
+            <p className="font-serif text-2xl text-nnc-charcoal italic leading-relaxed border-l-4 border-nnc-olive pl-6 mb-10">
+              "My background in International Commerce and R&D allows me to look far beneath the label. I leverage my years of experience in global raw material sourcing and product formulation to ensure that every single remedy and supplement recommended in my practice meets the highest global standards of purity, bioavailability, and clinical efficacy."
+            </p>
+            <div className="space-y-6 text-lg text-nnc-charcoal/80 leading-relaxed">
+              <p>
+                At Neuro Nutri Clinic, I believe that true health is not merely the absence of symptoms—it is the optimization of your mental, emotional, and physical potential. My mission is to move you away from "supplement guesswork" and guide you toward a precision-based protocol rooted in cellular science.
+              </p>
+              <p>
+                I specialize in the intricate, powerful connection between the brain and the gut. By combining the cutting-edge neuroscience and psychiatric frameworks of Amen University (Brain Health) and Psychiatry Redefined with the gentle, deep restorative healing of Homeopathy, I offer a truly integrative "Neuro-Nutritional" approach to wellness.
+              </p>
+              <h4 className="font-serif text-2xl text-nnc-charcoal pt-2">A Decade of Dedication</h4>
+              <p>
+                My practice is built on a foundation of rigorous clinical standards and an unwavering, long-term commitment to my clients.
+              </p>
+              <p>
+                <strong className="text-nnc-charcoal">Orthomolecular Standards:</strong> I have been a member in good standing of the International Organization of Nutritional Consultants (IONC) since 2014, strictly adhering to the highest ethical and therapeutic standards of Orthomolecular health.
+              </p>
+              <p>
+                <strong className="text-nnc-charcoal">Academic Excellence:</strong> In 2017, my commitment to advanced education and clinical research was recognized with an induction into the prestigious Golden Key International Honour Society.
+              </p>
+              <h4 className="font-serif text-2xl text-nnc-charcoal pt-2">Why I Do This</h4>
+              <p>
+                I founded Neuro Nutri Clinic because I grew tired of seeing people "falling through the cracks" of the standard healthcare model. Far too often, individuals are told their blood work is completely "normal," yet they continue to live exhausted, anxious, and cognitively drained.
+              </p>
+              <p>
+                I am here to validate your lived experience with objective biological data. Together, we will build a roadmap to recovery that is scientifically validated, sustainably structured, and deeply supportive of your unique physiology.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-14 flex flex-wrap justify-center gap-3 md:gap-4">
+            {["Amen University", "Psychiatry Redefined", "IONC (since 2014)", "Golden Key Honour Society", "CSOM", "CHO", "NASH", "Harvard Medical School"].map((badge) => (
+              <span key={badge} className="px-4 py-2 bg-nnc-ivory text-nnc-charcoal/80 rounded-full text-xs font-medium border border-nnc-sage/30">
+                {badge}
               </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Philosophy */}
-      <section id="philosophy" className="py-24 bg-white relative">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <div className="inline-flex items-center justify-center p-3 bg-nnc-blush/30 rounded-2xl mb-6 text-nnc-rose">
-                <Brain className="w-8 h-8" />
-              </div>
-              <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-6">Our Philosophy</h2>
-              <p className="text-lg text-nnc-charcoal/70 mb-6 leading-relaxed">
-                Whether you are navigating physical health challenges like digestive issues, blood sugar imbalances, and hormonal irregularities, or managing mental and emotional concerns such as anxiety, brain fog, and ADHD, we look beneath the surface.
-              </p>
-              <p className="text-lg text-nnc-charcoal/70 mb-6 leading-relaxed">
-                We believe that true healing happens at the intersection of mind and body. By uniting classical homeopathy with targeted lifestyle modifications and precise nutritional protocols, we address the unique terrain of your biology.
-              </p>
-              <p className="text-lg text-nnc-charcoal/70 mb-6 leading-relaxed">
-                To take the guesswork out of your care, we utilize advanced functional testing—including Hair Tissue Mineral Analysis (HTMA), Applied Nutritional Microscopy, and Fatty Acid Analysis. These tools allow us to pinpoint the exact environmental toxicities, cellular mineral deficiencies, and systemic inflammatory markers that are holding you back.
-              </p>
-              <p className="text-lg text-nnc-charcoal/70 leading-relaxed">
-                We don't just mask your symptoms; we illuminate the root cause, giving you the clarity and biochemical support you need to fully reclaim your health.
-              </p>
-            </div>
-            <div className="bg-nnc-cream p-10 rounded-3xl shadow-sm border border-nnc-sage/10 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-8 opacity-5 text-nnc-olive">
-                <Microscope className="w-48 h-48" />
-              </div>
-              <h3 className="font-serif text-2xl text-nnc-olive mb-6 relative z-10">Advanced Diagnostics</h3>
-              <ul className="space-y-6 relative z-10">
-                <li className="flex gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-nnc-sage shrink-0" />
-                  <div>
-                    <h4 className="font-medium text-nnc-charcoal">Applied Nutritional Microscopy</h4>
-                    <p className="text-sm text-nnc-charcoal/60 mt-1">Live analysis of cellular health and digestive terrain.</p>
-                  </div>
-                </li>
-                <li className="flex gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-nnc-sage shrink-0" />
-                  <div>
-                    <h4 className="font-medium text-nnc-charcoal">Hair Tissue Mineral Analysis (HTMA)</h4>
-                    <p className="text-sm text-nnc-charcoal/60 mt-1">Long-term mineral balance and heavy metal screening.</p>
-                  </div>
-                </li>
-                <li className="flex gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-nnc-sage shrink-0" />
-                  <div>
-                    <h4 className="font-medium text-nnc-charcoal">Zinzino BalanceTest</h4>
-                    <p className="text-sm text-nnc-charcoal/60 mt-1">Fatty acid profiling to measure systemic inflammation.</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+      {/* ===== CREDENTIALS ===== */}
+      <section id="credentials" className="py-28 md:py-32 bg-nnc-cream relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-white rounded-full blur-[100px] pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-5xl">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="font-script text-3xl text-nnc-olive block mb-3">Rigorous Training. Regulated Practice.</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Credentials & Professional Designations</h2>
           </div>
-        </div>
-      </section>
-
-      {/* Who This Is For */}
-      <section className="py-24 bg-nnc-cream">
-        <div className="container mx-auto px-6 md:px-12 text-center max-w-3xl">
-          <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-10">Who This Is For</h2>
-          <div className="space-y-6">
-            <div className="bg-white p-6 rounded-2xl border border-nnc-sage/20 shadow-sm text-lg text-nnc-charcoal/80">
-              Do you struggle with chronic insomnia, brain fog, anxiety, ADHD, or digestion and metabolic issues?
-            </div>
-            <div className="bg-white p-6 rounded-2xl border border-nnc-sage/20 shadow-sm text-lg text-nnc-charcoal/80">
-              Are you looking for a science-backed alternative to "one-size-fits-all" supplements?
-            </div>
-            <div className="bg-white p-6 rounded-2xl border border-nnc-sage/20 shadow-sm text-lg text-nnc-charcoal/80">
-              Are you ready to commit to cellular-level healing and lifestyle changes?
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Journey */}
-      <section id="journey" className="py-24 bg-white relative">
-        <div className="container mx-auto px-6 md:px-12 max-w-5xl">
-          <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-4 text-center">The NNC Journey</h2>
-          <p className="text-center text-nnc-olive font-medium tracking-wide mb-16 uppercase text-sm">From Root Cause to Vitality</p>
-          
-          <div className="space-y-12">
-            {[
-              { title: "Discovery & Assessment", text: "We begin by deeply exploring your life history, diet, and lifestyle through comprehensive intake forms. This foundational step allows us to map out the unique environmental and habits-based drivers of your symptoms, ensuring your care is completely customized from day one." },
-              { title: "Biological Insights (Advanced Testing)", text: "We move from theory to evidence. Utilizing cutting-edge diagnostics—including Applied Nutritional Microscopy, Fatty Acid & Inflammatory Testing (Zinzino), and Hair Tissue Mineral Analysis (HTMA)—we view your cells in real-time. By measuring your mineral 'bank account' and metabolic markers, we identify what your body might be missing and what toxicities need to be cleared." },
-              { title: "Nutritional Rebuilding (The Hardware)", text: "With data in hand, we implement your customized NNC diet and lifestyle protocol. Using high-bioavailability nutrients, targeted supplementation, and Schüssler Tissue Salts, we stabilize your physical 'hardware.' This step rebalances your internal biochemistry, fuels cellular repair, and calms an overactive nervous system." },
-              { title: "Homeopathic Integration (The Software)", text: "Once the physical foundation and lifestyle is stabilized, we introduce individualized homeopathy to upgrade the 'software.' By addressing the vital force, we utilize precise remedies to help resolve deep-seated emotional patterns, restore vital self-regulation, and stimulate your body's innate ability to heal itself from the inside out." },
-              { title: "Optimization & Peak Performance", text: "In the final phase, we fine-tune your protocol for sustainable, long-term maintenance. We ensure your physical, mental, and emotional systems are harmoniously synchronized—leaving you with a sharp, resilient mind and a vibrant, high-energy body ready to thrive." }
-            ].map((step, i) => (
-              <div key={i} className="flex gap-6 md:gap-8">
-                <div className="w-16 h-16 rounded-full bg-nnc-cream text-nnc-olive font-serif text-2xl flex items-center justify-center shrink-0 border-2 border-nnc-sage/30">
-                  {i + 1}
-                </div>
-                <div>
-                  <h3 className="font-serif text-2xl text-nnc-charcoal mb-2">{step.title}</h3>
-                  <p className="text-nnc-charcoal/70 leading-relaxed">{step.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Meet Shirin */}
-      <section id="about" className="py-24 bg-nnc-sage/10">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-4 text-center">Meet Shirin Akhavi</h2>
-            <p className="text-center text-nnc-olive font-medium tracking-wide mb-12 uppercase text-sm">Holistic Integrative Practitioner & Founder</p>
-            
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-nnc-soft border border-nnc-sage/20">
-              <div className="prose prose-lg text-nnc-charcoal/80 max-w-none">
-                <p className="text-xl font-serif text-nnc-olive italic mb-8 border-l-4 border-nnc-sage pl-6">
-                  "My background in International Commerce and R&D allows me to look far beneath the label. I leverage my years of experience in global raw material sourcing and product formulation to ensure that every single remedy and supplement recommended in my practice meets the highest global standards of purity, bioavailability, and clinical efficacy."
-                </p>
-                <p>
-                  At Neuro Nutri Clinic, I believe that true health is not merely the absence of symptoms—it is the optimization of your mental, emotional, and physical potential. My mission is to move you away from "supplement guesswork" and guide you toward a precision-based protocol rooted in cellular science.
-                </p>
-                <p>
-                  I specialize in the intricate, powerful connection between the brain and the gut. By combining the cutting-edge neuroscience and psychiatric frameworks of Amen University (Brain Health) and Psychiatry Redefined with the gentle, deep restorative healing of Homeopathy, I offer a truly integrative "Neuro-Nutritional" approach to wellness.
-                </p>
-                
-                <h4 className="font-serif text-2xl text-nnc-charcoal mt-10 mb-4">A Decade of Dedication</h4>
-                <p>
-                  My practice is built on a foundation of rigorous clinical standards and an unwavering, long-term commitment to my clients.
-                </p>
-                <p>
-                  <strong className="text-nnc-charcoal">Orthomolecular Standards:</strong> I have been a member in good standing of the International Organization of Nutritional Consultants (IONC) since 2014, strictly adhering to the highest ethical and therapeutic standards of Orthomolecular health.
-                </p>
-                <p>
-                  <strong className="text-nnc-charcoal">Academic Excellence:</strong> In 2017, my commitment to advanced education and clinical research was recognized with an induction into the prestigious Golden Key International Honour Society.
-                </p>
-
-                <h4 className="font-serif text-2xl text-nnc-charcoal mt-10 mb-4">Why I Do This</h4>
-                <p>
-                  I founded Neuro Nutri Clinic because I grew tired of seeing people "falling through the cracks" of the standard healthcare model. Far too often, individuals are told their blood work is completely "normal," yet they continue to live exhausted, anxious, and cognitively drained.
-                </p>
-                <p>
-                  I am here to validate your lived experience with objective biological data. Together, we will build a roadmap to recovery that is scientifically validated, sustainably structured, and deeply supportive of your unique physiology.
-                </p>
-              </div>
-            </div>
-
-            {/* Trust Bar */}
-            <div className="mt-16 flex flex-wrap justify-center gap-4 md:gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-              <Badge variant="outline" className="px-4 py-2 border-nnc-sage">Amen University</Badge>
-              <Badge variant="outline" className="px-4 py-2 border-nnc-sage">Psychiatry Redefined</Badge>
-              <Badge variant="outline" className="px-4 py-2 border-nnc-sage">IONC (since 2014)</Badge>
-              <Badge variant="outline" className="px-4 py-2 border-nnc-sage">Golden Key Honour Society</Badge>
-              <Badge variant="outline" className="px-4 py-2 border-nnc-sage">CSOM</Badge>
-              <Badge variant="outline" className="px-4 py-2 border-nnc-sage">CHO</Badge>
-              <Badge variant="outline" className="px-4 py-2 border-nnc-sage">NASH</Badge>
-              <Badge variant="outline" className="px-4 py-2 border-nnc-sage">Harvard Medical School</Badge>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Credentials */}
-      <section id="credentials" className="py-24 bg-white">
-        <div className="container mx-auto px-6 md:px-12 max-w-5xl">
-          <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-4 text-center">Credentials & Professional Designations</h2>
-          <p className="text-center text-nnc-olive font-medium tracking-wide mb-16 uppercase text-sm">Rigorous Training. Regulated Practice.</p>
 
           <div className="space-y-12">
-            {[
-              {
-                group: "🎓 University Degrees",
-                sub: "Postgraduate & Undergraduate",
-                items: [
-                  {
-                    icon: "🧠",
-                    title: "Master of Science (MSc) in Applied Neuroscience, with Merit",
-                    org: "King's College London (KCL), UK",
-                    text: "Graduated with honors distinction from one of the world's premier institutions for healthcare, psychiatry, and neuroscience research. This advanced postgraduate degree provides an elite, evidence-based foundation in neurobiology, neuro-biochemistry, and the physiological mechanics of the nervous system, allowing for a deeply scientific, sophisticated approach to brain health and mental well-being.",
-                  },
-                  {
-                    icon: "🔬",
-                    title: "Specialized Honours Bachelor of Science (BSc) in Neuropsychology",
-                    org: "Glendon Campus, York University, Canada",
-                    text: "Graduated with Specialized Honours. A foundational, data-driven degree focusing on the biological approaches to human behavior, brain-behavior relationships, and the neural basis of cognitive function. This intensive curriculum provided rigorous training in research methodologies, neuroanatomy, and biological psychology, acting as the ideal scientific springboard for advanced neuroscientific study.",
-                  },
-                ],
-              },
-              {
-                group: "⚖️ Ontario Regulated Board & Professional Designations",
-                sub: "",
-                items: [
-                  {
-                    icon: "📜",
-                    title: "Registered Homeopath (Hom)",
-                    org: "College of Homeopaths of Ontario (CHO)",
-                    text: "Granted by the provincial regulatory body under the Regulated Health Professions Act, 1991 (RHPA). This designation ensures strict adherence to provincial healthcare regulations, clinical safety guidelines, and the highest standards of professional accountability and safety in Ontario.",
-                  },
-                  {
-                    icon: "🧪",
-                    title: "Registered Orthomolecular Health Practitioner (ROHP) / Registered Nutritional Consulting Practitioner (RNCP)",
-                    org: "International Organization of Nutritional Consultants (IONC) — Member in Good Standing Since 2014",
-                    text: "A specialist designation earned by graduates of the Institute of Holistic Nutrition (IHN). This professional focus prioritizes balancing the body's internal biochemistry, correcting deep cellular deficiencies, and neutralizing environmental toxicities using customized, orthomolecular nutritional protocols.",
-                  },
-                ],
-              },
-              {
-                group: "🏥 Ivy League & Elite Medical School Certificates",
-                sub: "",
-                items: [
-                  {
-                    icon: "🧠",
-                    title: "Brain Medicine: Integrating the Clinical Neurosciences",
-                    org: "Harvard Medical School (HMS) — Postgraduate Medical Education",
-                    text: "An elite, comprehensive postgraduate curriculum designed to synthesize cutting-edge advancements across the clinical neurosciences. This intensive medical education program provides an advanced understanding of neuroanatomy, neuro-biochemistry, and brain network mechanics, focusing on how systemic, environmental, and physiological factors influence the functional health of the human brain.",
-                  },
-                  {
-                    icon: "📋",
-                    title: "Lifestyle & Wellness Coaching Certificate",
-                    org: "Harvard Medical School (HMS) — Executive Education",
-                    text: "Advanced professional training focused on the clinical science of Lifestyle Medicine and evidence-based behavioral modification. Grounded in elite behavioral frameworks, this training specializes in translating cutting-edge health research into actionable, high-performance strategies across the six core pillars of vitality: functional nutrition, sleep optimization, movement metrics, and nervous system stress resilience.",
-                  },
-                  {
-                    icon: "🗣️",
-                    title: "Talking with Voices Clinical Framework",
-                    org: "Stanford University School of Medicine — Department of Psychiatry and Behavioral Sciences (INSPIRE Training Program)",
-                    text: "Completed intensive, specialized training focused on advanced therapeutic communication frameworks for complex auditory and cognitive perceptions. This evidence-based curriculum provides deep insight into compassionate, non-pathologizing approaches to understanding internal neural dialogue and supporting cognitive integration.",
-                  },
-                ],
-              },
-              {
-                group: "🎯 Advanced Clinical Specialties & Distinctions",
-                sub: "",
-                items: [
-                  {
-                    icon: "🧠",
-                    title: "Certified Brain Health Professional & Elite Coach",
-                    org: "Amen University",
-                    text: "Advanced dual professional certifications built upon the clinical, neuro-imaging frameworks developed by Dr. Daniel Amen. This specialized dual-training combines functional neurobiology to identify specific brain-gut axis dynamics, recognize distinct baseline brain types, and apply targeted metabolic, lifestyle, and neuro-nutrient protocols—alongside mastery of the systematic BRIGHTMINDS blueprint to address cellular risk factors, boost daily cognitive performance, and implement customized behavioral coaching models for lasting psychological safety and mental fitness.",
-                  },
-                  {
-                    icon: "🧬",
-                    title: "Advanced Training in Functional & Integrative Psychiatry Frameworks",
-                    org: "Psychiatry Redefined (Dr. James Greenblatt, MD)",
-                    text: "Completed specialized professional education in the foundational, root-cause paradigms of functional medicine for mental wellness. This science-backed training focuses on using objective lab metrics and biochemical testing to identify and correct the physiological root causes of cognitive and emotional distress—evaluating deep nutritional deficiencies, metabolic disturbances, amino acid pathways, and underlying gut-brain axis dynamics.",
-                  },
-                  {
-                    icon: "🏅",
-                    title: "Golden Key International Honour Society",
-                    org: "Academic Distinction (Inducted in 2017)",
-                    text: "An honor extended exclusively to the top 15% of university students and post-graduates globally, recognizing exceptional academic excellence, clinical research dedication, and leadership.",
-                  },
-                ],
-              },
-            ].map((section) => (
+            {credentials.map((section) => (
               <div key={section.group}>
                 <div className="mb-6">
                   <h3 className="font-serif text-2xl md:text-3xl text-nnc-charcoal">{section.group}</h3>
@@ -618,7 +729,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   {section.items.map((item) => (
-                    <div key={item.title} className="bg-nnc-cream rounded-3xl p-7 border border-nnc-sage/15 shadow-sm">
+                    <div key={item.title} className="bg-white rounded-3xl p-7 border border-nnc-sage/15 shadow-sm hover-lift">
                       <div className="text-3xl mb-4">{item.icon}</div>
                       <h4 className="font-serif text-xl text-nnc-charcoal mb-1 leading-snug">{item.title}</h4>
                       <p className="text-sm font-medium text-nnc-olive mb-3">{item.org}</p>
@@ -632,9 +743,10 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
         </div>
       </section>
 
-      {/* Services */}
-      <section id="services" className="py-24 bg-white">
-        <div className="container mx-auto px-6 md:px-12">
+      {/* ===== SERVICES ===== */}
+      <section id="services" className="py-28 md:py-32 bg-nnc-blush/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-nnc-blush/20 via-transparent to-transparent pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-3">Our Services</h2>
             <p className="text-xl text-nnc-olive font-serif mb-6">Tailored Care for Lasting Vitality</p>
@@ -643,80 +755,79 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-nnc-sage/20 shadow-sm hover:shadow-nnc-soft transition-all duration-300 relative overflow-hidden group bg-nnc-ivory">
-              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-sage transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              <CardHeader>
-                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 1: Core Focus</CardTitle>
-                <CardDescription className="text-nnc-olive font-medium">60 minutes</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-serif mb-6">$250 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
-                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
-                  Designed for individuals seeking targeted support, this tier focuses intensely on a single modality—whether Holistic Nutrition, Homeopathy, or Lifestyle/mental health coaching. It includes one comprehensive, deep-dive initial assessment and a highly focused wellness plan to kickstart your journey.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-nnc-olive/40 shadow-md relative overflow-hidden transform md:-translate-y-4 bg-white">
-              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-olive" />
-              <div className="absolute top-4 right-4 bg-nnc-blush text-nnc-charcoal text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Most Popular</div>
-              <CardHeader>
-                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 2: The Integrated Protocol</CardTitle>
-                <CardDescription className="text-nnc-olive font-medium">90 minutes</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-serif mb-6 text-nnc-olive">$350 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
-                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
-                  Our signature multi-dimensional approach. This tier seamlessly integrates all of our clinic modalities into one powerful, cohesive strategy. Highly synergistic in nature, this comprehensive assessment addresses your biochemical, nutritional, and cognitive health aspects simultaneously to fast-track your results.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button onClick={() => onNavigate("enroll")} className="w-full bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full">Select Tier 2</Button>
-              </CardFooter>
-            </Card>
-
-            <Card className="border-nnc-sage/20 shadow-sm hover:shadow-nnc-soft transition-all duration-300 relative overflow-hidden group bg-nnc-ivory">
-              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-sage transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              <CardHeader>
-                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 3: The Accountability Plus</CardTitle>
-                <CardDescription className="text-nnc-olive font-medium">Comprehensive Protocol + Weekly Coaching</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-serif mb-6">$450 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
-                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
-                  For those who want maximum guidance, this tier includes the complete Integrated Protocol layered with high-accountability support. To ensure your success, it features two 15-minute weekly coaching check-ins to closely monitor your progress, help clear obstacles, and dynamically refine your protocol in real-time.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="mt-16 pt-12 border-t border-nnc-sage/20">
-            <h3 className="font-serif text-2xl text-center mb-8">Targeted Assessments & Therapies</h3>
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <div className="p-6 rounded-2xl bg-nnc-cream">
-                <h4 className="font-medium text-nnc-charcoal mb-2">Live Blood Cell Analysis</h4>
-                <p className="text-sm text-nnc-charcoal/60 mb-3">Initial Session (60 min)</p>
-                <p className="font-serif text-lg text-nnc-olive">$250 <span className="text-xs">+ HST</span></p>
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
+            {/* Tier 1 */}
+            <div className="bg-white rounded-[2rem] p-8 border border-nnc-sage/20 shadow-sm flex flex-col hover-lift relative overflow-hidden">
+              <div className="h-1.5 bg-nnc-sage/40 absolute top-0 left-0 right-0" />
+              <h3 className="font-serif text-2xl text-nnc-charcoal mb-1">Tier 1: Core Focus</h3>
+              <p className="text-nnc-sage font-medium text-sm mb-6">60 minutes</p>
+              <div className="mb-6 flex items-baseline gap-2">
+                <span className="font-serif text-4xl text-nnc-charcoal">$250</span>
+                <span className="text-sm text-nnc-charcoal/50">+ HST</span>
               </div>
-              <div className="p-6 rounded-2xl bg-nnc-cream">
-                <h4 className="font-medium text-nnc-charcoal mb-2">Hair Tissue Mineral Analysis</h4>
-                <p className="text-sm text-nnc-charcoal/60 mb-3">Complete Lab & Discovery</p>
-                <p className="font-serif text-lg text-nnc-olive">$370 <span className="text-xs">+ HST</span></p>
+              <p className="text-sm text-nnc-charcoal/70 leading-relaxed mb-8 flex-grow">
+                Designed for individuals seeking targeted support, this tier focuses intensely on a single modality—whether Holistic Nutrition, Homeopathy, or Lifestyle/mental health coaching. It includes one comprehensive, deep-dive initial assessment and a highly focused wellness plan to kickstart your journey.
+              </p>
+              <Button onClick={() => onNavigate("enroll")} variant="outline" className="w-full border-2 border-nnc-olive/30 text-nnc-olive hover:border-nnc-olive hover:bg-nnc-olive/5 rounded-full py-5 bg-transparent transition-all">
+                Book Tier 1
+              </Button>
+            </div>
+
+            {/* Tier 2 */}
+            <div className="bg-nnc-olive text-white rounded-[2rem] p-8 shadow-nnc-soft flex flex-col hover-lift relative overflow-hidden transform md:-translate-y-4">
+              <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium tracking-wide">Most Popular</div>
+              <h3 className="font-serif text-2xl text-white mb-1">Tier 2: The Integrated Protocol</h3>
+              <p className="text-white/80 font-medium text-sm mb-6">90 minutes</p>
+              <div className="mb-6 flex items-baseline gap-2">
+                <span className="font-serif text-4xl text-white">$350</span>
+                <span className="text-sm text-white/60">+ HST</span>
               </div>
-              <div className="p-6 rounded-2xl bg-nnc-cream">
-                <h4 className="font-medium text-nnc-charcoal mb-2">Bach Flower Therapy</h4>
-                <p className="text-sm text-nnc-charcoal/60 mb-3">Initial Consultation (60 min)</p>
-                <p className="font-serif text-lg text-nnc-olive">$125 <span className="text-xs">+ HST</span></p>
+              <p className="text-white/90 text-sm leading-relaxed mb-8 flex-grow">
+                Our signature multi-dimensional approach. This tier seamlessly integrates all of our clinic modalities into one powerful, cohesive strategy. Highly synergistic in nature, this comprehensive assessment addresses your biochemical, nutritional, and cognitive health aspects simultaneously to fast-track your results.
+              </p>
+              <button onClick={() => onNavigate("enroll")} className="w-full bg-white text-nnc-olive py-4 rounded-full font-medium hover:bg-nnc-cream transition-colors shadow-sm hover:scale-[1.02]">
+                Select Tier 2
+              </button>
+            </div>
+
+            {/* Tier 3 */}
+            <div className="bg-white rounded-[2rem] p-8 border border-nnc-sage/20 shadow-sm flex flex-col hover-lift relative overflow-hidden">
+              <div className="h-1.5 bg-nnc-sage/40 absolute top-0 left-0 right-0" />
+              <h3 className="font-serif text-2xl text-nnc-charcoal mb-1">Tier 3: The Accountability Plus</h3>
+              <p className="text-nnc-sage font-medium text-sm mb-6">Comprehensive Protocol + Weekly Coaching</p>
+              <div className="mb-6 flex items-baseline gap-2">
+                <span className="font-serif text-4xl text-nnc-charcoal">$450</span>
+                <span className="text-sm text-nnc-charcoal/50">+ HST</span>
               </div>
+              <p className="text-sm text-nnc-charcoal/70 leading-relaxed mb-8 flex-grow">
+                For those who want maximum guidance, this tier includes the complete Integrated Protocol layered with high-accountability support. To ensure your success, it features two 15-minute weekly coaching check-ins to closely monitor your progress, help clear obstacles, and dynamically refine your protocol in real-time.
+              </p>
+              <Button onClick={() => onNavigate("enroll")} variant="outline" className="w-full border-2 border-nnc-olive/30 text-nnc-olive hover:border-nnc-olive hover:bg-nnc-olive/5 rounded-full py-5 bg-transparent transition-all">
+                Book Tier 3
+              </Button>
             </div>
           </div>
 
-          <div className="mt-12">
-            <div className="max-w-3xl mx-auto bg-nnc-ivory rounded-3xl p-8 border border-nnc-sage/20 text-center">
-              <h3 className="font-serif text-2xl text-nnc-charcoal mb-1">Follow-Up & Review Sessions</h3>
-              <p className="text-sm text-nnc-olive font-medium mb-1">45 Minutes</p>
-              <p className="font-serif text-lg text-nnc-olive mb-4">$195 <span className="text-xs">+ HST</span></p>
+          <div className="mt-20 max-w-5xl mx-auto">
+            <h3 className="font-serif text-3xl text-center mb-10 text-nnc-charcoal">Targeted Assessments & Therapies</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { t: "Live Blood Cell Analysis", s: "Initial Session (60 min)", p: "$250" },
+                { t: "Hair Tissue Mineral Analysis", s: "Complete Lab & Discovery", p: "$370" },
+                { t: "Bach Flower Therapy", s: "Initial Consultation (60 min)", p: "$125" },
+              ].map((item) => (
+                <div key={item.t} className="bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-nnc-sage/15 text-center hover-lift">
+                  <h4 className="font-medium text-lg text-nnc-charcoal mb-1">{item.t}</h4>
+                  <p className="text-xs text-nnc-charcoal/60 mb-4">{item.s}</p>
+                  <p className="font-serif text-2xl text-nnc-olive">{item.p} <span className="text-xs font-sans text-nnc-charcoal/50">+ HST</span></p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 bg-nnc-ivory p-8 rounded-3xl border border-nnc-olive/20 text-center max-w-2xl mx-auto shadow-sm">
+              <h4 className="font-serif text-2xl text-nnc-charcoal mb-1">Follow-Up & Review Sessions</h4>
+              <p className="text-sm text-nnc-sage font-medium mb-1">45 Minutes</p>
+              <p className="font-serif text-3xl text-nnc-olive mb-4">$195 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></p>
               <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
                 Available to all existing clients who have completed a Tier 1 or Tier 2 assessment. These targeted sessions are used to review your follow-up functional testing results (such as your re-test Zinzino or HTMA markers), evaluate your progress, and safely fine-tune your nutritional and homeopathic protocols as your biological terrain optimizes.
               </p>
@@ -725,82 +836,21 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="py-24 bg-nnc-cream">
-        <div className="container mx-auto px-6 md:px-12 max-w-4xl">
-          <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-12 text-center">Frequently Asked Questions</h2>
-          {[
-            {
-              category: "General & Philosophy",
-              faqs: [
-                {
-                  q: "What is a \"Neuro-Nutritional\" approach?",
-                  a: "A neuro-nutritional approach looks at the profound, bidirectional connection between your gut, your biochemistry, and your brain. We view mental and emotional well-being—like focus, mood stability, and mental clarity—as intimately tied to your underlying cellular health. By using targeted nutrition, minerals, and homeopathy, we support the physical \"hardware\" and nervous system pathways that directly influence your mind.",
-                },
-                {
-                  q: "Do you replace my family doctor?",
-                  a: "No. We work strictly as complementary health practitioners. Our functional testing and assessments do not provide medical diagnoses, nor do we alter prescriptions or treat acute medical emergencies. We highly encourage you to maintain regular care with your primary physician, and we are always happy to work collaboratively alongside your healthcare team.",
-                },
-                {
-                  q: "I've been told my blood work is \"normal,\" but I still feel unwell. Can you help?",
-                  a: "This is exactly why Neuro Nutri Clinic was founded. Standard blood work often looks for advanced disease states. We look at health through a functional and cellular lens. By evaluating your mineral status, metabolic markers, and cellular terrain, we frequently uncover functional imbalances and nutritional deficiencies that explain why you feel exhausted, anxious, or foggy despite having \"normal\" labs.",
-                },
-                {
-                  q: "What is Hair Tissue Mineral Analysis (HTMA)?",
-                  a: "HTMA is a safe, non-invasive screening test that measures the mineral content of your hair. Because hair reflects metabolic activity over time, it acts as a cellular blueprint or mineral \"bank account.\" It allows us to evaluate your stress response, metabolic rate, heavy metal exposure, and vital mineral ratios (such as calcium, magnesium, sodium, and potassium) that affect your energy levels and thyroid function.",
-                },
-              ],
-            },
-            {
-              category: "Our Methods & Testing",
-              faqs: [
-                {
-                  q: "What is Applied Nutritional Microscopy?",
-                  a: "Also known as live blood viewing, this is an educational tool where we look at a single drop of your blood under a high-powered microscope in real-time. While it is strictly non-diagnostic, it allows us to visually evaluate your cellular terrain. We can observe structural shapes, markers of systemic stress, oxidative damage, digestive efficiency, and indicators of cellular inflammation, giving us immediate insights into your vitality.",
-                },
-                {
-                  q: "What are Schüssler Tissue Salts?",
-                  a: "Schüssler Tissue Salts are a system of 12 vital, micro-dosed mineral salts that support your body's physical \"hardware.\" Developed in the late 1900s, they are prepared in low potencies so they can be absorbed directly at the cellular level. Rather than acting as a heavy macro-supplement, tissue salts serve as cellular \"door-openers,\" helping your cells efficiently absorb and utilize minerals to ease physical tension, improve energy production, and correct deep-seated cellular deficiencies.",
-                },
-                {
-                  q: "What are Bach Flower Remedies?",
-                  a: "Bach Flower Remedies are a system of 38 natural flower infusions developed by Dr. Edward Bach to support your emotional \"software.\" They work on an energetic frequency to address emotional and mental stress patterns—such as fear, uncertainty, or mental fatigue. Instead of suppressing negative emotional states, Bach flowers stimulate the opposite positive virtues (like courage, clarity, and peace), helping to unburden the system's vital energy from the inside out.",
-                },
-                {
-                  q: "What is the difference between Nutrition and Homeopathy in your practice?",
-                  a: "We like to use the analogy of a computer: Nutritional Rebuilding is the Hardware—we use high-bioavailability nutrients, diet, and Schüssler Tissue Salts to rebuild your physical cells, fuel metabolic pathways, and calm the physical nervous system. Homeopathic Integration is the Software—once the hardware is supported, we introduce individualized homeopathic remedies. Homeopathy works gently on the body's \"vital force\" or energetic blueprint to help resolve deep-seated emotional patterns and stimulate your body's innate ability to balance itself.",
-                },
-                {
-                  q: "What is the Fatty Acid BalanceTest (Zinzino)?",
-                  a: "The BalanceTest is a certified, non-diagnostic Dried Blood Spot (DBS) evaluation that provides an accurate blueprint of your essential fatty acid profile over a 120-day cycle. Using a simple at-home finger-prick sample analyzed by an independent laboratory in Norway, it tracks six vital wellness markers: (1) The Omega-6:3 Balance—the ratio between pro-inflammatory and anti-inflammatory fats, targeting an optimal ratio of 3:1 or lower; (2) The Omega-3 Index—your overall percentage of marine Omega-3s, aiming for 8% or higher to support cognitive clarity and cellular vitality; (3) Cell Membrane Fluidity—cell wall flexibility, ensuring nutrients can easily enter your cells and metabolic waste can efficiently leave; (4) Cognitive Fatty Acid Score—the nutrient environment available to your nervous system, offering insights into focus, memory, and mood stability; (5) Protection Value—your total fatty acid profile's baseline potential to handle environmental stressors; and (6) Arachidonic Acid (AA) Index—monitoring the critical Omega-6 fat responsible for natural biological signaling to ensure it stays in a balanced zone. By removing the guesswork, this data allows us to build a precise nutritional protocol tailored to your unique cellular needs.",
-                },
-              ],
-            },
-            {
-              category: "Logistics & Bookings",
-              faqs: [
-                {
-                  q: "Can I buy just a single session?",
-                  a: "Yes. Our Tier 1: Core Focus session is a standalone, 60-minute deep-dive initial assessment focused on a single modality (Nutrition, Homeopathy, or Lifestyle Hygiene). However, for long-standing concerns regarding the brain-gut connection, we highly recommend Tier 2: The Integrated Protocol, as it looks at all modalities simultaneously to provide a comprehensive strategy.",
-                },
-                {
-                  q: "Are your services covered by health insurance?",
-                  a: "Many extended health insurance benefits packages in Ontario cover Registered Orthomolecular Health Practitioners (ROHP) or Registered Nutritional Consultants (RNC) through the IONC, as well as Registered Homeopaths. We recommend contacting your specific insurance provider to confirm your coverage for these designations. Receipts will be issued with professional registration numbers after your session.",
-                },
-                {
-                  q: "Do you offer virtual consultations?",
-                  a: "Yes! All of our intake consultations, assessments, and coaching calls can be conducted securely online. For functional testing like HTMA, the test kit can be sent directly to your home with easy-to-follow instructions. Applied Nutritional Microscopy must be done in-person at the clinic, as it requires a live sample.",
-                },
-              ],
-            },
-          ].map((group, gi) => (
+      {/* ===== FAQ ===== */}
+      <section id="faq" className="py-28 md:py-32 bg-nnc-ivory relative overflow-hidden">
+        <div className="container mx-auto px-6 md:px-12 max-w-4xl relative z-10">
+          <div className="text-center mb-16">
+            <span className="font-script text-3xl text-nnc-olive block mb-3">Common Queries</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Frequently Asked Questions</h2>
+          </div>
+          {faqGroups.map((group, gi) => (
             <div key={group.category} className={gi > 0 ? "mt-12" : ""}>
               <h3 className="font-serif text-2xl text-nnc-olive mb-5">{group.category}</h3>
               <Accordion type="single" collapsible className="w-full space-y-4">
                 {group.faqs.map((faq, fi) => (
-                  <AccordionItem key={fi} value={`faq-${gi}-${fi}`} className="bg-white px-6 rounded-xl border border-nnc-sage/20">
-                    <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-4">{faq.q}</AccordionTrigger>
-                    <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-4">
+                  <AccordionItem key={fi} value={`faq-${gi}-${fi}`} className="bg-white px-6 rounded-2xl border border-nnc-sage/15 shadow-sm">
+                    <AccordionTrigger className="text-left font-medium hover:no-underline text-nnc-charcoal hover:text-nnc-olive py-5">{faq.q}</AccordionTrigger>
+                    <AccordionContent className="text-nnc-charcoal/70 leading-relaxed pb-5">
                       {faq.a}
                     </AccordionContent>
                   </AccordionItem>
@@ -811,20 +861,22 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
         </div>
       </section>
 
-      {/* CTA / Contact Teaser */}
-      <section className="py-24 bg-nnc-charcoal text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-nnc-olive opacity-20 mix-blend-multiply" />
+      {/* ===== FINAL CTA ===== */}
+      <section className="py-28 md:py-32 bg-nnc-charcoal text-white relative overflow-hidden">
+        <div className="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-nnc-olive/20 blur-[120px] blob-shape pointer-events-none" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-nnc-sage/10 blur-[120px] blob-shape-2 pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10 text-center max-w-3xl">
-          <h2 className="font-serif text-4xl md:text-5xl text-nnc-ivory mb-6">Ready to start your journey?</h2>
+          <span className="font-script text-3xl text-nnc-rose block mb-4">Your journey starts here</span>
+          <h2 className="font-serif text-4xl md:text-5xl text-nnc-ivory mb-6">Ready to reclaim your vitality?</h2>
           <p className="text-lg text-nnc-cream/80 mb-10 leading-relaxed">
             Commit to cellular-level healing and lifestyle changes. Begin your enrollment process to book your comprehensive initial consultation.
           </p>
-          <Button 
+          <Button
             onClick={() => onNavigate("enroll")}
             size="lg"
-            className="bg-white hover:bg-nnc-cream text-nnc-charcoal rounded-full px-10 py-6 text-lg shadow-xl"
+            className="bg-white hover:bg-nnc-cream text-nnc-charcoal rounded-full px-10 py-6 text-lg shadow-xl hover:scale-[1.02] transition-all group"
           >
-            Begin Enrollment <ArrowRight className="ml-2 w-5 h-5" />
+            Begin Enrollment <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
       </section>
