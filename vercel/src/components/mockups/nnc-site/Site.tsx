@@ -273,6 +273,9 @@ function Footer() {
           <div className="mb-6 bg-nnc-ivory p-6 rounded-xl inline-flex">
             <img src={nncLogoUrl} alt="Neuro Nutri Clinic" className="h-40 md:h-48 object-contain" />
           </div>
+          <p className="font-serif italic text-lg text-nnc-cream mb-4">
+            Integrating neuroscience and holistic medicine.
+          </p>
           <p className="max-w-md mb-6 leading-relaxed">
             Where Neuroscience Meets Nutritional Precision. We provide a science-backed, sustainable roadmap to health, empowering you to optimize brain performance and reclaim vitality.
           </p>
@@ -322,6 +325,9 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-nnc-charcoal leading-[1.1] mb-6">
             Where Neuroscience Meets Nutritional Precision
           </h1>
+          <p className="font-serif italic text-xl md:text-2xl text-nnc-olive mb-6">
+            Integrating neuroscience and holistic medicine.
+          </p>
           <p className="text-lg md:text-xl text-nnc-charcoal/80 mb-10 max-w-2xl mx-auto leading-relaxed">
             We don't just treat symptoms; we investigate the biological "why." Discover a science-backed, sustainable roadmap to health that optimizes your mind and body at the cellular level.
           </p>
@@ -344,6 +350,14 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             >
               Learn More
             </Button>
+          </div>
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm md:text-base font-medium tracking-wide text-nnc-olive uppercase">
+            {["Neuroscience", "Homeopathy", "Nutrition", "Lifestyle"].map((item, i) => (
+              <span key={item} className="flex items-center gap-x-3">
+                {i > 0 && <span className="w-1.5 h-1.5 rounded-full bg-nnc-sage/60" />}
+                {item}
+              </span>
+            ))}
           </div>
         </div>
       </section>
