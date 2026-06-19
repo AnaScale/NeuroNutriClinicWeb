@@ -35,6 +35,27 @@
   box-shadow: 0 10px 40px -10px rgba(196, 42, 155, 0.12);
 }
 
+/* Animated underline for header navigation links */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0;
+  background-color: #C42A9B;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.nav-underline:hover::after,
+.nav-underline:focus-visible::after,
+.nav-underline:active::after {
+  width: 100%;
+}
+
 /* Background opacity variants */
 .bg-nnc-blush\/20 { background-color: rgba(247, 219, 238, 0.2); }
 .bg-nnc-blush\/30 { background-color: rgba(247, 219, 238, 0.3); }

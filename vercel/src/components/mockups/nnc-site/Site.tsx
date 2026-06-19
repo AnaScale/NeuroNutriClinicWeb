@@ -168,7 +168,7 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
             <button 
               key={link.label}
               onClick={() => goHome(link.anchor)}
-              className="text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors"
+              className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors"
             >
               {link.label}
             </button>
@@ -189,27 +189,27 @@ function Nav({ onNavigate, currentScreen, currentUser, onLogout }: { onNavigate:
             <button 
               key={link.label}
               onClick={() => goHome(link.anchor)}
-              className="text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors"
+              className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors"
             >
               {link.label}
             </button>
           ))}
           {currentUser ? (
             <>
-              <button onClick={() => onNavigate("dashboard")} className="text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
+              <button onClick={() => onNavigate("dashboard")} className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
                 <UserIcon className="w-4 h-4" /> Dashboard
               </button>
               {currentUser.isAdmin && (
-                <button onClick={() => onNavigate("admin")} className="text-sm font-medium text-nnc-rose hover:text-nnc-charcoal transition-colors flex items-center gap-1.5">
+                <button onClick={() => onNavigate("admin")} className="nav-underline text-sm font-medium text-nnc-rose hover:text-nnc-charcoal transition-colors flex items-center gap-1.5">
                   <Shield className="w-4 h-4" /> Admin
                 </button>
               )}
-              <button onClick={onLogout} className="text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
+              <button onClick={onLogout} className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
                 <LogOut className="w-4 h-4" /> Sign out
               </button>
             </>
           ) : (
-            <button onClick={() => onNavigate("login")} className="text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
+            <button onClick={() => onNavigate("login")} className="nav-underline text-sm font-medium text-nnc-charcoal/70 hover:text-nnc-olive transition-colors flex items-center gap-1.5">
               <LogIn className="w-4 h-4" /> Sign in
             </button>
           )}
