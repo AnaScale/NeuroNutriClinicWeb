@@ -629,59 +629,11 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-6">Our Services</h2>
             <p className="text-lg text-nnc-charcoal/70">
-              We don't believe in "one-size-fits-all" health. We provide a tiered approach to wellness, moving from deep diagnostic analysis to consistent, habit-forming support.
+              We don't believe in "one-size-fits-all" health. We offer targeted assessments and therapies that move from deep diagnostic analysis to consistent, habit-forming support.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-nnc-sage/20 shadow-sm hover:shadow-nnc-soft transition-all duration-300 relative overflow-hidden group bg-nnc-ivory">
-              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-sage transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              <CardHeader>
-                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 1: Basic</CardTitle>
-                <CardDescription className="text-nnc-olive font-medium">60 minutes</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-serif mb-6">$250 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
-                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
-                  Focuses on a single modality (Holistic Nutrition, Homeopathy, or Brain Health Coaching). Includes one deep-dive session and a targeted wellness plan.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-nnc-olive/40 shadow-md relative overflow-hidden transform md:-translate-y-4 bg-white">
-              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-olive" />
-              <div className="absolute top-4 right-4 bg-nnc-blush text-nnc-charcoal text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Popular</div>
-              <CardHeader>
-                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 2: Comprehensive</CardTitle>
-                <CardDescription className="text-nnc-olive font-medium">90 minutes</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-serif mb-6 text-nnc-olive">$350 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
-                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
-                  A multi-dimensional approach that integrates all relevant clinic modalities into one cohesive protocol. Synergistic in nature, addressing biochemical and neurological aspects simultaneously.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button onClick={() => onNavigate("enroll")} className="w-full bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full">Select Tier 2</Button>
-              </CardFooter>
-            </Card>
-
-            <Card className="border-nnc-sage/20 shadow-sm hover:shadow-nnc-soft transition-all duration-300 relative overflow-hidden group bg-nnc-ivory">
-              <div className="absolute top-0 left-0 w-full h-1 bg-nnc-sage transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              <CardHeader>
-                <CardTitle className="font-serif text-2xl text-nnc-charcoal">Tier 3: Plus</CardTitle>
-                <CardDescription className="text-nnc-olive font-medium">Weekly Coaching</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-serif mb-6">$450 <span className="text-sm font-sans text-nnc-charcoal/50">+ HST</span></div>
-                <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
-                  Includes the full Integrated Protocol plus high-accountability support. Features two 15-minute weekly coaching check-ins to monitor progress and refine the protocol.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="mt-16 pt-12 border-t border-nnc-sage/20">
+          <div>
             <h3 className="font-serif text-2xl text-center mb-8">Targeted Assessments & Therapies</h3>
             <div className="grid md:grid-cols-3 gap-6 text-center">
               <div className="p-6 rounded-2xl bg-nnc-cream">
