@@ -509,6 +509,120 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
         </div>
       </section>
 
+      {/* Credentials */}
+      <section id="credentials" className="py-24 bg-white">
+        <div className="container mx-auto px-6 md:px-12 max-w-5xl">
+          <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal mb-4 text-center">Credentials & Professional Designations</h2>
+          <p className="text-center text-nnc-olive font-medium tracking-wide mb-16 uppercase text-sm">Rigorous Training. Regulated Practice.</p>
+
+          <div className="space-y-12">
+            {[
+              {
+                group: "🎓 University Degrees",
+                sub: "Postgraduate & Undergraduate",
+                items: [
+                  {
+                    icon: "🧠",
+                    title: "Master of Science (MSc) in Applied Neuroscience, with Merit",
+                    org: "King's College London (KCL), UK",
+                    text: "Graduated with honors distinction from one of the world's premier institutions for healthcare, psychiatry, and neuroscience research. This advanced postgraduate degree provides an elite, evidence-based foundation in neurobiology, neuro-biochemistry, and the physiological mechanics of the nervous system, allowing for a deeply scientific, sophisticated approach to brain health and mental well-being.",
+                  },
+                  {
+                    icon: "🔬",
+                    title: "Specialized Honours Bachelor of Science (BSc) in Neuropsychology",
+                    org: "Glendon Campus, York University, Canada",
+                    text: "Graduated with Specialized Honours. A foundational, data-driven degree focusing on the biological approaches to human behavior, brain-behavior relationships, and the neural basis of cognitive function. This intensive curriculum provided rigorous training in research methodologies, neuroanatomy, and biological psychology, acting as the ideal scientific springboard for advanced neuroscientific study.",
+                  },
+                ],
+              },
+              {
+                group: "⚖️ Ontario Regulated Board & Professional Designations",
+                sub: "",
+                items: [
+                  {
+                    icon: "📜",
+                    title: "Registered Homeopath (Hom)",
+                    org: "College of Homeopaths of Ontario (CHO)",
+                    text: "Granted by the provincial regulatory body under the Regulated Health Professions Act, 1991 (RHPA). This designation ensures strict adherence to provincial healthcare regulations, clinical safety guidelines, and the highest standards of professional accountability and safety in Ontario.",
+                  },
+                  {
+                    icon: "🧪",
+                    title: "Registered Orthomolecular Health Practitioner (ROHP) / Registered Nutritional Consulting Practitioner (RNCP)",
+                    org: "International Organization of Nutritional Consultants (IONC) — Member in Good Standing Since 2014",
+                    text: "A specialist designation earned by graduates of the Institute of Holistic Nutrition (IHN). This professional focus prioritizes balancing the body's internal biochemistry, correcting deep cellular deficiencies, and neutralizing environmental toxicities using customized, orthomolecular nutritional protocols.",
+                  },
+                ],
+              },
+              {
+                group: "🏥 Ivy League & Elite Medical School Certificates",
+                sub: "",
+                items: [
+                  {
+                    icon: "🧠",
+                    title: "Brain Medicine: Integrating the Clinical Neurosciences",
+                    org: "Harvard Medical School (HMS) — Postgraduate Medical Education",
+                    text: "An elite, comprehensive postgraduate curriculum designed to synthesize cutting-edge advancements across the clinical neurosciences. This intensive medical education program provides an advanced understanding of neuroanatomy, neuro-biochemistry, and brain network mechanics, focusing on how systemic, environmental, and physiological factors influence the functional health of the human brain.",
+                  },
+                  {
+                    icon: "📋",
+                    title: "Lifestyle & Wellness Coaching Certificate",
+                    org: "Harvard Medical School (HMS) — Executive Education",
+                    text: "Advanced professional training focused on the clinical science of Lifestyle Medicine and evidence-based behavioral modification. Grounded in elite behavioral frameworks, this training specializes in translating cutting-edge health research into actionable, high-performance strategies across the six core pillars of vitality: functional nutrition, sleep optimization, movement metrics, and nervous system stress resilience.",
+                  },
+                  {
+                    icon: "🗣️",
+                    title: "Talking with Voices Clinical Framework",
+                    org: "Stanford University School of Medicine — Department of Psychiatry and Behavioral Sciences (INSPIRE Training Program)",
+                    text: "Completed intensive, specialized training focused on advanced therapeutic communication frameworks for complex auditory and cognitive perceptions. This evidence-based curriculum provides deep insight into compassionate, non-pathologizing approaches to understanding internal neural dialogue and supporting cognitive integration.",
+                  },
+                ],
+              },
+              {
+                group: "🎯 Advanced Clinical Specialties & Distinctions",
+                sub: "",
+                items: [
+                  {
+                    icon: "🧠",
+                    title: "Certified Brain Health Professional & Elite Coach",
+                    org: "Amen University",
+                    text: "Advanced dual professional certifications built upon the clinical, neuro-imaging frameworks developed by Dr. Daniel Amen. This specialized dual-training combines functional neurobiology to identify specific brain-gut axis dynamics, recognize distinct baseline brain types, and apply targeted metabolic, lifestyle, and neuro-nutrient protocols—alongside mastery of the systematic BRIGHTMINDS blueprint to address cellular risk factors, boost daily cognitive performance, and implement customized behavioral coaching models for lasting psychological safety and mental fitness.",
+                  },
+                  {
+                    icon: "🧬",
+                    title: "Advanced Training in Functional & Integrative Psychiatry Frameworks",
+                    org: "Psychiatry Redefined (Dr. James Greenblatt, MD)",
+                    text: "Completed specialized professional education in the foundational, root-cause paradigms of functional medicine for mental wellness. This science-backed training focuses on using objective lab metrics and biochemical testing to identify and correct the physiological root causes of cognitive and emotional distress—evaluating deep nutritional deficiencies, metabolic disturbances, amino acid pathways, and underlying gut-brain axis dynamics.",
+                  },
+                  {
+                    icon: "🏅",
+                    title: "Golden Key International Honour Society",
+                    org: "Academic Distinction (Inducted in 2017)",
+                    text: "An honor extended exclusively to the top 15% of university students and post-graduates globally, recognizing exceptional academic excellence, clinical research dedication, and leadership.",
+                  },
+                ],
+              },
+            ].map((section) => (
+              <div key={section.group}>
+                <div className="mb-6">
+                  <h3 className="font-serif text-2xl md:text-3xl text-nnc-charcoal">{section.group}</h3>
+                  {section.sub && <p className="text-sm text-nnc-olive font-medium mt-1">{section.sub}</p>}
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {section.items.map((item) => (
+                    <div key={item.title} className="bg-nnc-cream rounded-3xl p-7 border border-nnc-sage/15 shadow-sm">
+                      <div className="text-3xl mb-4">{item.icon}</div>
+                      <h4 className="font-serif text-xl text-nnc-charcoal mb-1 leading-snug">{item.title}</h4>
+                      <p className="text-sm font-medium text-nnc-olive mb-3">{item.org}</p>
+                      <p className="text-sm text-nnc-charcoal/70 leading-relaxed">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Services */}
       <section id="services" className="py-24 bg-white">
         <div className="container mx-auto px-6 md:px-12">
