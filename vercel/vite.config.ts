@@ -10,6 +10,11 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "src"),
     },
   },
+  server: {
+    host: "0.0.0.0",
+    port: 5000,
+    allowedHosts: true,
+  },
   build: {
     outDir: "dist",
     emptyOutDir: true,

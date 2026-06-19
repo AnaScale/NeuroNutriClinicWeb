@@ -6,12 +6,29 @@ integrations = ["replitmail:1.0.0"]
 [workflows]
 runButton = "Project"
 
-[[ports]]
-localPort = 5000
-externalPort = 5000
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm --prefix vercel run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
 
 [[ports]]
-localPort = 23636
+localPort = 5000
 externalPort = 80
 
 [nix]
