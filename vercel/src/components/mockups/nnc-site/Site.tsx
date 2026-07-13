@@ -394,7 +394,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     {
       title: "Zinzino BalanceTest",
       desc: "A certified at-home dried blood spot test measuring your Omega-6:3 ratio and six fatty acid wellness markers — the gold standard for anti-inflammatory precision.",
-      img: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&fit=crop&auto=format&q=80",
+      img: "/images/zinzino-balance-test.png",
       href: "https://www.zinzino.com" as string | null,
     },
     {
