@@ -729,6 +729,11 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
               <p>
                 I am here to validate your lived experience with objective biological data. Together, we will build a roadmap to recovery that is scientifically validated, sustainably structured, and deeply supportive of your unique physiology.
               </p>
+
+              <h4 className="font-serif text-2xl text-nnc-charcoal pt-2">My Philosophy: Bridging Cellular Data with Vibrational Nature</h4>
+              <blockquote className="border-l-4 border-nnc-olive pl-6 italic text-nnc-charcoal/80 leading-relaxed">
+                "In my practice, I recognized early on that looking at a client's biochemistry is only half the equation. True well-being requires supporting our emotional and energetic landscapes as well. That is why I weave Australian Bush Flower Essences and classic Bach remedies into my tailored protocols. These remarkable flower essences offer gentle, non-invasive support to help ease the emotional stagnation, mental exhaustion, and modern lifestyle pressures that physical nutrients alone cannot always reach."
+              </blockquote>
             </div>
           </div>
 
