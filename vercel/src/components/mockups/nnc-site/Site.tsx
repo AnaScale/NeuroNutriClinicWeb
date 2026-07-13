@@ -370,7 +370,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     {
       title: "Live Blood Cell Analysis",
       desc: "A single drop of live blood viewed under a darkfield microscope reveals cellular terrain, oxidative stress, digestive efficiency, and inflammatory markers in real time.",
-      img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&fit=crop&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&fit=crop&auto=format&q=80",
       href: null as string | null,
     },
     {
