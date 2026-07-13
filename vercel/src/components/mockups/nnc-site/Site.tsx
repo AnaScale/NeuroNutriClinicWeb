@@ -364,7 +364,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     {
       title: "Hair Tissue Mineral Analysis (HTMA)",
       desc: "A non-invasive hair sample reveals your long-term mineral status, heavy metal burden, and metabolic rate — a cellular blueprint for targeted nutritional repair.",
-      img: "https://images.unsplash.com/photo-1559839914-17aae19cec71?w=600&fit=crop&auto=format&q=80",
+      img: "/images/htma-test.png",
       href: "https://www.traceelements.com" as string | null,
     },
     {
