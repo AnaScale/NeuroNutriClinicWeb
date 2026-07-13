@@ -228,9 +228,7 @@ function Footer() {
         <div>
           <h4 className="font-serif text-xl text-nnc-ivory mb-6">Contact</h4>
           <ul className="space-y-4 text-sm">
-            <li>Email: shirinakhavi@yahoo.com</li>
-            <li>Phone: 416-835-5508</li>
-            <li>Location: Toronto, Ontario, Canada</li>
+            <li><a href="mailto:info@neuro-nutri-clinic.com" className="hover:text-nnc-ivory/80 transition-colors">info@neuro-nutri-clinic.com</a></li>
           </ul>
         </div>
 
