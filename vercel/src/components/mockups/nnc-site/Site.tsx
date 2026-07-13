@@ -358,6 +358,57 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     },
   ];
 
+  const services = [
+    {
+      title: "Hair Tissue Mineral Analysis (HTMA)",
+      desc: "A non-invasive hair sample reveals your long-term mineral status, heavy metal burden, and metabolic rate — a cellular blueprint for targeted nutritional repair.",
+      img: "https://images.unsplash.com/photo-1522337360826-97db0f524867?w=600&auto=format&q=80",
+      href: null as string | null,
+    },
+    {
+      title: "Live Blood Cell Analysis",
+      desc: "A single drop of live blood viewed under a darkfield microscope reveals cellular terrain, oxidative stress, digestive efficiency, and inflammatory markers in real time.",
+      img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&q=80",
+      href: null as string | null,
+    },
+    {
+      title: "Classical Homeopathy",
+      desc: "Individualized remedies derived from plants, minerals, and natural substances address deep constitutional imbalances, supporting emotional and physical self-regulation.",
+      img: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=600&auto=format&q=80",
+      href: null as string | null,
+    },
+    {
+      title: "Brain Health Coaching",
+      desc: "Certified behavioral tools rooted in applied neuroscience help restructure daily habits, improve sleep architecture, and build lasting stress-resilience.",
+      img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&auto=format&q=80",
+      href: null as string | null,
+    },
+    {
+      title: "Bach & Australian Bush Flower Essences",
+      desc: "Gentle vibrational remedies selected for your unique emotional landscape — easing mental exhaustion, emotional stagnation, and nervous system overdrive from the inside out.",
+      img: "https://images.unsplash.com/photo-1490750967868-88df5691cc48?w=600&auto=format&q=80",
+      href: null as string | null,
+    },
+    {
+      title: "Zinzino BalanceTest",
+      desc: "A certified at-home dried blood spot test measuring your Omega-6:3 ratio and six fatty acid wellness markers — the gold standard for anti-inflammatory precision.",
+      img: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&auto=format&q=80",
+      href: "https://www.zinzino.com" as string | null,
+    },
+    {
+      title: "Holistic Nutrition & Precision Supplementation",
+      desc: "Food-first protocols combined with targeted, pharmaceutical-grade supplements address root-cause deficiencies — no guesswork, no generic protocols.",
+      img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&auto=format&q=80",
+      href: null as string | null,
+    },
+    {
+      title: "Schüssler Tissue Salts",
+      desc: "Twelve micro-dosed mineral salts prepared for direct cellular absorption — biochemical 'door-openers' that help cells efficiently use nutrients and release metabolic waste.",
+      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&q=80",
+      href: null as string | null,
+    },
+  ];
+
   const faqGroups = [
     {
       category: "General & Philosophy",
@@ -545,6 +596,49 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SERVICES / MODALITIES ===== */}
+      <section id="services" className="py-28 bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-[35vw] h-[35vw] bg-nnc-blush/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="font-script text-3xl text-nnc-olive block mb-3">What We Offer</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Our Modalities</h2>
+            <p className="mt-5 text-nnc-charcoal/60 text-lg leading-relaxed">
+              Each tool in our clinical toolkit addresses a distinct layer of your biology — from minerals and fatty acids to emotional patterns and vital force.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((s) => (
+              <div key={s.title} className="group bg-white rounded-3xl border border-nnc-sage/15 shadow-sm overflow-hidden hover-lift flex flex-col">
+                <div className="h-44 overflow-hidden bg-nnc-cream">
+                  <img
+                    src={s.img}
+                    alt={s.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-serif text-lg text-nnc-charcoal mb-2 leading-snug">{s.title}</h3>
+                  <p className="text-sm text-nnc-charcoal/60 leading-relaxed flex-1">{s.desc}</p>
+                  {s.href && (
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center text-sm font-medium text-nnc-olive hover:underline gap-1"
+                    >
+                      Learn more <span aria-hidden>→</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
