@@ -255,6 +255,8 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
   const heroImage = "/images/botanical-hero.png";
   const textureImage = "/images/botanical-texture-1.png";
 
+  const [activeService, setActiveService] = React.useState(0);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -363,7 +365,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       title: "Hair Tissue Mineral Analysis (HTMA)",
       desc: "A non-invasive hair sample reveals your long-term mineral status, heavy metal burden, and metabolic rate — a cellular blueprint for targeted nutritional repair.",
       img: "https://images.unsplash.com/photo-1522337360826-97db0f524867?w=600&auto=format&q=80",
-      href: null as string | null,
+      href: "https://www.traceelements.com" as string | null,
     },
     {
       title: "Live Blood Cell Analysis",
@@ -387,7 +389,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       title: "Bach & Australian Bush Flower Essences",
       desc: "Gentle vibrational remedies selected for your unique emotional landscape — easing mental exhaustion, emotional stagnation, and nervous system overdrive from the inside out.",
       img: "https://images.unsplash.com/photo-1490750967868-88df5691cc48?w=600&auto=format&q=80",
-      href: null as string | null,
+      href: "https://www.bachcentre.com" as string | null,
     },
     {
       title: "Zinzino BalanceTest",
@@ -545,7 +547,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
         <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-nnc-sage/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <span className="font-script text-3xl text-nnc-olive block mb-3">Our Philosophy</span>
+            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Our Philosophy</span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-nnc-charcoal leading-tight">
               Healing happens at the intersection of mind & body.
             </h2>
@@ -603,41 +605,95 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       {/* ===== SERVICES / MODALITIES ===== */}
       <section id="services" className="py-28 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[35vw] h-[35vw] bg-nnc-blush/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[25vw] h-[25vw] bg-nnc-sage/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="font-script text-3xl text-nnc-olive block mb-3">What We Offer</span>
+            <span className="font-script text-xl text-nnc-olive block mb-3">What We Offer</span>
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Our Modalities</h2>
             <p className="mt-5 text-nnc-charcoal/60 text-lg leading-relaxed">
               Each tool in our clinical toolkit addresses a distinct layer of your biology — from minerals and fatty acids to emotional patterns and vital force.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((s) => (
-              <div key={s.title} className="group bg-white rounded-3xl border border-nnc-sage/15 shadow-sm overflow-hidden hover-lift flex flex-col">
-                <div className="h-44 overflow-hidden bg-nnc-cream">
-                  <img
-                    src={s.img}
-                    alt={s.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
+          {/* Interactive tab layout */}
+          <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/15 shadow-xl flex flex-col lg:flex-row min-h-[500px]">
+            {/* Left: clickable service list */}
+            <div className="lg:w-72 xl:w-80 bg-nnc-cream border-b lg:border-b-0 lg:border-r border-nnc-sage/15 flex flex-col flex-shrink-0">
+              <div className="px-5 py-3 border-b border-nnc-sage/15">
+                <p className="text-xs font-medium uppercase tracking-widest text-nnc-charcoal/40">Select a modality</p>
+              </div>
+              <div className="overflow-y-auto flex-1">
+                {services.map((s, i) => (
+                  <button
+                    key={s.title}
+                    onClick={() => setActiveService(i)}
+                    className={`w-full text-left px-5 py-4 border-b border-nnc-sage/10 transition-all duration-200 flex items-center gap-3 ${
+                      activeService === i
+                        ? "bg-white border-l-[3px] border-l-nnc-olive"
+                        : "hover:bg-white/60 border-l-[3px] border-l-transparent"
+                    }`}
+                  >
+                    <span className={`text-sm leading-snug transition-colors ${activeService === i ? "text-nnc-olive font-medium" : "text-nnc-charcoal/60"}`}>
+                      {s.title}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: service detail panel */}
+            <div className="flex-1 flex flex-col md:flex-row bg-white min-h-[400px]">
+              <div className="md:w-[45%] h-56 md:h-auto overflow-hidden flex-shrink-0">
+                <img
+                  key={activeService}
+                  src={services[activeService].img}
+                  alt={services[activeService].title}
+                  className="w-full h-full object-cover animate-in fade-in duration-500"
+                  loading="lazy"
+                />
+              </div>
+              <div className="flex-1 p-8 md:p-10 xl:p-12 flex flex-col justify-center gap-5">
+                <div className="w-10 h-10 rounded-full bg-nnc-blush/40 flex items-center justify-center flex-shrink-0">
+                  <div className="w-2.5 h-2.5 rounded-full bg-nnc-olive" />
                 </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-serif text-lg text-nnc-charcoal mb-2 leading-snug">{s.title}</h3>
-                  <p className="text-sm text-nnc-charcoal/60 leading-relaxed flex-1">{s.desc}</p>
-                  {s.href && (
+                <h3 className="font-serif text-2xl md:text-3xl text-nnc-charcoal leading-snug">
+                  {services[activeService].title}
+                </h3>
+                <p className="text-nnc-charcoal/65 leading-relaxed text-base">
+                  {services[activeService].desc}
+                </p>
+                <div className="flex flex-wrap items-center gap-4 pt-2">
+                  <Button
+                    onClick={() => onNavigate("enroll")}
+                    size="sm"
+                    className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-6 py-5 transition-all"
+                  >
+                    Book a Consultation
+                  </Button>
+                  {services[activeService].href && (
                     <a
-                      href={s.href}
+                      href={services[activeService].href!}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center text-sm font-medium text-nnc-olive hover:underline gap-1"
+                      className="text-sm font-medium text-nnc-sage hover:underline inline-flex items-center gap-1"
                     >
                       Learn more <span aria-hidden>→</span>
                     </a>
                   )}
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Mobile: compact scroll indicators */}
+          <div className="flex justify-center gap-2 mt-6 lg:hidden">
+            {services.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveService(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-200 ${activeService === i ? "bg-nnc-olive w-5" : "bg-nnc-sage/30"}`}
+                aria-label={`View ${services[i].title}`}
+              />
             ))}
           </div>
         </div>
@@ -647,14 +703,14 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       <section className="py-28 bg-nnc-ivory relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 max-w-5xl">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="font-script text-3xl text-nnc-olive block mb-3">Is This You?</span>
+            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Is This You?</span>
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Who This Is For</h2>
           </div>
 
           <div className="space-y-10">
 
             {/* 1 — Mental & Emotional Wellness */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10">
+            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">1</div>
                 <div>
@@ -685,7 +741,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             </div>
 
             {/* 2 — Physical Vitality */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10">
+            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">2</div>
                 <div>
@@ -716,7 +772,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             </div>
 
             {/* 3 — The Integrative Bridge */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10">
+            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">3</div>
                 <div>
@@ -761,7 +817,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
         <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-nnc-blush/20 rounded-full blur-[100px] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="font-script text-3xl text-nnc-olive block mb-3">From Root Cause to Vitality</span>
+            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">From Root Cause to Vitality</span>
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">The NNC Journey</h2>
           </div>
           <div className="max-w-5xl mx-auto relative">
@@ -791,7 +847,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-nnc-sage/10 rounded-full blur-[90px] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="font-script text-3xl text-nnc-olive block mb-3">Holistic Integrative Practitioner & Founder</span>
+            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Holistic Integrative Practitioner & Founder</span>
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Meet Shirin Akhavi</h2>
           </div>
 
@@ -846,7 +902,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
         <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-white rounded-full blur-[100px] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-5xl">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="font-script text-3xl text-nnc-olive block mb-3">Rigorous Training. Regulated Practice.</span>
+            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Rigorous Training. Regulated Practice.</span>
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Credentials & Professional Designations</h2>
           </div>
 
@@ -970,7 +1026,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       <section id="faq" className="py-28 md:py-32 bg-nnc-ivory relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 max-w-4xl relative z-10">
           <div className="text-center mb-16">
-            <span className="font-script text-3xl text-nnc-olive block mb-3">Common Queries</span>
+            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Common Queries</span>
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Frequently Asked Questions</h2>
           </div>
           {faqGroups.map((group, gi) => (
