@@ -978,9 +978,18 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
             <h2 className="font-serif text-2xl text-nnc-olive">Primary Health Concerns</h2>
           </div>
           <div className="space-y-6">
-            <div className="space-y-2">
-              <Label>Please list your top 3 concerns (physical, emotional, cognitive, neurological, or metabolic):</Label>
-              <Textarea placeholder="1. &#10;2. &#10;3. " value={formData.concerns || ''} onChange={e => handleChange("concerns", e.target.value)} className="bg-nnc-cream border-nnc-sage/30 rounded-xl min-h-[100px]" />
+            <p className="text-sm text-nnc-charcoal/70">Please list your top 3 concerns (physical, emotional, cognitive, neurological, or metabolic):</p>
+            <div className="space-y-4">
+              {[1, 2, 3].map(n => (
+                <div key={n} className="space-y-2">
+                  <Label>Concern {n}</Label>
+                  <Textarea
+                    value={formData[`concern${n}`] || ''}
+                    onChange={e => handleChange(`concern${n}`, e.target.value)}
+                    className="bg-nnc-cream border-nnc-sage/30 rounded-xl min-h-[60px]"
+                  />
+                </div>
+              ))}
             </div>
             <div className="space-y-2">
               <Label>When did these concerns begin?</Label>
@@ -1483,6 +1492,37 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
               </div>
             </div>
 
+            <div className="space-y-3 md:col-span-2 bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
+              <Label>Do you wake up during the night?</Label>
+              <RadioGroup value={formData.wakesDuringNight || ''} onValueChange={v => handleChange("wakesDuringNight", v)} className="flex gap-6">
+                <div className="flex items-center gap-2"><RadioGroupItem value="yes" id="wdn-yes" /><Label htmlFor="wdn-yes">Yes</Label></div>
+                <div className="flex items-center gap-2"><RadioGroupItem value="no" id="wdn-no" /><Label htmlFor="wdn-no">No</Label></div>
+              </RadioGroup>
+              {formData.wakesDuringNight === "yes" && (
+                <div className="space-y-1 mt-2">
+                  <Label className="text-sm">If yes, what time(s)?</Label>
+                  <Input value={formData.wakesDuringNightTime || ''} onChange={e => handleChange("wakesDuringNightTime", e.target.value)} className="bg-white border-nnc-sage/30 rounded-xl" placeholder="e.g. 2 am, 4 am" />
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-3 md:col-span-2 bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
+              <Label>Do you wake up feeling rested?</Label>
+              <RadioGroup value={formData.wakesRested || ''} onValueChange={v => handleChange("wakesRested", v)} className="flex gap-6">
+                <div className="flex items-center gap-2"><RadioGroupItem value="yes" id="wr-yes" /><Label htmlFor="wr-yes">Yes</Label></div>
+                <div className="flex items-center gap-2"><RadioGroupItem value="no" id="wr-no" /><Label htmlFor="wr-no">No</Label></div>
+                <div className="flex items-center gap-2"><RadioGroupItem value="sometimes" id="wr-sometimes" /><Label htmlFor="wr-sometimes">Sometimes</Label></div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-3 md:col-span-2 bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
+              <Label>Do you experience predictable afternoon energy slumps?</Label>
+              <RadioGroup value={formData.afternoonSlumps || ''} onValueChange={v => handleChange("afternoonSlumps", v)} className="flex gap-6">
+                <div className="flex items-center gap-2"><RadioGroupItem value="yes" id="as-yes" /><Label htmlFor="as-yes">Yes</Label></div>
+                <div className="flex items-center gap-2"><RadioGroupItem value="no" id="as-no" /><Label htmlFor="as-no">No</Label></div>
+              </RadioGroup>
+            </div>
+
             <div className="space-y-2">
               <Label>Exercise / movement (type & frequency)</Label>
               <Input value={formData.exerciseDetail || ''} onChange={e => handleChange("exerciseDetail", e.target.value)} className="bg-nnc-cream border-nnc-sage/30 rounded-xl" />
@@ -1593,6 +1633,47 @@ function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: an
             <Button variant="outline" size="sm" onClick={() => handleChange("medRows", (formData.medRows || 5) + 1)} className="mt-2 text-nnc-olive border-nnc-sage/30">
               <Plus className="w-4 h-4 mr-1" /> Add Row
             </Button>
+          </div>
+        </section>
+
+        {/* Environmental & Toxic Exposure */}
+        <section className="space-y-6">
+          <div className="border-b border-nnc-sage/20 pb-2 mb-6">
+            <h2 className="font-serif text-2xl text-nnc-olive">Environmental & Toxic Exposure History</h2>
+          </div>
+          <div className="space-y-6">
+            <div className="space-y-3 bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
+              <Label>Have you ever lived or worked in a building with known mold or water damage?</Label>
+              <RadioGroup value={formData.moldExposure || ''} onValueChange={v => handleChange("moldExposure", v)} className="flex gap-6">
+                <div className="flex items-center gap-2"><RadioGroupItem value="yes" id="mold-yes" /><Label htmlFor="mold-yes">Yes</Label></div>
+                <div className="flex items-center gap-2"><RadioGroupItem value="no" id="mold-no" /><Label htmlFor="mold-no">No</Label></div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-3 bg-nnc-cream/50 p-4 rounded-xl border border-nnc-sage/10">
+              <Label>Do you have dental amalgam (silver) fillings?</Label>
+              <RadioGroup value={formData.amalgamYN || ''} onValueChange={v => handleChange("amalgamYN", v)} className="flex gap-6">
+                <div className="flex items-center gap-2"><RadioGroupItem value="yes" id="am-yes" /><Label htmlFor="am-yes">Yes</Label></div>
+                <div className="flex items-center gap-2"><RadioGroupItem value="no" id="am-no" /><Label htmlFor="am-no">No</Label></div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-3">
+              <Label>What is your primary source of drinking water?</Label>
+              <RadioGroup value={formData.waterSource || ''} onValueChange={v => handleChange("waterSource", v)} className="flex flex-wrap gap-6">
+                {["Tap", "Filtered", "Well", "Bottled"].map(src => (
+                  <div key={src} className="flex items-center gap-2">
+                    <RadioGroupItem value={src.toLowerCase()} id={`water-${src}`} />
+                    <Label htmlFor={`water-${src}`}>{src}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Have you had any occupational or hobby exposures to chemicals or heavy metals?</Label>
+              <Textarea value={formData.occupationalExposure || ''} onChange={e => handleChange("occupationalExposure", e.target.value)} className="bg-nnc-cream border-nnc-sage/30 rounded-xl min-h-[80px]" placeholder="Describe any relevant exposures…" />
+            </div>
           </div>
         </section>
 
