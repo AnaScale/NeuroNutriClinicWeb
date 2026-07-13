@@ -388,7 +388,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     {
       title: "Bach & Australian Bush Flower Essences",
       desc: "Gentle vibrational remedies selected for your unique emotional landscape — easing mental exhaustion, emotional stagnation, and nervous system overdrive from the inside out.",
-      img: "https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?w=600&fit=crop&auto=format&q=80",
+      img: "/images/bach-bush-flowers.png",
       href: "https://www.bachcentre.com" as string | null,
     },
     {
