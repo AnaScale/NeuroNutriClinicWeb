@@ -266,11 +266,11 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
   };
 
   const journey = [
-    { title: "Discovery & Assessment", text: "We begin by deeply exploring your life history, diet, and lifestyle through comprehensive intake forms. This foundational step allows us to map out the unique environmental and habits-based drivers of your symptoms, ensuring your care is completely customized from day one.", img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600&auto=format&q=80" },
-    { title: "Biological Insights (Advanced Testing)", text: "We move from theory to evidence. Utilizing cutting-edge diagnostics—including Applied Nutritional Microscopy, Fatty Acid & Inflammatory Testing (Zinzino), and Hair Tissue Mineral Analysis (HTMA)—we view your cells in real-time. By measuring your mineral 'bank account' and metabolic markers, we identify what your body might be missing and what toxicities need to be cleared.", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&q=80" },
-    { title: "Nutritional Rebuilding (The Hardware)", text: "With data in hand, we implement your customized NNC diet and lifestyle protocol. Using high-bioavailability nutrients, targeted supplementation, and Schüssler Tissue Salts, we stabilize your physical 'hardware.' This step rebalances your internal biochemistry, fuels cellular repair, and calms an overactive nervous system.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&auto=format&q=80" },
-    { title: "Homeopathic Integration (The Software)", text: "Once the physical foundation and lifestyle is stabilized, we introduce individualized homeopathy to upgrade the 'software.' By addressing the vital force, we utilize precise remedies to help resolve deep-seated emotional patterns, restore vital self-regulation, and stimulate your body's innate ability to heal itself from the inside out.", img: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=600&auto=format&q=80" },
-    { title: "Optimization & Peak Performance", text: "In the final phase, we fine-tune your protocol for sustainable, long-term maintenance. We ensure your physical, mental, and emotional systems are harmoniously synchronized—leaving you with a sharp, resilient mind and a vibrant, high-energy body ready to thrive.", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&auto=format&q=80" },
+    { title: "Discovery & Assessment", text: "We begin by deeply exploring your life history, diet, and lifestyle through comprehensive intake forms. This foundational step allows us to map out the unique environmental and habits-based drivers of your symptoms, ensuring your care is completely customized from day one.", img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600&fit=crop&auto=format&q=80" },
+    { title: "Biological Insights (Advanced Testing)", text: "We move from theory to evidence. Utilizing cutting-edge diagnostics—including Applied Nutritional Microscopy, Fatty Acid & Inflammatory Testing (Zinzino), and Hair Tissue Mineral Analysis (HTMA)—we view your cells in real-time. By measuring your mineral 'bank account' and metabolic markers, we identify what your body might be missing and what toxicities need to be cleared.", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&fit=crop&auto=format&q=80" },
+    { title: "Nutritional Rebuilding (The Hardware)", text: "With data in hand, we implement your customized NNC diet and lifestyle protocol. Using high-bioavailability nutrients, targeted supplementation, and Schüssler Tissue Salts, we stabilize your physical 'hardware.' This step rebalances your internal biochemistry, fuels cellular repair, and calms an overactive nervous system.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&fit=crop&auto=format&q=80" },
+    { title: "Homeopathic Integration (The Software)", text: "Once the physical foundation and lifestyle is stabilized, we introduce individualized homeopathy to upgrade the 'software.' By addressing the vital force, we utilize precise remedies to help resolve deep-seated emotional patterns, restore vital self-regulation, and stimulate your body's innate ability to heal itself from the inside out.", img: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=600&fit=crop&auto=format&q=80" },
+    { title: "Optimization & Peak Performance", text: "In the final phase, we fine-tune your protocol for sustainable, long-term maintenance. We ensure your physical, mental, and emotional systems are harmoniously synchronized—leaving you with a sharp, resilient mind and a vibrant, high-energy body ready to thrive.", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&fit=crop&auto=format&q=80" },
   ];
 
   const credentials = [
@@ -364,49 +364,49 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     {
       title: "Hair Tissue Mineral Analysis (HTMA)",
       desc: "A non-invasive hair sample reveals your long-term mineral status, heavy metal burden, and metabolic rate — a cellular blueprint for targeted nutritional repair.",
-      img: "https://images.unsplash.com/photo-1522337360826-97db0f524867?w=600&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1559839914-17aae19cec71?w=600&fit=crop&auto=format&q=80",
       href: "https://www.traceelements.com" as string | null,
     },
     {
       title: "Live Blood Cell Analysis",
       desc: "A single drop of live blood viewed under a darkfield microscope reveals cellular terrain, oxidative stress, digestive efficiency, and inflammatory markers in real time.",
-      img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&fit=crop&auto=format&q=80",
       href: null as string | null,
     },
     {
       title: "Classical Homeopathy",
       desc: "Individualized remedies derived from plants, minerals, and natural substances address deep constitutional imbalances, supporting emotional and physical self-regulation.",
-      img: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=600&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=600&fit=crop&auto=format&q=80",
       href: null as string | null,
     },
     {
       title: "Brain Health Coaching",
       desc: "Certified behavioral tools rooted in applied neuroscience help restructure daily habits, improve sleep architecture, and build lasting stress-resilience.",
-      img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&fit=crop&auto=format&q=80",
       href: null as string | null,
     },
     {
       title: "Bach & Australian Bush Flower Essences",
       desc: "Gentle vibrational remedies selected for your unique emotional landscape — easing mental exhaustion, emotional stagnation, and nervous system overdrive from the inside out.",
-      img: "https://images.unsplash.com/photo-1490750967868-88df5691cc48?w=600&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1490750967868-88df5691cc48?w=600&fit=crop&auto=format&q=80",
       href: "https://www.bachcentre.com" as string | null,
     },
     {
       title: "Zinzino BalanceTest",
       desc: "A certified at-home dried blood spot test measuring your Omega-6:3 ratio and six fatty acid wellness markers — the gold standard for anti-inflammatory precision.",
-      img: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&fit=crop&auto=format&q=80",
       href: "https://www.zinzino.com" as string | null,
     },
     {
       title: "Holistic Nutrition & Precision Supplementation",
       desc: "Food-first protocols combined with targeted, pharmaceutical-grade supplements address root-cause deficiencies — no guesswork, no generic protocols.",
-      img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&fit=crop&auto=format&q=80",
       href: null as string | null,
     },
     {
       title: "Schüssler Tissue Salts",
       desc: "Twelve micro-dosed mineral salts prepared for direct cellular absorption — biochemical 'door-openers' that help cells efficiently use nutrients and release metabolic waste.",
-      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&q=80",
+      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&fit=crop&auto=format&q=80",
       href: null as string | null,
     },
   ];
@@ -712,7 +712,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             {/* 1 — Mental & Emotional Wellness */}
             <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
               <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&auto=format&q=80" alt="Mental and emotional wellness" className="w-full h-full object-cover" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&fit=crop&auto=format&q=80" alt="Mental and emotional wellness" className="w-full h-full object-cover" loading="lazy" />
               </div>
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">1</div>
@@ -746,7 +746,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             {/* 2 — Physical Vitality */}
             <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
               <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&auto=format&q=80" alt="Physical vitality and cellular testing" className="w-full h-full object-cover" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&fit=crop&auto=format&q=80" alt="Physical vitality and cellular testing" className="w-full h-full object-cover" loading="lazy" />
               </div>
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">2</div>
@@ -780,7 +780,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             {/* 3 — The Integrative Bridge */}
             <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
               <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&auto=format&q=80" alt="Integrative holistic approach" className="w-full h-full object-cover" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&fit=crop&auto=format&q=80" alt="Integrative holistic approach" className="w-full h-full object-cover" loading="lazy" />
               </div>
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">3</div>
@@ -869,7 +869,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
 
           <div className="max-w-4xl mx-auto bg-nnc-cream rounded-[2.5rem] p-8 md:p-14 shadow-nnc-soft border border-nnc-sage/15 overflow-hidden">
             <div className="h-72 -mx-8 -mt-8 md:-mx-14 md:-mt-14 mb-12 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1200&auto=format&q=80" alt="Holistic wellness practice — Neuro Nutri Clinic" className="w-full h-full object-cover object-center" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1200&fit=crop&auto=format&q=80" alt="Holistic wellness practice — Neuro Nutri Clinic" className="w-full h-full object-cover object-center" loading="lazy" />
             </div>
             <p className="font-serif text-2xl text-nnc-charcoal italic leading-relaxed border-l-4 border-nnc-olive pl-6 mb-10">
               "My background in International Commerce and R&D allows me to look far beneath the label. I leverage my years of experience in global raw material sourcing and product formulation to ensure that every single remedy and supplement recommended in my practice meets the highest global standards of purity, bioavailability, and clinical efficacy."
