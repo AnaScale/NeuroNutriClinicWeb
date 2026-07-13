@@ -382,7 +382,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     {
       title: "Brain Health Coaching",
       desc: "Certified behavioral tools rooted in applied neuroscience help restructure daily habits, improve sleep architecture, and build lasting stress-resilience.",
-      img: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=600&fit=crop&auto=format&q=80",
+      img: "/images/brain-health-coaching.png",
       href: null as string | null,
     },
     {
