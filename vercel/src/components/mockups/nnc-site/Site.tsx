@@ -406,7 +406,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     {
       title: "Schüssler Tissue Salts",
       desc: "Twelve micro-dosed mineral salts prepared for direct cellular absorption — biochemical 'door-openers' that help cells efficiently use nutrients and release metabolic waste.",
-      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&fit=crop&auto=format&q=80",
+      img: "/images/tissue-salts.png",
       href: null as string | null,
     },
   ];
