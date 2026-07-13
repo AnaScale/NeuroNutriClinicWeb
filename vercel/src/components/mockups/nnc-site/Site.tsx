@@ -400,7 +400,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     {
       title: "Holistic Nutrition & Precision Supplementation",
       desc: "Food-first protocols combined with targeted, pharmaceutical-grade supplements address root-cause deficiencies — no guesswork, no generic protocols.",
-      img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&fit=crop&auto=format&q=80",
+      img: "/images/holistic-nutrition.png",
       href: null as string | null,
     },
     {
