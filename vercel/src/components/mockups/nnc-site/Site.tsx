@@ -266,11 +266,11 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
   };
 
   const journey = [
-    { title: "Discovery & Assessment", text: "We begin by deeply exploring your life history, diet, and lifestyle through comprehensive intake forms. This foundational step allows us to map out the unique environmental and habits-based drivers of your symptoms, ensuring your care is completely customized from day one." },
-    { title: "Biological Insights (Advanced Testing)", text: "We move from theory to evidence. Utilizing cutting-edge diagnostics—including Applied Nutritional Microscopy, Fatty Acid & Inflammatory Testing (Zinzino), and Hair Tissue Mineral Analysis (HTMA)—we view your cells in real-time. By measuring your mineral 'bank account' and metabolic markers, we identify what your body might be missing and what toxicities need to be cleared." },
-    { title: "Nutritional Rebuilding (The Hardware)", text: "With data in hand, we implement your customized NNC diet and lifestyle protocol. Using high-bioavailability nutrients, targeted supplementation, and Schüssler Tissue Salts, we stabilize your physical 'hardware.' This step rebalances your internal biochemistry, fuels cellular repair, and calms an overactive nervous system." },
-    { title: "Homeopathic Integration (The Software)", text: "Once the physical foundation and lifestyle is stabilized, we introduce individualized homeopathy to upgrade the 'software.' By addressing the vital force, we utilize precise remedies to help resolve deep-seated emotional patterns, restore vital self-regulation, and stimulate your body's innate ability to heal itself from the inside out." },
-    { title: "Optimization & Peak Performance", text: "In the final phase, we fine-tune your protocol for sustainable, long-term maintenance. We ensure your physical, mental, and emotional systems are harmoniously synchronized—leaving you with a sharp, resilient mind and a vibrant, high-energy body ready to thrive." },
+    { title: "Discovery & Assessment", text: "We begin by deeply exploring your life history, diet, and lifestyle through comprehensive intake forms. This foundational step allows us to map out the unique environmental and habits-based drivers of your symptoms, ensuring your care is completely customized from day one.", img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600&auto=format&q=80" },
+    { title: "Biological Insights (Advanced Testing)", text: "We move from theory to evidence. Utilizing cutting-edge diagnostics—including Applied Nutritional Microscopy, Fatty Acid & Inflammatory Testing (Zinzino), and Hair Tissue Mineral Analysis (HTMA)—we view your cells in real-time. By measuring your mineral 'bank account' and metabolic markers, we identify what your body might be missing and what toxicities need to be cleared.", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&q=80" },
+    { title: "Nutritional Rebuilding (The Hardware)", text: "With data in hand, we implement your customized NNC diet and lifestyle protocol. Using high-bioavailability nutrients, targeted supplementation, and Schüssler Tissue Salts, we stabilize your physical 'hardware.' This step rebalances your internal biochemistry, fuels cellular repair, and calms an overactive nervous system.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&auto=format&q=80" },
+    { title: "Homeopathic Integration (The Software)", text: "Once the physical foundation and lifestyle is stabilized, we introduce individualized homeopathy to upgrade the 'software.' By addressing the vital force, we utilize precise remedies to help resolve deep-seated emotional patterns, restore vital self-regulation, and stimulate your body's innate ability to heal itself from the inside out.", img: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=600&auto=format&q=80" },
+    { title: "Optimization & Peak Performance", text: "In the final phase, we fine-tune your protocol for sustainable, long-term maintenance. We ensure your physical, mental, and emotional systems are harmoniously synchronized—leaving you with a sharp, resilient mind and a vibrant, high-energy body ready to thrive.", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&auto=format&q=80" },
   ];
 
   const credentials = [
@@ -710,7 +710,10 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
           <div className="space-y-10">
 
             {/* 1 — Mental & Emotional Wellness */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&auto=format&q=80" alt="Mental and emotional wellness" className="w-full h-full object-cover" loading="lazy" />
+              </div>
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">1</div>
                 <div>
@@ -741,7 +744,10 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             </div>
 
             {/* 2 — Physical Vitality */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&auto=format&q=80" alt="Physical vitality and cellular testing" className="w-full h-full object-cover" loading="lazy" />
+              </div>
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">2</div>
                 <div>
@@ -772,7 +778,10 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             </div>
 
             {/* 3 — The Integrative Bridge */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&auto=format&q=80" alt="Integrative holistic approach" className="w-full h-full object-cover" loading="lazy" />
+              </div>
               <div className="flex items-start gap-5 mb-6">
                 <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">3</div>
                 <div>
@@ -829,9 +838,16 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
                     <span className="font-serif text-3xl text-nnc-olive">{index + 1}</span>
                   </div>
                   <div className={`ml-24 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:text-left" : "md:text-right"}`}>
-                    <div className={`bg-white p-8 rounded-3xl shadow-sm border border-nnc-sage/10 hover-lift ${index % 2 === 0 ? "md:ml-12" : "md:mr-12"}`}>
-                      <h3 className="font-serif text-2xl text-nnc-charcoal mb-3">{item.title}</h3>
-                      <p className="text-nnc-charcoal/70 leading-relaxed">{item.text}</p>
+                    <div className={`bg-white rounded-3xl shadow-sm border border-nnc-sage/10 hover-lift overflow-hidden ${index % 2 === 0 ? "md:ml-12" : "md:mr-12"}`}>
+                      {item.img && (
+                        <div className="h-44 overflow-hidden">
+                          <img src={item.img} alt={item.title} className="w-full h-full object-cover" loading="lazy" />
+                        </div>
+                      )}
+                      <div className="p-8">
+                        <h3 className="font-serif text-2xl text-nnc-charcoal mb-3">{item.title}</h3>
+                        <p className="text-nnc-charcoal/70 leading-relaxed">{item.text}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -851,7 +867,10 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Meet Shirin Akhavi</h2>
           </div>
 
-          <div className="max-w-4xl mx-auto bg-nnc-cream rounded-[2.5rem] p-8 md:p-14 shadow-nnc-soft border border-nnc-sage/15">
+          <div className="max-w-4xl mx-auto bg-nnc-cream rounded-[2.5rem] p-8 md:p-14 shadow-nnc-soft border border-nnc-sage/15 overflow-hidden">
+            <div className="h-72 -mx-8 -mt-8 md:-mx-14 md:-mt-14 mb-12 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1200&auto=format&q=80" alt="Holistic wellness practice — Neuro Nutri Clinic" className="w-full h-full object-cover object-center" loading="lazy" />
+            </div>
             <p className="font-serif text-2xl text-nnc-charcoal italic leading-relaxed border-l-4 border-nnc-olive pl-6 mb-10">
               "My background in International Commerce and R&D allows me to look far beneath the label. I leverage my years of experience in global raw material sourcing and product formulation to ensure that every single remedy and supplement recommended in my practice meets the highest global standards of purity, bioavailability, and clinical efficacy."
             </p>
