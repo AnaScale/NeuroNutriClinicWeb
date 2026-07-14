@@ -724,125 +724,138 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       </section>
 
       {/* ===== WHO THIS IS FOR ===== */}
-      <section className="py-28 bg-nnc-ivory relative overflow-hidden">
-        <div className="container mx-auto px-6 md:px-12 max-w-5xl">
-          <div className="text-center max-w-3xl mx-auto mb-14">
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Is This You?</span>
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Who This Is For</h2>
+            <p className="mt-4 text-nnc-charcoal/55 text-lg leading-relaxed">Three clinical pathways — each tailored to where you are right now.</p>
           </div>
+        </div>
 
-          <div className="space-y-10">
+        <div className="container mx-auto px-6 md:px-12 space-y-8">
 
-            {/* 1 — Mental & Emotional Wellness */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
-              <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&fit=crop&auto=format&q=80" alt="Mental and emotional wellness" className="w-full h-full object-cover" loading="lazy" />
-              </div>
-              <div className="flex items-start gap-5 mb-6">
-                <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">1</div>
-                <div>
-                  <h3 className="font-serif text-2xl md:text-3xl text-nnc-charcoal leading-snug">Mental &amp; Emotional Wellness: Reclaiming Clarity &amp; Balance</h3>
-                  <p className="text-nnc-olive text-sm font-medium mt-2">Focus: Supporting the nervous system to manage stress, brain fog, and emotional blocks.</p>
-                </div>
-              </div>
-              <div className="bg-nnc-ivory rounded-2xl p-5 mb-8 border-l-4 border-nnc-sage/40">
-                <p className="text-xs font-semibold text-nnc-charcoal/50 uppercase tracking-widest mb-2">How You Might Be Feeling</p>
-                <p className="text-nnc-charcoal/80 leading-relaxed italic">You find yourself navigating a cycle of chronic stress, mental fatigue, or persistent brain fog. Perhaps emotional blocks or anxiety are presenting challenges, and you feel like you are operating on empty, looking to regain your usual focus and vitality.</p>
-              </div>
-              <p className="text-xs font-semibold text-nnc-charcoal/50 uppercase tracking-widest mb-3">Our Integrative, Customized Protocol</p>
-              <p className="text-nnc-charcoal/70 leading-relaxed mb-6">We view mental wellness as deeply connected to your physiology, daily habits, and energetic state. To help improve your mental clarity and emotional resilience, your tailored protocol uniquely combines:</p>
-              <div className="space-y-4">
-                {[
-                  ["Certified Brain Health Coaching", "Utilizing foundational behavioral tools backed by my certification with the Certified Coaching Federation (since 2014), I provide actionable guidance and accountability to help you improve behavioral loops, restructure your daily schedule, and successfully integrate these new lifestyle upgrades."],
-                  ["Targeted Diet & Brain Nutrition", "Modifying dietary patterns to support blood sugar stability, manage neuroinflammation, and provide the essential nutrients your brain requires to optimize mood-balancing neurotransmitters."],
-                  ["Nervous-System Lifestyle Changes", "Crafting realistic, everyday micro-habits—from sleep optimization and strategic movement to stress-resilience routines—designed to help shift your body out of a continuous \"fight-or-flight\" state."],
-                  ["Bach Flower & Australian Bush Flower Essences", "Offering gentle, non-invasive energetic support utilizing tailored combinations of classic Bach remedies and resilient Australian Bush Flower essences. Selected specifically for your unique emotional landscape, these vibrational tools help balance everyday stress, emotional stagnation, and modern lifestyle pressures from the inside out."],
-                  ["Classical Homeopathy", "Integrating customized homeopathic protocols to support deep, systemic emotional harmony and equilibrium."],
-                ].map(([title, desc]) => (
-                  <div key={title} className="flex gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-nnc-sage mt-[0.65rem] flex-shrink-0" />
-                    <p className="text-nnc-charcoal/80 leading-relaxed"><span className="font-semibold text-nnc-charcoal">{title}:</span> {desc}</p>
-                  </div>
-                ))}
+          {/* 1 — Mental & Emotional */}
+          <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/10 shadow-lg grid md:grid-cols-[42%_58%]">
+            <div className="relative min-h-[280px] md:min-h-0 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&fit=crop&auto=format&q=80" alt="Mental and emotional wellness" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/85 via-nnc-charcoal/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="text-[72px] font-bold text-white/8 font-serif leading-none -mb-2 select-none">01</div>
+                <h3 className="font-serif text-xl md:text-2xl text-white leading-snug">Mental &amp; Emotional Wellness</h3>
+                <p className="text-white/60 text-sm mt-1.5 font-medium italic">Reclaiming Clarity &amp; Balance</p>
               </div>
             </div>
-
-            {/* 2 — Physical Vitality */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
-              <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&fit=crop&auto=format&q=80" alt="Physical vitality and cellular testing" className="w-full h-full object-cover" loading="lazy" />
+            <div className="bg-white p-8 md:p-10 flex flex-col gap-6">
+              <div className="border-l-[3px] border-nnc-olive pl-4">
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-1.5">Clinical Focus</p>
+                <p className="text-nnc-charcoal font-semibold leading-relaxed">Supporting the nervous system to manage stress, brain fog, and emotional blocks.</p>
               </div>
-              <div className="flex items-start gap-5 mb-6">
-                <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">2</div>
-                <div>
-                  <h3 className="font-serif text-2xl md:text-3xl text-nnc-charcoal leading-snug">Physical Vitality: Cellular Optimization &amp; Targeted Support</h3>
-                  <p className="text-nnc-olive text-sm font-medium mt-2">Focus: Identifying hidden biochemical imbalances, toxicities, and deficiencies to support systemic physical well-being.</p>
-                </div>
-              </div>
-              <div className="bg-nnc-ivory rounded-2xl p-5 mb-8 border-l-4 border-nnc-sage/40">
-                <p className="text-xs font-semibold text-nnc-charcoal/50 uppercase tracking-widest mb-2">How You Might Be Feeling</p>
-                <p className="text-nnc-charcoal/80 leading-relaxed italic">You are navigating challenges that affect your everyday comfort—whether that manifests as sluggish digestive issues, erratic hormonal imbalances, stubborn skin issues, or general low vitality and poor sleep. You want to move away from guesswork and use a structured, data-driven approach to optimize your physical well-being.</p>
-              </div>
-              <p className="text-xs font-semibold text-nnc-charcoal/50 uppercase tracking-widest mb-3">Our Tailored Biochemical Approach</p>
-              <p className="text-nnc-charcoal/70 leading-relaxed mb-6">We look at your body as a whole, interconnected system. To build your customized physical protocol, we gather deep data and implement targeted, everyday shifts:</p>
-              <div className="space-y-4">
-                {[
-                  ["Comprehensive Wellness Questionnaires", "Before we even look at a single lab marker, we utilize detailed, in-depth intake questionnaires. These assessments map out your complete health history, lifestyle baselines, and symptom patterns, giving us a clear window into how your digestive, endocrine, and nervous systems are currently communicating."],
-                  ["Advanced Cellular Testing (In-Person & Remote Options)", "We offer flexible testing methods depending on your location. For local clients, we utilize Live Blood Cell Analysis alongside Hair Mineral Analysis (HTMA) to look directly at cellular imbalances. For long-distance clients or those who prefer the comfort of home, we offer HTMA and the Zinzino BalanceTest (a specialized fatty acid blood spot test). Both assessments can be shipped directly to you and completed entirely from home, allowing us to pinpoint mineral deficiencies, heavy metal loads, and fatty acid imbalances that often underlie digestive, hormonal, and dermatological disruptions."],
-                  ["Targeted Diet & Nutrient Adjustments", "We design a personalized dietary framework focused on supporting gut lining integrity, optimizing digestion, and incorporating nutrient-dense foods that naturally encourage hormonal balance and clear skin from the inside out."],
-                  ["Supportive Lifestyle Upgrades", "We help you implement specific, manageable routine changes—such as optimizing your sleep architecture, aligning habits with your natural circadian rhythms, and reducing environmental toxin exposure—to improve your body's natural drainage pathways."],
-                  ["Precision Nutrition & Cell Salts", "Moving past generic advice to give your body the exact biochemical building blocks, targeted nutrients, and tissue salts it needs to improve elimination, support gut and skin health, encourage hormonal harmony, and optimize function at a cellular level."],
-                ].map(([title, desc]) => (
-                  <div key={title} className="flex gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-nnc-sage mt-[0.65rem] flex-shrink-0" />
-                    <p className="text-nnc-charcoal/80 leading-relaxed"><span className="font-semibold text-nnc-charcoal">{title}:</span> {desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 3 — The Integrative Bridge */}
-            <div className="bg-nnc-cream rounded-[2rem] border border-nnc-sage/15 shadow-sm p-8 md:p-10 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
-              <div className="h-56 -mx-8 -mt-8 md:-mx-10 md:-mt-10 mb-8 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&fit=crop&auto=format&q=80" alt="Integrative holistic approach" className="w-full h-full object-cover" loading="lazy" />
-              </div>
-              <div className="flex items-start gap-5 mb-6">
-                <div className="w-12 h-12 rounded-full bg-nnc-blush/40 flex items-center justify-center text-nnc-olive font-serif text-xl flex-shrink-0">3</div>
-                <div>
-                  <h3 className="font-serif text-2xl md:text-3xl text-nnc-charcoal leading-snug">The Integrative Bridge: How It All Connects</h3>
-                  <p className="text-nnc-olive text-sm font-medium mt-2">Focus: Explaining how lifestyle, data, and energetic modalities complement one another.</p>
-                </div>
-              </div>
-              <p className="text-xs font-semibold text-nnc-charcoal/50 uppercase tracking-widest mb-4">Why a Tailored Protocol Matters</p>
-              <div className="space-y-4 text-nnc-charcoal/80 leading-relaxed">
-                <p>True well-being doesn't happen in isolation. A physical deficiency can impact mental outlook, just as chronic emotional stress can deplete physical nutrients.</p>
-                <p>By bridging advanced biochemical insights with lifestyle upgrades, natural remedies, and targeted coaching support, your custom protocol doesn't just look at a single concern. We assess your habits, your data, and your energetic health to design a single, cohesive roadmap aimed entirely at improving your overall quality of life.</p>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Credentials strip */}
-          <div className="mt-10 bg-white/70 rounded-2xl p-6 md:p-8 border border-nnc-sage/20">
-            <p className="text-xs font-semibold text-nnc-charcoal/50 uppercase tracking-widest mb-5">Advanced Clinical Training &amp; Credentials</p>
-            <div className="grid md:grid-cols-2 gap-6 text-sm text-nnc-charcoal/70 leading-relaxed">
-              <div>
-                <p className="font-semibold text-nnc-charcoal mb-1">Advanced CBTp Consultation Group</p>
-                <p>Conferred by: The INSPIRE Training Program, Stanford University School of Medicine (Department of Psychiatry and Behavioral Sciences)</p>
+              <div className="bg-nnc-ivory rounded-xl p-4 border-l-2 border-nnc-sage/40">
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-2">How You Might Be Feeling</p>
+                <p className="text-nnc-charcoal/70 leading-relaxed text-sm italic">You find yourself navigating a cycle of chronic stress, mental fatigue, or persistent brain fog. Perhaps emotional blocks or anxiety are presenting challenges, and you feel like you are operating on empty, looking to regain your usual focus and vitality.</p>
               </div>
               <div>
-                <p className="font-semibold text-nnc-charcoal mb-1">Certified Coach</p>
-                <p>Conferred by: Certified Coaching Federation (Since 2014)</p>
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-4">Our Integrative Protocol Includes</p>
+                <div className="space-y-3">
+                  {[
+                    ["Certified Brain Health Coaching", "Actionable guidance and accountability to improve behavioral loops, restructure your daily schedule, and integrate new lifestyle upgrades."],
+                    ["Targeted Diet & Brain Nutrition", "Modifying dietary patterns to support blood sugar stability, manage neuroinflammation, and optimize mood-balancing neurotransmitters."],
+                    ["Nervous-System Lifestyle Changes", "Realistic micro-habits — from sleep optimization to stress-resilience routines — to shift your body out of chronic fight-or-flight."],
+                    ["Bach & Australian Bush Flower Essences", "Gentle vibrational support to balance everyday stress, emotional stagnation, and modern lifestyle pressures from the inside out."],
+                    ["Classical Homeopathy", "Customized protocols to support deep, systemic emotional harmony and equilibrium."],
+                  ].map(([title, desc]) => (
+                    <div key={title} className="flex gap-3 items-start">
+                      <div className="w-1 h-1 rounded-full bg-nnc-olive mt-2 flex-shrink-0" />
+                      <p className="text-sm text-nnc-charcoal/75 leading-relaxed"><span className="font-semibold text-nnc-charcoal">{title}:</span> {desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Disclaimer */}
-          <p className="mt-8 text-center text-sm text-nnc-charcoal/50 italic max-w-2xl mx-auto">
-            Our supportive, integrative services work beautifully alongside your primary medical care to optimize your wellness journey.
-          </p>
+          {/* 2 — Physical Vitality (reversed) */}
+          <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/10 shadow-lg grid md:grid-cols-[58%_42%]">
+            <div className="bg-white p-8 md:p-10 flex flex-col gap-6">
+              <div className="border-l-[3px] border-nnc-sage pl-4">
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-1.5">Clinical Focus</p>
+                <p className="text-nnc-charcoal font-semibold leading-relaxed">Identifying hidden biochemical imbalances, toxicities, and deficiencies to support systemic physical well-being.</p>
+              </div>
+              <div className="bg-nnc-ivory rounded-xl p-4 border-l-2 border-nnc-sage/40">
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-2">How You Might Be Feeling</p>
+                <p className="text-nnc-charcoal/70 leading-relaxed text-sm italic">You are navigating sluggish digestion, erratic hormonal imbalances, stubborn skin issues, or general low vitality. You want a structured, data-driven approach — not guesswork.</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-4">Our Tailored Biochemical Approach</p>
+                <div className="space-y-3">
+                  {[
+                    ["Comprehensive Wellness Questionnaires", "Deep-dive intake forms mapping your complete health history, lifestyle baselines, and symptom patterns before a single lab marker is reviewed."],
+                    ["Advanced Cellular Testing", "Live Blood Cell Analysis and HTMA for local clients; HTMA and Zinzino BalanceTest (fatty acid blood spot) for remote clients — shipped directly to you."],
+                    ["Targeted Diet & Nutrient Adjustments", "A personalized dietary framework focused on gut lining integrity, digestion, and nutrient-dense foods that support hormonal balance from the inside out."],
+                    ["Supportive Lifestyle Upgrades", "Specific, manageable routine changes — sleep architecture, circadian alignment, and toxin reduction — to improve your body's natural drainage pathways."],
+                    ["Precision Nutrition & Cell Salts", "Exact biochemical building blocks, targeted nutrients, and tissue salts to improve elimination, gut and skin health, and cellular function."],
+                  ].map(([title, desc]) => (
+                    <div key={title} className="flex gap-3 items-start">
+                      <div className="w-1 h-1 rounded-full bg-nnc-sage mt-2 flex-shrink-0" />
+                      <p className="text-sm text-nnc-charcoal/75 leading-relaxed"><span className="font-semibold text-nnc-charcoal">{title}:</span> {desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="relative min-h-[280px] md:min-h-0 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&fit=crop&auto=format&q=80" alt="Physical vitality and cellular testing" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/85 via-nnc-charcoal/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="text-[72px] font-bold text-white/8 font-serif leading-none -mb-2 select-none">02</div>
+                <h3 className="font-serif text-xl md:text-2xl text-white leading-snug">Physical Vitality</h3>
+                <p className="text-white/60 text-sm mt-1.5 font-medium italic">Cellular Optimization &amp; Targeted Support</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 3 — The Integrative Bridge */}
+          <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/10 shadow-lg grid md:grid-cols-[42%_58%]">
+            <div className="relative min-h-[280px] md:min-h-0 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&fit=crop&auto=format&q=80" alt="Integrative approach" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/85 via-nnc-charcoal/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="text-[72px] font-bold text-white/8 font-serif leading-none -mb-2 select-none">03</div>
+                <h3 className="font-serif text-xl md:text-2xl text-white leading-snug">The Integrative Bridge</h3>
+                <p className="text-white/60 text-sm mt-1.5 font-medium italic">How It All Connects</p>
+              </div>
+            </div>
+            <div className="bg-white p-8 md:p-10 flex flex-col gap-6">
+              <div className="border-l-[3px] border-nnc-olive pl-4">
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-1.5">Clinical Focus</p>
+                <p className="text-nnc-charcoal font-semibold leading-relaxed">How lifestyle, data, and energetic modalities complement one another.</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-4">Why a Tailored Protocol Matters</p>
+                <div className="space-y-4 text-nnc-charcoal/70 leading-relaxed text-sm">
+                  <p>True well-being doesn't happen in isolation. A physical deficiency can impact mental outlook, just as chronic emotional stress can deplete physical nutrients.</p>
+                  <p>By bridging advanced biochemical insights with lifestyle upgrades, natural remedies, and targeted coaching support, your custom protocol doesn't just look at a single concern. We assess your habits, your data, and your energetic health to design a single, cohesive roadmap aimed entirely at improving your overall quality of life.</p>
+                </div>
+              </div>
+              <div className="mt-auto pt-4 border-t border-nnc-sage/15 grid grid-cols-2 gap-4">
+                <div>
+                  <p className="font-semibold text-sm text-nnc-charcoal mb-0.5">Advanced CBTp Consultation Group</p>
+                  <p className="text-xs text-nnc-charcoal/50 leading-relaxed">INSPIRE Training Program, Stanford University School of Medicine</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-sm text-nnc-charcoal mb-0.5">Certified Coach</p>
+                  <p className="text-xs text-nnc-charcoal/50 leading-relaxed">Certified Coaching Federation, since 2014</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
+
+        <p className="mt-10 text-center text-sm text-nnc-charcoal/40 italic max-w-2xl mx-auto px-6">
+          Our supportive, integrative services work alongside your primary medical care to optimize your wellness journey.
+        </p>
       </section>
 
       {/* ===== JOURNEY ===== */}
@@ -882,60 +895,74 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       </section>
 
       {/* ===== MEET SHIRIN ===== */}
-      <section id="about" className="py-28 md:py-32 bg-white relative overflow-hidden">
-        <div className="absolute top-1/3 right-0 w-64 h-64 bg-nnc-rose/20 rounded-full blur-[80px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-nnc-sage/10 rounded-full blur-[90px] pointer-events-none" />
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Holistic Integrative Practitioner & Founder</span>
+      <section id="about" className="py-24 bg-nnc-ivory">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Holistic Integrative Practitioner &amp; Founder</span>
             <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Meet Shirin Akhavi</h2>
           </div>
 
-          <div className="max-w-4xl mx-auto bg-nnc-cream rounded-[2.5rem] p-8 md:p-14 shadow-nnc-soft border border-nnc-sage/15 overflow-hidden">
-            <div className="h-72 -mx-8 -mt-8 md:-mx-14 md:-mt-14 mb-12 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1200&fit=crop&auto=format&q=80" alt="Holistic wellness practice — Neuro Nutri Clinic" className="w-full h-full object-cover object-center" loading="lazy" />
-            </div>
-            <p className="font-serif text-2xl text-nnc-charcoal italic leading-relaxed border-l-4 border-nnc-olive pl-6 mb-10">
-              "My background in International Commerce and R&D allows me to look far beneath the label. I leverage my years of experience in global raw material sourcing and product formulation to ensure that every single remedy and supplement recommended in my practice meets the highest global standards of purity, bioavailability, and clinical efficacy."
-            </p>
-            <div className="space-y-6 text-lg text-nnc-charcoal/80 leading-relaxed">
-              <p>
-                At Neuro Nutri Clinic, I believe that true health is not merely the absence of symptoms—it is the optimization of your mental, emotional, and physical potential. My mission is to move you away from "supplement guesswork" and guide you toward a precision-based protocol rooted in cellular science.
-              </p>
-              <p>
-                I specialize in the intricate, powerful connection between the brain and the gut. By combining the cutting-edge neuroscience and psychiatric frameworks of Amen University (Brain Health) and Psychiatry Redefined with the gentle, deep restorative healing of Homeopathy, I offer a truly integrative "Neuro-Nutritional" approach to wellness.
-              </p>
-              <h4 className="font-serif text-2xl text-nnc-charcoal pt-2">A Decade of Dedication</h4>
-              <p>
-                My practice is built on a foundation of rigorous clinical standards and an unwavering, long-term commitment to my clients.
-              </p>
-              <p>
-                <strong className="text-nnc-charcoal">Orthomolecular Standards:</strong> I have been a member in good standing of the International Organization of Nutritional Consultants (IONC) since 2014, strictly adhering to the highest ethical and therapeutic standards of Orthomolecular health.
-              </p>
-              <p>
-                <strong className="text-nnc-charcoal">Academic Excellence:</strong> In 2017, my commitment to advanced education and clinical research was recognized with an induction into the prestigious Golden Key International Honour Society.
-              </p>
-              <h4 className="font-serif text-2xl text-nnc-charcoal pt-2">Why I Do This</h4>
-              <p>
-                I founded Neuro Nutri Clinic because I grew tired of seeing people "falling through the cracks" of the standard healthcare model. Far too often, individuals are told their blood work is completely "normal," yet they continue to live exhausted, anxious, and cognitively drained.
-              </p>
-              <p>
-                I am here to validate your lived experience with objective biological data. Together, we will build a roadmap to recovery that is scientifically validated, sustainably structured, and deeply supportive of your unique physiology.
-              </p>
+          <div className="max-w-6xl mx-auto grid md:grid-cols-[2fr_3fr] gap-10 items-start">
 
-              <h4 className="font-serif text-2xl text-nnc-charcoal pt-2">My Philosophy: Bridging Cellular Data with Vibrational Nature</h4>
-              <blockquote className="border-l-4 border-nnc-olive pl-6 italic text-nnc-charcoal/80 leading-relaxed">
-                "In my practice, I recognized early on that looking at a client's biochemistry is only half the equation. True well-being requires supporting our emotional and energetic landscapes as well. That is why I weave Australian Bush Flower Essences and classic Bach remedies into my tailored protocols. These remarkable flower essences offer gentle, non-invasive support to help ease the emotional stagnation, mental exhaustion, and modern lifestyle pressures that physical nutrients alone cannot always reach."
-              </blockquote>
+            {/* Left column — photo + credentials */}
+            <div className="md:sticky md:top-24 space-y-5">
+              <div className="rounded-[1.75rem] overflow-hidden shadow-xl border border-nnc-sage/10">
+                <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&fit=crop&auto=format&q=80" alt="Shirin Akhavi — Neuro Nutri Clinic" className="w-full h-72 md:h-96 object-cover object-top" loading="lazy" />
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-nnc-sage/10 shadow-sm">
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-4">Affiliations &amp; Training</p>
+                <div className="flex flex-wrap gap-2">
+                  {["Amen University", "Psychiatry Redefined", "IONC (2014)", "Golden Key Honour Society", "CSOM", "CHO", "NASH", "Harvard Medical School"].map((badge) => (
+                    <span key={badge} className="px-3 py-1.5 bg-nnc-ivory text-nnc-charcoal/70 rounded-full text-xs font-medium border border-nnc-sage/20">
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="mt-14 flex flex-wrap justify-center gap-3 md:gap-4">
-            {["Amen University", "Psychiatry Redefined", "IONC (since 2014)", "Golden Key Honour Society", "CSOM", "CHO", "NASH", "Harvard Medical School"].map((badge) => (
-              <span key={badge} className="px-4 py-2 bg-nnc-ivory text-nnc-charcoal/80 rounded-full text-xs font-medium border border-nnc-sage/30">
-                {badge}
-              </span>
-            ))}
+            {/* Right column — bio */}
+            <div className="bg-white rounded-[1.75rem] border border-nnc-sage/10 shadow-sm overflow-hidden">
+              {/* Pull quote */}
+              <div className="bg-nnc-charcoal px-10 py-9">
+                <p className="font-serif text-lg md:text-xl text-white/85 italic leading-relaxed border-l-[3px] border-nnc-olive pl-6">
+                  "My background in International Commerce and R&amp;D allows me to look far beneath the label. I leverage my years of experience in global raw material sourcing and product formulation to ensure that every single remedy and supplement recommended in my practice meets the highest global standards of purity, bioavailability, and clinical efficacy."
+                </p>
+              </div>
+
+              {/* Bio body */}
+              <div className="px-10 py-10 space-y-7 text-base text-nnc-charcoal/75 leading-relaxed">
+                <p>
+                  At Neuro Nutri Clinic, I believe that true health is not merely the absence of symptoms — it is the optimization of your mental, emotional, and physical potential. My mission is to move you away from "supplement guesswork" and guide you toward a precision-based protocol rooted in cellular science.
+                </p>
+                <p>
+                  I specialize in the intricate, powerful connection between the brain and the gut. By combining the cutting-edge neuroscience and psychiatric frameworks of Amen University and Psychiatry Redefined with the gentle, deep restorative healing of Homeopathy, I offer a truly integrative "Neuro-Nutritional" approach to wellness.
+                </p>
+
+                <div className="border-t border-nnc-sage/15 pt-7">
+                  <h4 className="font-serif text-xl text-nnc-charcoal mb-4">A Decade of Dedication</h4>
+                  <p className="mb-4">My practice is built on a foundation of rigorous clinical standards and an unwavering, long-term commitment to my clients.</p>
+                  <div className="space-y-3">
+                    <p><strong className="text-nnc-charcoal font-semibold">Orthomolecular Standards:</strong> Member in good standing of the International Organization of Nutritional Consultants (IONC) since 2014, adhering to the highest ethical and therapeutic standards of Orthomolecular health.</p>
+                    <p><strong className="text-nnc-charcoal font-semibold">Academic Excellence:</strong> In 2017, my commitment to advanced education and clinical research was recognized with an induction into the prestigious Golden Key International Honour Society.</p>
+                  </div>
+                </div>
+
+                <div className="border-t border-nnc-sage/15 pt-7">
+                  <h4 className="font-serif text-xl text-nnc-charcoal mb-4">Why I Do This</h4>
+                  <p className="mb-3">I founded Neuro Nutri Clinic because I grew tired of seeing people "falling through the cracks" of the standard healthcare model. Far too often, individuals are told their blood work is completely "normal," yet they continue to live exhausted, anxious, and cognitively drained.</p>
+                  <p>I am here to validate your lived experience with objective biological data. Together, we will build a roadmap to recovery that is scientifically validated, sustainably structured, and deeply supportive of your unique physiology.</p>
+                </div>
+
+                <div className="border-t border-nnc-sage/15 pt-7">
+                  <h4 className="font-serif text-xl text-nnc-charcoal mb-4">My Philosophy: Bridging Cellular Data with Vibrational Nature</h4>
+                  <blockquote className="border-l-[3px] border-nnc-sage pl-5 italic text-nnc-charcoal/65 leading-relaxed text-sm">
+                    "In my practice, I recognized early on that looking at a client's biochemistry is only half the equation. True well-being requires supporting our emotional and energetic landscapes as well. That is why I weave Australian Bush Flower Essences and classic Bach remedies into my tailored protocols — offering gentle, non-invasive support to ease emotional stagnation, mental exhaustion, and modern lifestyle pressures that physical nutrients alone cannot always reach."
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
