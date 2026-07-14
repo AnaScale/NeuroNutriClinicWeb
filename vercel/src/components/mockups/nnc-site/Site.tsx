@@ -643,100 +643,120 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             </p>
           </div>
 
-          {/* Interactive editorial layout */}
-          <div className="flex flex-col lg:flex-row gap-12 xl:gap-16 items-start">
+          {/* Numbered pill tab bar */}
+          <div className="flex flex-wrap gap-2 mb-8 justify-center">
+            {services.map((s, i) => (
+              <button
+                key={s.title}
+                onClick={() => setActiveService(i)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
+                  activeService === i
+                    ? "bg-nnc-olive border-nnc-olive text-white shadow-md shadow-nnc-olive/20"
+                    : "bg-white border-nnc-sage/25 text-nnc-charcoal/55 hover:border-nnc-olive/40 hover:text-nnc-charcoal"
+                }`}
+              >
+                <span className={`text-[10px] font-bold tabular-nums ${activeService === i ? "text-white/70" : "text-nnc-charcoal/30"}`}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="hidden sm:inline">{s.title}</span>
+              </button>
+            ))}
+          </div>
 
-            {/* Left: numbered nav list */}
-            <div className="lg:w-64 xl:w-72 flex-shrink-0">
-              <p className="text-xs font-bold uppercase tracking-widest text-nnc-charcoal/40 mb-5">Click to explore</p>
-              <div className="flex flex-col">
-                {services.map((s, i) => (
-                  <button
-                    key={s.title}
-                    onClick={() => setActiveService(i)}
-                    className={`w-full text-left py-3.5 flex items-center gap-3.5 group transition-all duration-200 border-b border-nnc-sage/10 last:border-b-0 ${
-                      activeService === i ? "" : "hover:opacity-80"
-                    }`}
-                  >
-                    <span className={`text-xs font-bold tabular-nums flex-shrink-0 transition-colors duration-200 ${activeService === i ? "text-nnc-olive" : "text-nnc-charcoal/25"}`}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className={`text-sm leading-snug transition-colors duration-200 ${activeService === i ? "text-nnc-charcoal font-semibold" : "text-nnc-charcoal/50"}`}>
-                      {s.title}
-                    </span>
-                    {activeService === i && (
-                      <span className="ml-auto w-1.5 h-1.5 rounded-full bg-nnc-olive flex-shrink-0" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
+          {/* Clinical panel */}
+          <div className="rounded-2xl overflow-hidden border border-nnc-sage/15 shadow-xl grid md:grid-cols-[42%_58%] min-h-[520px]">
 
-            {/* Center: image with organic treatment */}
-            <div className="flex-1 relative flex items-center justify-center min-h-[380px] lg:min-h-[480px]">
-              {/* Decorative blob behind image */}
-              <div className="absolute inset-0 bg-nnc-blush/20 rounded-[3rem] blur-2xl scale-95 pointer-events-none" />
-              {/* Offset shadow frame */}
-              <div className="absolute inset-4 bg-nnc-sage/10 rounded-[2.5rem] translate-x-3 translate-y-3 pointer-events-none" />
-              <div className="relative w-full h-[320px] lg:h-[440px] rounded-[2.5rem] overflow-hidden shadow-2xl">
-                <img
-                  key={activeService}
-                  src={services[activeService].img}
-                  alt={services[activeService].title}
-                  className="w-full h-full object-cover animate-in fade-in duration-500 scale-105"
-                  loading="lazy"
-                />
-                {/* Subtle gradient vignette at bottom */}
-                <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/30 via-transparent to-transparent pointer-events-none" />
-                {/* Service number watermark on image */}
-                <div className="absolute bottom-5 left-6 text-white/30 font-serif text-7xl font-bold leading-none select-none pointer-events-none">
+            {/* Left: image */}
+            <div className="relative min-h-[260px] md:min-h-0 overflow-hidden">
+              <img
+                key={`img-${activeService}`}
+                src={services[activeService].img}
+                alt={services[activeService].title}
+                className="absolute inset-0 w-full h-full object-cover animate-in fade-in duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/80 via-nnc-charcoal/20 to-transparent" />
+              {/* Modality counter bottom-left */}
+              <div className="absolute bottom-0 left-0 right-0 p-7">
+                <div className="text-[80px] font-bold text-white/8 font-serif leading-none -mb-2 select-none">
                   {String(activeService + 1).padStart(2, "0")}
                 </div>
+                <p className="text-white/50 text-xs font-bold uppercase tracking-widest">
+                  Modality {String(activeService + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}
+                </p>
               </div>
             </div>
 
-            {/* Right: content */}
-            <div className="flex-1 flex flex-col justify-center gap-6 lg:pt-8">
-              <div className="flex items-center gap-3">
-                <div className="h-px w-8 bg-nnc-olive/60" />
-                <span className="text-xs font-bold uppercase tracking-widest text-nnc-olive/80">
-                  Modality {String(activeService + 1).padStart(2, "0")}
-                </span>
+            {/* Right: clinical content */}
+            <div className="bg-white flex flex-col justify-between p-8 md:p-10 xl:p-12">
+              <div className="flex flex-col gap-5">
+                {/* Clinical label */}
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-px bg-nnc-olive" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-nnc-olive">Clinical Application</span>
+                </div>
+
+                {/* Title */}
+                <h3
+                  key={`title-${activeService}`}
+                  className="font-serif text-2xl md:text-3xl text-nnc-charcoal leading-snug animate-in fade-in slide-in-from-bottom-2 duration-300"
+                >
+                  {services[activeService].title}
+                </h3>
+
+                {/* Thin rule */}
+                <div className="h-px bg-nnc-sage/20" />
+
+                {/* Description */}
+                <div
+                  key={`desc-${activeService}`}
+                  className="text-nnc-charcoal/60 leading-relaxed text-sm md:text-base animate-in fade-in duration-400"
+                >
+                  {services[activeService].desc}
+                </div>
               </div>
-              <h3
-                key={`title-${activeService}`}
-                className="font-serif text-2xl md:text-3xl xl:text-4xl text-nnc-charcoal leading-snug animate-in fade-in slide-in-from-bottom-2 duration-400"
-              >
-                {services[activeService].title}
-              </h3>
-              <div
-                key={`desc-${activeService}`}
-                className="text-nnc-charcoal/60 leading-relaxed text-base animate-in fade-in slide-in-from-bottom-2 duration-500"
-              >
-                {services[activeService].desc}
-              </div>
-              <div className="pt-2">
+
+              {/* Bottom: CTA + prev/next */}
+              <div className="flex items-center justify-between gap-4 pt-8 mt-4 border-t border-nnc-sage/15">
                 <Button
                   onClick={() => onNavigate("enroll")}
-                  className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-7 py-5 transition-all text-sm font-semibold"
+                  className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-6 py-4 transition-all text-sm font-semibold"
                 >
                   Book a Consultation
                 </Button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setActiveService(i => Math.max(i - 1, 0))}
+                    disabled={activeService === 0}
+                    className="w-9 h-9 rounded-full border border-nnc-sage/25 flex items-center justify-center text-nnc-charcoal/50 hover:border-nnc-olive hover:text-nnc-olive transition-all disabled:opacity-25 disabled:cursor-not-allowed"
+                    aria-label="Previous modality"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                  <button
+                    onClick={() => setActiveService(i => Math.min(i + 1, services.length - 1))}
+                    disabled={activeService === services.length - 1}
+                    className="w-9 h-9 rounded-full border border-nnc-sage/25 flex items-center justify-center text-nnc-charcoal/50 hover:border-nnc-olive hover:text-nnc-olive transition-all disabled:opacity-25 disabled:cursor-not-allowed"
+                    aria-label="Next modality"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                </div>
               </div>
             </div>
 
           </div>
 
-          {/* Mobile: compact scroll indicators */}
-          <div className="flex justify-center gap-2 mt-6 lg:hidden">
-            {services.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveService(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-200 ${activeService === i ? "bg-nnc-olive w-5" : "bg-nnc-sage/30"}`}
-                aria-label={`View ${services[i].title}`}
-              />
-            ))}
+          {/* Progress bar */}
+          <div className="mt-5 h-px bg-nnc-sage/15 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-nnc-olive rounded-full transition-all duration-300"
+              style={{ width: `${((activeService + 1) / services.length) * 100}%` }}
+            />
+          </div>
+          <div className="flex justify-between mt-1.5">
+            <span className="text-[10px] text-nnc-charcoal/30 font-bold uppercase tracking-widest">01</span>
+            <span className="text-[10px] text-nnc-charcoal/30 font-bold uppercase tracking-widest">{String(services.length).padStart(2, "0")}</span>
           </div>
         </div>
       </section>
