@@ -254,42 +254,6 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
   const textureImage = "/images/botanical-texture-1.png";
 
   const [activeService, setActiveService] = React.useState(0);
-  const servicesSectionRef = React.useRef<HTMLElement>(null);
-  const activeServiceRef = React.useRef(0);
-  activeServiceRef.current = activeService;
-
-  React.useEffect(() => {
-    const section = servicesSectionRef.current;
-    if (!section) return;
-
-    let lastTime = 0;
-
-    const onWheel = (e: WheelEvent) => {
-      const rect = section.getBoundingClientRect();
-      // Only intercept once the section is properly in view:
-      // its top has scrolled to within ~120px of the viewport top
-      // and its bottom is still well below mid-screen
-      if (rect.top > 120) return;
-      if (rect.bottom < window.innerHeight * 0.5) return;
-
-      const idx = activeServiceRef.current;
-      const goingDown = e.deltaY > 0;
-      const canAdvance = goingDown && idx < services.length - 1;
-      const canRetreat = !goingDown && idx > 0;
-
-      if (canAdvance || canRetreat) {
-        e.preventDefault();
-        const now = Date.now();
-        if (now - lastTime > 480) {
-          lastTime = now;
-          setActiveService(prev => goingDown ? Math.min(prev + 1, services.length - 1) : Math.max(prev - 1, 0));
-        }
-      }
-    };
-
-    section.addEventListener('wheel', onWheel, { passive: false });
-    return () => section.removeEventListener('wheel', onWheel);
-  }, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -667,7 +631,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       </section>
 
       {/* ===== SERVICES / MODALITIES ===== */}
-      <section ref={servicesSectionRef} id="services" className="py-28 bg-white relative overflow-hidden">
+      <section id="services" className="py-28 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[35vw] h-[35vw] bg-nnc-blush/20 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[25vw] h-[25vw] bg-nnc-sage/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
@@ -684,7 +648,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
 
             {/* Left: numbered nav list */}
             <div className="lg:w-64 xl:w-72 flex-shrink-0">
-              <p className="text-xs font-bold uppercase tracking-widest text-nnc-charcoal/40 mb-5">Scroll or click to explore</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-nnc-charcoal/40 mb-5">Click to explore</p>
               <div className="flex flex-col">
                 {services.map((s, i) => (
                   <button
