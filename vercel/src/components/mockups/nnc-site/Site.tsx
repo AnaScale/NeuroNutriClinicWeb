@@ -653,8 +653,8 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
           <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/15 shadow-xl flex flex-col lg:flex-row min-h-[500px]">
             {/* Left: clickable service list */}
             <div className="lg:w-72 xl:w-80 bg-nnc-cream border-b lg:border-b-0 lg:border-r border-nnc-sage/15 flex flex-col flex-shrink-0">
-              <div className="px-5 py-3 border-b border-nnc-sage/15">
-                <p className="text-xs font-medium uppercase tracking-widest text-nnc-charcoal/40">Scroll or click to explore</p>
+              <div className="px-5 py-4 border-b border-nnc-sage/15">
+                <p className="text-xs font-bold uppercase tracking-widest text-nnc-charcoal/50">Scroll or click to explore</p>
               </div>
               <div className="overflow-y-auto flex-1">
                 {services.map((s, i) => (
