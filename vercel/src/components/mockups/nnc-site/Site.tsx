@@ -670,16 +670,6 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
                   >
                     Book a Consultation
                   </Button>
-                  {services[activeService].href && (
-                    <a
-                      href={services[activeService].href!}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm font-medium text-nnc-sage hover:underline inline-flex items-center gap-1"
-                    >
-                      Learn more <span aria-hidden>→</span>
-                    </a>
-                  )}
                 </div>
               </div>
             </div>
