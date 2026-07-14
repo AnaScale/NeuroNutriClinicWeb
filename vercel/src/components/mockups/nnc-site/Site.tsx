@@ -265,6 +265,13 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     let lastTime = 0;
 
     const onWheel = (e: WheelEvent) => {
+      const rect = section.getBoundingClientRect();
+      // Only intercept once the section is properly in view:
+      // its top has scrolled to within ~120px of the viewport top
+      // and its bottom is still well below mid-screen
+      if (rect.top > 120) return;
+      if (rect.bottom < window.innerHeight * 0.5) return;
+
       const idx = activeServiceRef.current;
       const goingDown = e.deltaY > 0;
       const canAdvance = goingDown && idx < services.length - 1;
