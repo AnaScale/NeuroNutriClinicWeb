@@ -254,6 +254,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
   const textureImage = "/images/botanical-texture-1.png";
 
   const [activeService, setActiveService] = React.useState(0);
+  const [activePathway, setActivePathway] = React.useState(0);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -762,139 +763,166 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       </section>
 
       {/* ===== WHO THIS IS FOR ===== */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Is This You?</span>
-            <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Who This Is For</h2>
-            <p className="mt-4 text-nnc-charcoal/55 text-lg leading-relaxed">Three clinical pathways — each tailored to where you are right now.</p>
-          </div>
-        </div>
+      {(() => {
+        const pathways = [
+          {
+            num: "01",
+            title: "Mental & Emotional Wellness",
+            subtitle: "Reclaiming Clarity & Balance",
+            img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&fit=crop&auto=format&q=80",
+            accent: "nnc-olive",
+            focus: "Supporting the nervous system to manage stress, brain fog, and emotional blocks.",
+            feeling: "You find yourself navigating a cycle of chronic stress, mental fatigue, or persistent brain fog. Perhaps emotional blocks or anxiety are presenting challenges, and you feel like you are operating on empty, looking to regain your usual focus and vitality.",
+            protocolLabel: "Our Integrative Protocol Includes",
+            protocol: [
+              ["Certified Brain Health Coaching", "Actionable guidance and accountability to improve behavioral loops, restructure your daily schedule, and integrate new lifestyle upgrades."],
+              ["Targeted Diet & Brain Nutrition", "Modifying dietary patterns to support blood sugar stability, manage neuroinflammation, and optimize mood-balancing neurotransmitters."],
+              ["Nervous-System Lifestyle Changes", "Realistic micro-habits — from sleep optimization to stress-resilience routines — to shift your body out of chronic fight-or-flight."],
+              ["Bach & Australian Bush Flower Essences", "Gentle vibrational support to balance everyday stress, emotional stagnation, and modern lifestyle pressures from the inside out."],
+              ["Classical Homeopathy", "Customized protocols to support deep, systemic emotional harmony and equilibrium."],
+            ],
+          },
+          {
+            num: "02",
+            title: "Physical Vitality",
+            subtitle: "Cellular Optimization & Targeted Support",
+            img: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&fit=crop&auto=format&q=80",
+            accent: "nnc-sage",
+            focus: "Identifying hidden biochemical imbalances, toxicities, and deficiencies to support systemic physical well-being.",
+            feeling: "You are navigating sluggish digestion, erratic hormonal imbalances, stubborn skin issues, or general low vitality. You want a structured, data-driven approach — not guesswork.",
+            protocolLabel: "Our Tailored Biochemical Approach",
+            protocol: [
+              ["Comprehensive Wellness Questionnaires", "Deep-dive intake forms mapping your complete health history, lifestyle baselines, and symptom patterns before a single lab marker is reviewed."],
+              ["Advanced Cellular Testing", "Live Blood Cell Analysis and HTMA for local clients; HTMA and Zinzino BalanceTest (fatty acid blood spot) for remote clients — shipped directly to you."],
+              ["Targeted Diet & Nutrient Adjustments", "A personalized dietary framework focused on gut lining integrity, digestion, and nutrient-dense foods that support hormonal balance from the inside out."],
+              ["Supportive Lifestyle Upgrades", "Specific, manageable routine changes — sleep architecture, circadian alignment, and toxin reduction — to improve your body's natural drainage pathways."],
+              ["Precision Nutrition & Cell Salts", "Exact biochemical building blocks, targeted nutrients, and tissue salts to improve elimination, gut and skin health, and cellular function."],
+            ],
+          },
+          {
+            num: "03",
+            title: "The Integrative Bridge",
+            subtitle: "How It All Connects",
+            img: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&fit=crop&auto=format&q=80",
+            accent: "nnc-olive",
+            focus: "How lifestyle, data, and energetic modalities complement one another.",
+            feeling: "True well-being doesn't happen in isolation. A physical deficiency can impact mental outlook, just as chronic emotional stress can deplete physical nutrients.",
+            protocolLabel: "Why a Tailored Protocol Matters",
+            protocol: [
+              ["Your Complete Picture", "We assess your habits, your data, and your energetic health to design a single, cohesive roadmap."],
+              ["Advanced CBTp Consultation Group", "INSPIRE Training Program, Stanford University School of Medicine."],
+              ["Certified Coach", "Certified Coaching Federation, since 2014."],
+              ["No Single-Symptom Thinking", "Your custom protocol looks at all layers simultaneously — physical, emotional, and cellular."],
+            ],
+          },
+        ];
+        const p = pathways[activePathway];
+        return (
+          <section className="py-24 bg-nnc-ivory">
+            <div className="container mx-auto px-6 md:px-12">
+              <div className="text-center max-w-3xl mx-auto mb-12">
+                <span className="font-script text-xl text-nnc-olive block mb-3 tracking-wide">Is This You?</span>
+                <h2 className="font-serif text-4xl md:text-5xl text-nnc-charcoal">Who This Is For</h2>
+                <p className="mt-4 text-nnc-charcoal/55 text-lg leading-relaxed">Three clinical pathways — each tailored to where you are right now.</p>
+              </div>
 
-        <div className="container mx-auto px-6 md:px-12 space-y-8">
+              {/* Pathway selector tabs */}
+              <div className="flex flex-col sm:flex-row gap-3 mb-8 max-w-3xl mx-auto">
+                {pathways.map((pw, i) => (
+                  <button
+                    key={pw.num}
+                    onClick={() => setActivePathway(i)}
+                    className={`flex-1 flex flex-col items-start gap-1 px-5 py-4 rounded-xl border text-left transition-all duration-200 ${
+                      activePathway === i
+                        ? "bg-nnc-charcoal border-nnc-charcoal text-white shadow-lg"
+                        : "bg-white border-nnc-sage/20 hover:border-nnc-charcoal/30 hover:shadow-sm"
+                    }`}
+                  >
+                    <span className={`text-[10px] font-bold tabular-nums tracking-widest ${activePathway === i ? "text-white/40" : "text-nnc-charcoal/30"}`}>{pw.num}</span>
+                    <span className={`text-sm font-semibold leading-snug ${activePathway === i ? "text-white" : "text-nnc-charcoal"}`}>{pw.title}</span>
+                    <span className={`text-xs leading-snug ${activePathway === i ? "text-white/55" : "text-nnc-charcoal/45"}`}>{pw.subtitle}</span>
+                  </button>
+                ))}
+              </div>
 
-          {/* 1 — Mental & Emotional */}
-          <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/10 shadow-lg grid md:grid-cols-[42%_58%]">
-            <div className="relative min-h-[280px] md:min-h-0 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&fit=crop&auto=format&q=80" alt="Mental and emotional wellness" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/85 via-nnc-charcoal/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <div className="text-[72px] font-bold text-white/8 font-serif leading-none -mb-2 select-none">01</div>
-                <h3 className="font-serif text-xl md:text-2xl text-white leading-snug">Mental &amp; Emotional Wellness</h3>
-                <p className="text-white/60 text-sm mt-1.5 font-medium italic">Reclaiming Clarity &amp; Balance</p>
-              </div>
-            </div>
-            <div className="bg-white p-8 md:p-10 flex flex-col gap-6">
-              <div className="border-l-[3px] border-nnc-olive pl-4">
-                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-1.5">Clinical Focus</p>
-                <p className="text-nnc-charcoal font-semibold leading-relaxed">Supporting the nervous system to manage stress, brain fog, and emotional blocks.</p>
-              </div>
-              <div className="bg-nnc-ivory rounded-xl p-4 border-l-2 border-nnc-sage/40">
-                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-2">How You Might Be Feeling</p>
-                <p className="text-nnc-charcoal/70 leading-relaxed text-sm italic">You find yourself navigating a cycle of chronic stress, mental fatigue, or persistent brain fog. Perhaps emotional blocks or anxiety are presenting challenges, and you feel like you are operating on empty, looking to regain your usual focus and vitality.</p>
-              </div>
-              <div>
-                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-4">Our Integrative Protocol Includes</p>
-                <div className="space-y-3">
-                  {[
-                    ["Certified Brain Health Coaching", "Actionable guidance and accountability to improve behavioral loops, restructure your daily schedule, and integrate new lifestyle upgrades."],
-                    ["Targeted Diet & Brain Nutrition", "Modifying dietary patterns to support blood sugar stability, manage neuroinflammation, and optimize mood-balancing neurotransmitters."],
-                    ["Nervous-System Lifestyle Changes", "Realistic micro-habits — from sleep optimization to stress-resilience routines — to shift your body out of chronic fight-or-flight."],
-                    ["Bach & Australian Bush Flower Essences", "Gentle vibrational support to balance everyday stress, emotional stagnation, and modern lifestyle pressures from the inside out."],
-                    ["Classical Homeopathy", "Customized protocols to support deep, systemic emotional harmony and equilibrium."],
-                  ].map(([title, desc]) => (
-                    <div key={title} className="flex gap-3 items-start">
-                      <div className="w-1 h-1 rounded-full bg-nnc-olive mt-2 flex-shrink-0" />
-                      <p className="text-sm text-nnc-charcoal/75 leading-relaxed"><span className="font-semibold text-nnc-charcoal">{title}:</span> {desc}</p>
+              {/* Clinical detail panel */}
+              <div className="rounded-2xl overflow-hidden border border-nnc-sage/15 shadow-xl grid md:grid-cols-[40%_60%] min-h-[540px]">
+
+                {/* Left: image */}
+                <div className="relative min-h-[240px] md:min-h-0 overflow-hidden">
+                  <img
+                    key={`pathway-img-${activePathway}`}
+                    src={p.img}
+                    alt={p.title}
+                    className="absolute inset-0 w-full h-full object-cover animate-in fade-in duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/85 via-nnc-charcoal/25 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-7">
+                    <div className="text-[80px] font-bold text-white/8 font-serif leading-none -mb-2 select-none">{p.num}</div>
+                    <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Clinical Pathway {p.num} / 03</p>
+                  </div>
+                </div>
+
+                {/* Right: content */}
+                <div className="bg-white flex flex-col p-8 md:p-10 xl:p-12 gap-6 overflow-y-auto max-h-[640px]">
+
+                  {/* Clinical focus */}
+                  <div key={`focus-${activePathway}`} className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-5 h-px bg-nnc-olive" />
+                      <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-nnc-olive">Clinical Focus</span>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+                    <p className="text-nnc-charcoal font-semibold leading-relaxed text-base">{p.focus}</p>
+                  </div>
 
-          {/* 2 — Physical Vitality (reversed) */}
-          <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/10 shadow-lg grid md:grid-cols-[58%_42%]">
-            <div className="bg-white p-8 md:p-10 flex flex-col gap-6">
-              <div className="border-l-[3px] border-nnc-sage pl-4">
-                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-1.5">Clinical Focus</p>
-                <p className="text-nnc-charcoal font-semibold leading-relaxed">Identifying hidden biochemical imbalances, toxicities, and deficiencies to support systemic physical well-being.</p>
-              </div>
-              <div className="bg-nnc-ivory rounded-xl p-4 border-l-2 border-nnc-sage/40">
-                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-2">How You Might Be Feeling</p>
-                <p className="text-nnc-charcoal/70 leading-relaxed text-sm italic">You are navigating sluggish digestion, erratic hormonal imbalances, stubborn skin issues, or general low vitality. You want a structured, data-driven approach — not guesswork.</p>
-              </div>
-              <div>
-                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-4">Our Tailored Biochemical Approach</p>
-                <div className="space-y-3">
-                  {[
-                    ["Comprehensive Wellness Questionnaires", "Deep-dive intake forms mapping your complete health history, lifestyle baselines, and symptom patterns before a single lab marker is reviewed."],
-                    ["Advanced Cellular Testing", "Live Blood Cell Analysis and HTMA for local clients; HTMA and Zinzino BalanceTest (fatty acid blood spot) for remote clients — shipped directly to you."],
-                    ["Targeted Diet & Nutrient Adjustments", "A personalized dietary framework focused on gut lining integrity, digestion, and nutrient-dense foods that support hormonal balance from the inside out."],
-                    ["Supportive Lifestyle Upgrades", "Specific, manageable routine changes — sleep architecture, circadian alignment, and toxin reduction — to improve your body's natural drainage pathways."],
-                    ["Precision Nutrition & Cell Salts", "Exact biochemical building blocks, targeted nutrients, and tissue salts to improve elimination, gut and skin health, and cellular function."],
-                  ].map(([title, desc]) => (
-                    <div key={title} className="flex gap-3 items-start">
-                      <div className="w-1 h-1 rounded-full bg-nnc-sage mt-2 flex-shrink-0" />
-                      <p className="text-sm text-nnc-charcoal/75 leading-relaxed"><span className="font-semibold text-nnc-charcoal">{title}:</span> {desc}</p>
+                  <div className="h-px bg-nnc-sage/15" />
+
+                  {/* How you might be feeling */}
+                  <div key={`feeling-${activePathway}`} className="animate-in fade-in slide-in-from-bottom-2 duration-400">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-nnc-charcoal/35 mb-3">How You Might Be Feeling</p>
+                    <p className="text-nnc-charcoal/65 leading-relaxed text-sm italic">{p.feeling}</p>
+                  </div>
+
+                  <div className="h-px bg-nnc-sage/15" />
+
+                  {/* Protocol list */}
+                  <div key={`protocol-${activePathway}`} className="animate-in fade-in duration-500">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-nnc-charcoal/35 mb-4">{p.protocolLabel}</p>
+                    <div className="space-y-3">
+                      {p.protocol.map(([title, desc]) => (
+                        <div key={title} className="flex gap-3 items-start">
+                          <div className="w-4 h-4 rounded-full border border-nnc-olive/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-nnc-olive" />
+                          </div>
+                          <p className="text-sm text-nnc-charcoal/70 leading-relaxed">
+                            <span className="font-semibold text-nnc-charcoal">{title}:</span> {desc}
+                          </p>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="relative min-h-[280px] md:min-h-0 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&fit=crop&auto=format&q=80" alt="Physical vitality and cellular testing" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/85 via-nnc-charcoal/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <div className="text-[72px] font-bold text-white/8 font-serif leading-none -mb-2 select-none">02</div>
-                <h3 className="font-serif text-xl md:text-2xl text-white leading-snug">Physical Vitality</h3>
-                <p className="text-white/60 text-sm mt-1.5 font-medium italic">Cellular Optimization &amp; Targeted Support</p>
-              </div>
-            </div>
-          </div>
+                  </div>
 
-          {/* 3 — The Integrative Bridge */}
-          <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/10 shadow-lg grid md:grid-cols-[42%_58%]">
-            <div className="relative min-h-[280px] md:min-h-0 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&fit=crop&auto=format&q=80" alt="Integrative approach" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/85 via-nnc-charcoal/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <div className="text-[72px] font-bold text-white/8 font-serif leading-none -mb-2 select-none">03</div>
-                <h3 className="font-serif text-xl md:text-2xl text-white leading-snug">The Integrative Bridge</h3>
-                <p className="text-white/60 text-sm mt-1.5 font-medium italic">How It All Connects</p>
-              </div>
-            </div>
-            <div className="bg-white p-8 md:p-10 flex flex-col gap-6">
-              <div className="border-l-[3px] border-nnc-olive pl-4">
-                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-1.5">Clinical Focus</p>
-                <p className="text-nnc-charcoal font-semibold leading-relaxed">How lifestyle, data, and energetic modalities complement one another.</p>
-              </div>
-              <div>
-                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-nnc-charcoal/35 mb-4">Why a Tailored Protocol Matters</p>
-                <div className="space-y-4 text-nnc-charcoal/70 leading-relaxed text-sm">
-                  <p>True well-being doesn't happen in isolation. A physical deficiency can impact mental outlook, just as chronic emotional stress can deplete physical nutrients.</p>
-                  <p>By bridging advanced biochemical insights with lifestyle upgrades, natural remedies, and targeted coaching support, your custom protocol doesn't just look at a single concern. We assess your habits, your data, and your energetic health to design a single, cohesive roadmap aimed entirely at improving your overall quality of life.</p>
-                </div>
-              </div>
-              <div className="mt-auto pt-4 border-t border-nnc-sage/15 grid grid-cols-2 gap-4">
-                <div>
-                  <p className="font-semibold text-sm text-nnc-charcoal mb-0.5">Advanced CBTp Consultation Group</p>
-                  <p className="text-xs text-nnc-charcoal/50 leading-relaxed">INSPIRE Training Program, Stanford University School of Medicine</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-sm text-nnc-charcoal mb-0.5">Certified Coach</p>
-                  <p className="text-xs text-nnc-charcoal/50 leading-relaxed">Certified Coaching Federation, since 2014</p>
-                </div>
-              </div>
-            </div>
-          </div>
+                  {/* CTA */}
+                  <div className="pt-2 mt-auto border-t border-nnc-sage/15">
+                    <Button
+                      onClick={() => onNavigate("enroll")}
+                      className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-6 py-4 transition-all text-sm font-semibold"
+                    >
+                      Start This Pathway
+                    </Button>
+                  </div>
 
-        </div>
+                </div>
+              </div>
 
-        <p className="mt-10 text-center text-sm text-nnc-charcoal/40 italic max-w-2xl mx-auto px-6">
-          Our supportive, integrative services work alongside your primary medical care to optimize your wellness journey.
-        </p>
-      </section>
+              <p className="mt-8 text-center text-sm text-nnc-charcoal/40 italic max-w-2xl mx-auto">
+                Our supportive, integrative services work alongside your primary medical care to optimize your wellness journey.
+              </p>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* ===== JOURNEY ===== */}
       <section id="journey" className="py-28 md:py-32 bg-nnc-cream relative overflow-hidden">
