@@ -445,7 +445,17 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
     },
     {
       title: "Flower Essences & Vibrational Support",
-      desc: "A gentle system of emotional support utilizing natural plant frequencies. Australian Bush Flower Essences — suited to modern life's demands — ease everyday stress, support life transitions, and promote mental clarity, emotional boundaries, and calm resilience.",
+      desc: (
+        <div className="space-y-3">
+          <p><span className="font-semibold text-nnc-charcoal">What it is:</span> A gentle system of emotional support utilizing natural plant frequencies. Alongside classic Bach remedies, I utilize Australian Bush Flower Essences, which are specifically suited for the fast-paced, high-stress demands of modern life.</p>
+          <p className="font-semibold text-nnc-charcoal">How it supports you:</p>
+          <ul className="space-y-1.5 pl-1">
+            <li className="flex gap-2 items-start"><span className="text-nnc-sage mt-1 flex-shrink-0">–</span><span>Helps ease everyday stress, anxiety, and feelings of overwhelm.</span></li>
+            <li className="flex gap-2 items-start"><span className="text-nnc-sage mt-1 flex-shrink-0">–</span><span>Supports you during major life transitions, career changes, or periods of burnout.</span></li>
+            <li className="flex gap-2 items-start"><span className="text-nnc-sage mt-1 flex-shrink-0">–</span><span>Promotes mental clarity, emotional boundaries, and a sense of calm resilience.</span></li>
+          </ul>
+        </div>
+      ),
       img: "/images/flower-essences.png",
       href: null as string | null,
     },
@@ -735,12 +745,12 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
               >
                 {services[activeService].title}
               </h3>
-              <p
+              <div
                 key={`desc-${activeService}`}
                 className="text-nnc-charcoal/60 leading-relaxed text-base animate-in fade-in slide-in-from-bottom-2 duration-500"
               >
                 {services[activeService].desc}
-              </p>
+              </div>
               <div className="pt-2">
                 <Button
                   onClick={() => onNavigate("enroll")}
