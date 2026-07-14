@@ -483,6 +483,20 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
           a: "Bach Flower Remedies are a system of 38 natural flower infusions developed by Dr. Edward Bach to support your emotional \"software.\" They work on an energetic frequency to address emotional and mental stress patterns—such as fear, uncertainty, or mental fatigue. Instead of suppressing negative emotional states, Bach flowers stimulate the opposite positive virtues (like courage, clarity, and peace), helping to unburden the system's vital energy from the inside out.",
         },
         {
+          q: "What are Flower Essences & Vibrational Support?",
+          a: (
+            <div className="space-y-3">
+              <p><span className="font-semibold text-nnc-charcoal">What it is:</span> A gentle system of emotional support utilizing natural plant frequencies. Alongside classic Bach remedies, I utilize Australian Bush Flower Essences, which are specifically suited for the fast-paced, high-stress demands of modern life.</p>
+              <p className="font-semibold text-nnc-charcoal">How it supports you:</p>
+              <ul className="space-y-1.5 pl-4">
+                <li className="flex gap-2 items-start"><span className="text-nnc-sage mt-1 flex-shrink-0">–</span><span>Helps ease everyday stress, anxiety, and feelings of overwhelm.</span></li>
+                <li className="flex gap-2 items-start"><span className="text-nnc-sage mt-1 flex-shrink-0">–</span><span>Supports you during major life transitions, career changes, or periods of burnout.</span></li>
+                <li className="flex gap-2 items-start"><span className="text-nnc-sage mt-1 flex-shrink-0">–</span><span>Promotes mental clarity, emotional boundaries, and a sense of calm resilience.</span></li>
+              </ul>
+            </div>
+          ),
+        },
+        {
           q: "What is the difference between Nutrition and Homeopathy in your practice?",
           a: "We like to use the analogy of a computer: Nutritional Rebuilding is the Hardware—we use high-bioavailability nutrients, diet, and Schüssler Tissue Salts to rebuild your physical cells, fuel metabolic pathways, and calm the physical nervous system. Homeopathic Integration is the Software—once the hardware is supported, we introduce individualized homeopathic remedies. Homeopathy works gently on the body's \"vital force\" or energetic blueprint to help resolve deep-seated emotional patterns and stimulate your body's innate ability to balance itself.",
         },
