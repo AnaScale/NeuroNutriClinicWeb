@@ -443,6 +443,12 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       img: "/images/tissue-salts.png",
       href: null as string | null,
     },
+    {
+      title: "Flower Essences & Vibrational Support",
+      desc: "A gentle system of emotional support utilizing natural plant frequencies. Australian Bush Flower Essences — suited to modern life's demands — ease everyday stress, support life transitions, and promote mental clarity, emotional boundaries, and calm resilience.",
+      img: "https://images.unsplash.com/photo-1490750967868-88df5691cc37?w=600&fit=crop&auto=format&q=80",
+      href: null as string | null,
+    },
   ];
 
   const faqGroups = [
