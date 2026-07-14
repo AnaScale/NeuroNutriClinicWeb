@@ -208,34 +208,31 @@ function Nav({ onNavigate, currentScreen }: { onNavigate: (screen: any) => void,
 
 function Footer() {
   return (
-    <footer className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#5a1050] via-[#2d1040] to-[#0b3028]" />
-      <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "url(/images/botanical-texture-1.png)", backgroundSize: "cover" }} />
-      <div className="absolute top-0 inset-x-0 h-px bg-white/10" />
-      <div className="relative z-10 container mx-auto px-6 md:px-12 pt-20 pb-10">
-        <div className="grid md:grid-cols-[2fr_1fr_1fr] gap-12 md:gap-16 mb-16">
+    <footer className="bg-nnc-charcoal">
+      <div className="container mx-auto px-6 md:px-12 pt-16 pb-10">
+        <div className="grid md:grid-cols-[2fr_1fr_1fr] gap-12 md:gap-16 mb-14">
           <div>
-            <div className="mb-7">
-              <span className="block font-serif text-3xl md:text-4xl text-white tracking-tight leading-tight">Neuro Nutri Clinic</span>
-              <span className="font-script text-base text-white/45 mt-1.5 block tracking-wide">Integrative Holistic Health</span>
+            <div className="mb-6">
+              <span className="block font-serif text-2xl md:text-3xl text-white tracking-tight leading-tight">Neuro Nutri Clinic</span>
+              <span className="font-script text-base text-nnc-rose/70 mt-1.5 block">Integrative Holistic Health</span>
             </div>
-            <p className="text-white/55 text-sm leading-relaxed max-w-xs">
+            <p className="text-white/45 text-sm leading-relaxed max-w-xs">
               Where neuroscience meets holistic medicine — a precision roadmap to brain performance, cellular vitality, and lasting well-being.
             </p>
           </div>
           <div>
-            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/35 mb-6">Contact</p>
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/30 mb-5">Contact</p>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="mailto:info@neuro-nutri-clinic.com" className="text-white/65 hover:text-white transition-colors duration-200">
+                <a href="mailto:info@neuro-nutri-clinic.com" className="text-white/55 hover:text-nnc-sage transition-colors duration-200">
                   info@neuro-nutri-clinic.com
                 </a>
               </li>
             </ul>
           </div>
           <div>
-            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/35 mb-6">Credentials</p>
-            <ul className="space-y-2.5 text-sm text-white/55 leading-relaxed">
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/30 mb-5">Credentials</p>
+            <ul className="space-y-2.5 text-sm text-white/45 leading-relaxed">
               <li>Certified Brain Health Professional</li>
               <li>Integrative Psychiatry Training</li>
               <li>Registered Nutritional Consultant</li>
@@ -243,7 +240,7 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-[11px] text-white/25">
+        <div className="border-t border-white/10 pt-7 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-[11px] text-white/20">
           <p>&copy; {new Date().getFullYear()} Neuro Nutri Clinic. All rights reserved.</p>
           <p className="md:text-right max-w-md">Disclaimer: Services are integrative and supportive, and do not replace medical diagnosis, psychiatric care, or emergency treatment.</p>
         </div>
@@ -1058,33 +1055,30 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
       </section>
 
       {/* ===== FINAL CTA ===== */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-nnc-olive via-[#8a1f8a] to-nnc-sage" />
-        <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "url(/images/botanical-texture-1.png)", backgroundSize: "cover" }} />
-        <div className="absolute top-0 inset-x-0 h-px bg-white/20" />
-        <div className="relative z-10 container mx-auto px-6 md:px-12 py-24 md:py-32">
+      <section className="bg-nnc-charcoal py-24 md:py-32">
+        <div className="container mx-auto px-6 md:px-12">
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-10 md:gap-20">
             <div className="flex-1">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="h-px w-10 bg-white/40 inline-block flex-shrink-0" />
-                <span className="font-script text-xl text-white/75 tracking-wide">Your journey starts here</span>
+              <div className="flex items-center gap-4 mb-5">
+                <span className="h-px w-8 bg-nnc-olive/50 inline-block flex-shrink-0" />
+                <span className="font-script text-xl text-nnc-rose/80 tracking-wide">Your journey starts here</span>
               </div>
-              <h2 className="font-serif text-4xl md:text-[3.5rem] leading-[1.1] text-white mb-6">
+              <h2 className="font-serif text-4xl md:text-[3.25rem] leading-[1.1] text-white mb-5">
                 Ready to reclaim<br className="hidden md:block" /> your vitality?
               </h2>
-              <p className="text-white/75 text-lg leading-relaxed max-w-lg">
+              <p className="text-white/60 text-lg leading-relaxed max-w-lg">
                 Commit to cellular-level healing and lifestyle changes. Begin your enrollment to book your comprehensive initial consultation with Shirin.
               </p>
             </div>
-            <div className="flex flex-col gap-4 items-start md:items-end shrink-0">
+            <div className="flex flex-col gap-3 items-start md:items-end shrink-0">
               <Button
                 onClick={() => onNavigate("enroll")}
                 size="lg"
-                className="bg-white hover:bg-nnc-ivory text-nnc-olive font-semibold rounded-full px-10 py-6 text-base shadow-2xl hover:scale-[1.03] transition-all duration-300 group"
+                className="bg-nnc-olive hover:bg-nnc-olive/90 text-white font-semibold rounded-full px-10 py-6 text-base shadow-lg hover:scale-[1.02] transition-all duration-300 group"
               >
                 Begin Enrollment <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <p className="text-white/40 text-xs">No commitment required.</p>
+              <p className="text-white/30 text-xs">No commitment required.</p>
             </div>
           </div>
         </div>
