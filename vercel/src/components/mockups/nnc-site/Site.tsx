@@ -669,64 +669,88 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
             </p>
           </div>
 
-          {/* Interactive tab layout */}
-          <div className="rounded-[2rem] overflow-hidden border border-nnc-sage/15 shadow-xl flex flex-col lg:flex-row min-h-[500px]">
-            {/* Left: clickable service list */}
-            <div className="lg:w-72 xl:w-80 bg-nnc-cream border-b lg:border-b-0 lg:border-r border-nnc-sage/15 flex flex-col flex-shrink-0">
-              <div className="px-5 py-4 border-b border-nnc-sage/15">
-                <p className="text-xs font-bold uppercase tracking-widest text-nnc-charcoal/50">Scroll or click to explore</p>
-              </div>
-              <div className="overflow-y-auto flex-1">
+          {/* Interactive editorial layout */}
+          <div className="flex flex-col lg:flex-row gap-12 xl:gap-16 items-start">
+
+            {/* Left: numbered nav list */}
+            <div className="lg:w-64 xl:w-72 flex-shrink-0">
+              <p className="text-xs font-bold uppercase tracking-widest text-nnc-charcoal/40 mb-5">Scroll or click to explore</p>
+              <div className="flex flex-col">
                 {services.map((s, i) => (
                   <button
                     key={s.title}
                     onClick={() => setActiveService(i)}
-                    className={`w-full text-left px-5 py-4 border-b border-nnc-sage/10 transition-all duration-200 flex items-center gap-3 ${
-                      activeService === i
-                        ? "bg-white border-l-[3px] border-l-nnc-olive"
-                        : "hover:bg-white/60 border-l-[3px] border-l-transparent"
+                    className={`w-full text-left py-3.5 flex items-center gap-3.5 group transition-all duration-200 border-b border-nnc-sage/10 last:border-b-0 ${
+                      activeService === i ? "" : "hover:opacity-80"
                     }`}
                   >
-                    <span className={`text-sm leading-snug transition-colors ${activeService === i ? "text-nnc-olive font-medium" : "text-nnc-charcoal/60"}`}>
+                    <span className={`text-xs font-bold tabular-nums flex-shrink-0 transition-colors duration-200 ${activeService === i ? "text-nnc-olive" : "text-nnc-charcoal/25"}`}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className={`text-sm leading-snug transition-colors duration-200 ${activeService === i ? "text-nnc-charcoal font-semibold" : "text-nnc-charcoal/50"}`}>
                       {s.title}
                     </span>
+                    {activeService === i && (
+                      <span className="ml-auto w-1.5 h-1.5 rounded-full bg-nnc-olive flex-shrink-0" />
+                    )}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Right: service detail panel */}
-            <div className="flex-1 flex flex-col md:flex-row bg-white min-h-[400px]">
-              <div className="md:w-[45%] h-56 md:h-auto overflow-hidden flex-shrink-0">
+            {/* Center: image with organic treatment */}
+            <div className="flex-1 relative flex items-center justify-center min-h-[380px] lg:min-h-[480px]">
+              {/* Decorative blob behind image */}
+              <div className="absolute inset-0 bg-nnc-blush/20 rounded-[3rem] blur-2xl scale-95 pointer-events-none" />
+              {/* Offset shadow frame */}
+              <div className="absolute inset-4 bg-nnc-sage/10 rounded-[2.5rem] translate-x-3 translate-y-3 pointer-events-none" />
+              <div className="relative w-full h-[320px] lg:h-[440px] rounded-[2.5rem] overflow-hidden shadow-2xl">
                 <img
                   key={activeService}
                   src={services[activeService].img}
                   alt={services[activeService].title}
-                  className="w-full h-full object-cover animate-in fade-in duration-500"
+                  className="w-full h-full object-cover animate-in fade-in duration-500 scale-105"
                   loading="lazy"
                 />
-              </div>
-              <div className="flex-1 p-8 md:p-10 xl:p-12 flex flex-col justify-center gap-5">
-                <div className="w-10 h-10 rounded-full bg-nnc-blush/40 flex items-center justify-center flex-shrink-0">
-                  <div className="w-2.5 h-2.5 rounded-full bg-nnc-olive" />
-                </div>
-                <h3 className="font-serif text-2xl md:text-3xl text-nnc-charcoal leading-snug">
-                  {services[activeService].title}
-                </h3>
-                <p className="text-nnc-charcoal/65 leading-relaxed text-base">
-                  {services[activeService].desc}
-                </p>
-                <div className="flex flex-wrap items-center gap-4 pt-2">
-                  <Button
-                    onClick={() => onNavigate("enroll")}
-                    size="sm"
-                    className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-6 py-5 transition-all"
-                  >
-                    Book a Consultation
-                  </Button>
+                {/* Subtle gradient vignette at bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-nnc-charcoal/30 via-transparent to-transparent pointer-events-none" />
+                {/* Service number watermark on image */}
+                <div className="absolute bottom-5 left-6 text-white/30 font-serif text-7xl font-bold leading-none select-none pointer-events-none">
+                  {String(activeService + 1).padStart(2, "0")}
                 </div>
               </div>
             </div>
+
+            {/* Right: content */}
+            <div className="flex-1 flex flex-col justify-center gap-6 lg:pt-8">
+              <div className="flex items-center gap-3">
+                <div className="h-px w-8 bg-nnc-olive/60" />
+                <span className="text-xs font-bold uppercase tracking-widest text-nnc-olive/80">
+                  Modality {String(activeService + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <h3
+                key={`title-${activeService}`}
+                className="font-serif text-2xl md:text-3xl xl:text-4xl text-nnc-charcoal leading-snug animate-in fade-in slide-in-from-bottom-2 duration-400"
+              >
+                {services[activeService].title}
+              </h3>
+              <p
+                key={`desc-${activeService}`}
+                className="text-nnc-charcoal/60 leading-relaxed text-base animate-in fade-in slide-in-from-bottom-2 duration-500"
+              >
+                {services[activeService].desc}
+              </p>
+              <div className="pt-2">
+                <Button
+                  onClick={() => onNavigate("enroll")}
+                  className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-7 py-5 transition-all text-sm font-semibold"
+                >
+                  Book a Consultation
+                </Button>
+              </div>
+            </div>
+
           </div>
 
           {/* Mobile: compact scroll indicators */}
