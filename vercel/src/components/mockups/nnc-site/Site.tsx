@@ -585,7 +585,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div className="relative">
               <div className="aspect-[4/5] blob-shape overflow-hidden shadow-nnc-soft">
-                <img src={textureImage} alt="Soft botanical texture" className="w-full h-full object-cover" />
+                <img src="/images/lab-testing.png" alt="Advanced functional lab testing" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-8 -right-4 md:-right-8 bg-nnc-ivory p-7 rounded-[2rem] shadow-xl max-w-sm border border-nnc-sage/10">
                 <p className="font-serif text-xl italic text-nnc-charcoal leading-relaxed">
