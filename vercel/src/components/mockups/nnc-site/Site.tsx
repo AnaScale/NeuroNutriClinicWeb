@@ -2335,19 +2335,19 @@ function ScreenConsent({ onNavigate, formData, updateData }: { onNavigate: (s: a
             <h2 className="font-serif text-2xl text-nnc-olive mb-6">Consent & Scope of Practice</h2>
 
             <div className="prose prose-sm text-nnc-charcoal/70 mb-8 max-h-[300px] overflow-y-auto pr-4 custom-scrollbar">
-              <p>I acknowledge that I am seeking the services of Shirin Akhavi, an Integrative Holistic Practitioner and founder of Neuro Nutri Clinic.</p>
-              <p>I understand that Shirin Akhavi utilizes a diverse clinical expertise—including Holistic Nutrition, Homeopathy, Live Blood Cell Analysis, Hair Mineral Analysis, Bach Flowers, Cell Salts and Brain Health Coaching—to support my wellness journey. I recognize that her approach is highly personalized; depending on my specific needs and the service tier I have selected, she will apply one or a combination of these integrative modalities as deemed suitable to address my biochemical, energetic, and neurological health.</p>
+              <p>I, _________________________, acknowledge that I am seeking the services of Shirin Akhavi, an Integrative Holistic Practitioner and founder of Neuro Nutri Clinic.</p>
+              <p>I understand that Shirin Akhavi utilizes a diverse clinical expertise—including Holistic Nutrition, Homeopathy, Live Blood Cell Analysis, Hair Mineral Analysis, Bach Flowers, Cell Salts, and Brain Health Coaching—to support my wellness journey. I recognize that her approach is highly personalized; depending on my specific needs and the service tier I have selected, she will apply one or a combination of these integrative modalities as deemed suitable to address my biochemical, energetic, and neurological health.</p>
               <p>I am choosing to engage in this collaborative process to support my overall well-being and understand that these services are integrative and supportive in nature and do not replace medical diagnosis, psychiatric care, or emergency treatment.</p>
 
               <h4 className="font-bold text-nnc-charcoal mt-4 mb-2">I acknowledge that:</h4>
-              <ul className="list-disc pl-4 space-y-1">
-                <li>I am responsible for my own healthcare decisions.</li>
-                <li>I have disclosed all relevant medical, neurological, psychiatric, and medication information.</li>
-                <li>My information will be kept confidential in accordance with Ontario privacy legislation (PHIPA), except where disclosure is required by law.</li>
+              <ul className="list-disc pl-4 space-y-2">
+                <li><strong>Responsibility:</strong> I am responsible for my own healthcare decisions. Individual responses to natural protocols vary, and no specific health outcomes can be guaranteed.</li>
+                <li><strong>Disclosure:</strong> I have disclosed all relevant medical, neurological, psychiatric, and medication information. I will continue to work alongside my primary medical care team and discuss any major dietary or supplement adjustments with them.</li>
+                <li><strong>Privacy:</strong> My information will be kept strictly confidential in accordance with Ontario privacy legislation (PHIPA), except where disclosure is required by law (such as an immediate threat of harm to myself or others).</li>
               </ul>
 
-              <h4 className="font-bold text-nnc-charcoal mt-4 mb-2">Financial Acknowledgment</h4>
-              <p><strong>Payment:</strong> I understand that payment is due in full to secure my appointment or upon receipt of the invoice.</p>
+              <h4 className="font-bold text-nnc-charcoal mt-4 mb-2">Financial & Appointment Acknowledgment</h4>
+              <p><strong>Payment:</strong> I understand that payment is due in full to secure my appointment or upon receipt of the invoice. The cost of recommended supplements, remedies, or external functional testing is separate from session fees.</p>
               <p><strong>Grace Period:</strong> I acknowledge there is a 15-minute grace period for deep-dive sessions and a 5-minute grace period for coaching check-ins. Arrivals beyond this window will result in a forfeited session and a 100% cancellation fee.</p>
               <p><strong>Cancellation:</strong> I agree to provide at least 24 hours' notice for cancellations or rescheduling. Failure to do so will result in being charged the full session fee.</p>
               <p><strong>Nature of Service:</strong> I understand that these services are integrative and supportive. They are intended to work alongside my primary medical care and do not replace the advice of a licensed medical doctor.</p>
