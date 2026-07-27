@@ -917,7 +917,7 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
               </div>
 
               <p className="mt-8 text-center text-sm text-nnc-charcoal/40 italic max-w-2xl mx-auto">
-                Our supportive, integrative services work alongside your primary medical care to optimize your wellness journey.
+                Our supportive, integrative services work beautifully alongside your primary medical care to optimize your wellness journey.
               </p>
             </div>
           </section>
