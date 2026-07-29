@@ -509,30 +509,39 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
   return (
     <div className="animate-in fade-in duration-700 overflow-hidden">
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[92vh] flex items-center pt-10 pb-16 md:pt-16 bg-gradient-botanical overflow-hidden">
-        <div className="absolute top-[-10%] right-[-5%] w-[60vw] h-[60vw] bg-nnc-sage/10 blur-[100px] blob-shape pointer-events-none" />
-        <div className="absolute bottom-[-15%] left-[-10%] w-[50vw] h-[50vw] bg-nnc-blush/30 blur-[100px] blob-shape-2 pointer-events-none" />
+      <section className="relative min-h-[92vh] flex items-center pt-10 pb-16 md:pt-16 bg-[#F0EFED] overflow-hidden">
+
+        {/* Full-bleed right-side image */}
+        <div className="absolute top-0 right-0 w-[58%] h-full hidden lg:block">
+          <img
+            src="/images/hero-brain-botanical.png"
+            alt="Neuroscience meets holistic medicine"
+            className="w-full h-full object-cover object-center"
+          />
+          {/* Soft left-edge fade so image blends into background */}
+          <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#F0EFED] to-transparent pointer-events-none" />
+        </div>
 
         <div className="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-nnc-sage/20 text-nnc-sage font-medium text-sm tracking-wide mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm border border-black/10 text-nnc-charcoal/70 font-medium text-sm tracking-wide mb-8">
               <Leaf className="w-4 h-4" /> Integrative Holistic Health Practice
             </div>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-[5.25rem] leading-[1.05] text-nnc-charcoal mb-6">
-              Where <span className="text-nnc-sage italic font-normal">Neuroscience</span><br />
-              Meets Nutritional <span className="text-nnc-olive">Precision.</span>
+              Where <span className="text-nnc-charcoal/40 italic font-normal">Neuroscience</span><br />
+              Meets Nutritional <span className="text-nnc-charcoal">Precision.</span>
             </h1>
-            <p className="font-serif italic text-xl md:text-2xl text-nnc-olive mb-5">
+            <p className="font-script text-xl md:text-2xl text-nnc-charcoal/70 mb-5">
               Integrating neuroscience and holistic medicine.
             </p>
-            <p className="text-lg text-nnc-charcoal/70 mb-10 leading-relaxed max-w-lg">
+            <p className="text-lg text-nnc-charcoal/60 mb-10 leading-relaxed max-w-lg">
               We don't just treat symptoms; we investigate the biological "why." Discover a science-backed, sustainable roadmap to health that optimizes your mind and body at the cellular level.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <Button
                 onClick={() => onNavigate("enroll")}
                 size="lg"
-                className="bg-nnc-olive hover:bg-nnc-charcoal text-white rounded-full px-8 py-6 text-base shadow-nnc-soft w-full sm:w-auto transition-all hover:scale-[1.02] group"
+                className="bg-nnc-charcoal hover:bg-black text-white rounded-full px-8 py-6 text-base w-full sm:w-auto transition-all hover:scale-[1.02] group"
               >
                 Book Your Consultation <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -540,30 +549,28 @@ function ScreenHome({ onNavigate }: { onNavigate: (screen: any) => void }) {
                 variant="outline"
                 size="lg"
                 onClick={() => scrollTo("philosophy")}
-                className="border-2 border-nnc-olive/30 text-nnc-olive hover:border-nnc-olive hover:bg-nnc-olive/5 rounded-full px-8 py-6 text-base w-full sm:w-auto bg-transparent transition-all"
+                className="border-2 border-nnc-charcoal/20 text-nnc-charcoal hover:border-nnc-charcoal hover:bg-nnc-charcoal/5 rounded-full px-8 py-6 text-base w-full sm:w-auto bg-transparent transition-all"
               >
                 Learn More
               </Button>
             </div>
-            <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm font-medium tracking-widest text-nnc-charcoal/50 uppercase">
-              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-olive/60" /> Neuroscience</span>
-              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-sage/60" /> Homeopathy</span>
-              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-rose/60" /> Nutrition</span>
+            <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm font-medium tracking-widest text-nnc-charcoal/40 uppercase">
+              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-charcoal/40" /> Neuroscience</span>
+              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-charcoal/40" /> Homeopathy</span>
+              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-charcoal/40" /> Nutrition</span>
               <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-nnc-charcoal/40" /> Lifestyle</span>
             </div>
           </div>
 
+          {/* Floating info cards over the image */}
           <div className="relative hidden lg:block h-[560px] w-full">
-            <div className="absolute inset-0 bg-nnc-sage/5 blob-shape-2 overflow-hidden shadow-nnc-glow">
-              <img src={heroImage} alt="Botanical neuroscience abstract" className="w-full h-full object-cover" />
-            </div>
-            <div className="absolute top-16 -left-6 bg-white/85 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white max-w-[230px] hover-lift">
-              <Brain className="w-8 h-8 text-nnc-olive mb-3" />
+            <div className="absolute top-16 left-0 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-black/5 max-w-[230px] hover-lift">
+              <Brain className="w-8 h-8 text-nnc-charcoal mb-3" />
               <h3 className="font-serif text-xl mb-1 text-nnc-charcoal">Brain Health</h3>
               <p className="text-xs text-nnc-charcoal/60">Optimizing cognitive function & mood stability.</p>
             </div>
-            <div className="absolute bottom-16 -right-4 bg-white/85 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white max-w-[230px] hover-lift">
-              <Microscope className="w-8 h-8 text-nnc-sage mb-3" />
+            <div className="absolute bottom-16 right-0 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-black/5 max-w-[230px] hover-lift">
+              <Microscope className="w-8 h-8 text-nnc-charcoal mb-3" />
               <h3 className="font-serif text-xl mb-1 text-nnc-charcoal">Cellular Insight</h3>
               <p className="text-xs text-nnc-charcoal/60">Advanced diagnostics incl. HTMA & Live Blood.</p>
             </div>
