@@ -45,13 +45,13 @@
 /* Neuro Nutri Clinic brand palette — registered so every nnc-* utility
    (any opacity, gradient stops, borders) generates automatically. */
 @theme {
-  --color-nnc-cream: #F3FBF7;
+  --color-nnc-cream: #F5F5F5;
   --color-nnc-ivory: #FDFDFD;
-  --color-nnc-sage: #3CC393;
-  --color-nnc-olive: #C42A9B;
-  --color-nnc-blush: #F7DBEE;
-  --color-nnc-rose: #E284C2;
-  --color-nnc-charcoal: #322A30;
+  --color-nnc-sage: #888888;
+  --color-nnc-olive: #111111;
+  --color-nnc-blush: #EFEFEF;
+  --color-nnc-rose: #999999;
+  --color-nnc-charcoal: #1A1A1A;
 }
 
 /* LIGHT MODE - Default theme with placeholder values */
