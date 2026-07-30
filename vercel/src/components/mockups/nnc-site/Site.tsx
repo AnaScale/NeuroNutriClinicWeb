@@ -212,9 +212,16 @@ function Footer() {
       <div className="container mx-auto px-6 md:px-12 pt-16 pb-10">
         <div className="grid md:grid-cols-[2fr_1fr_1fr] gap-12 md:gap-16 mb-14">
           <div>
-            <div className="mb-6">
-              <span className="block font-serif text-2xl md:text-3xl text-white tracking-tight leading-tight">Neuro Nutri Clinic</span>
-              <span className="font-script text-base text-nnc-rose/70 mt-1.5 block">Integrative Holistic Health</span>
+            <div className="mb-6 flex items-center gap-5">
+              <img
+                src="/images/footer-brain.png"
+                alt="Brain and botanical neuroscience"
+                className="w-20 h-20 object-contain object-center"
+              />
+              <div>
+                <span className="block font-serif text-2xl md:text-3xl text-white tracking-tight leading-tight">Neuro Nutri Clinic</span>
+                <span className="font-script text-base text-nnc-rose/70 mt-1.5 block">Integrative Holistic Health</span>
+              </div>
             </div>
             <p className="text-white/45 text-sm leading-relaxed max-w-xs">
               Where neuroscience meets holistic medicine — a precision roadmap to brain performance, cellular vitality, and lasting well-being.
