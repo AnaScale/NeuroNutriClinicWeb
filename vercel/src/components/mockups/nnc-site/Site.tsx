@@ -1328,11 +1328,63 @@ function ScreenEnroll({ onNavigate }: { onNavigate: (screen: any) => void }) {
 
 function ScreenIntake({ onNavigate, formData, updateData }: { onNavigate: (s: any) => void, formData: any, updateData: (d: any) => void }) {
   const handleNext = () => {
-    // Basic validation
-    if (!formData.fullName || !formData.email) {
-      toast.error("Please provide at least your Full Name and Email to continue.");
+    const missing: string[] = [];
+
+    // Patient Information
+    if (!formData.fullName?.trim())        missing.push("Full Name");
+    if (!formData.dob)                     missing.push("Date of Birth");
+    if (!formData.age)                     missing.push("Age");
+    if (!formData.gender?.trim())          missing.push("Gender");
+    if (!formData.phone?.trim())           missing.push("Phone");
+    if (!formData.email?.trim())           missing.push("Email");
+    if (!formData.address?.trim())         missing.push("Address");
+    if (!formData.emergencyContact?.trim()) missing.push("Emergency Contact & Phone");
+
+    // Primary Health Concerns
+    if (!formData.concern1?.trim()) missing.push("Health Concern 1");
+    if (!formData.concern2?.trim()) missing.push("Health Concern 2");
+    if (!formData.concern3?.trim()) missing.push("Health Concern 3");
+    if (!formData.concernsBegin?.trim()) missing.push("When concerns began");
+
+    // General Information
+    if (!formData.height?.trim())       missing.push("Height");
+    if (!formData.weight?.trim())       missing.push("Weight");
+    if (!formData.bloodType?.trim())    missing.push("Blood Type");
+    if (!formData.maritalStatus?.trim()) missing.push("Marital Status");
+    if (!formData.occupation?.trim())   missing.push("Occupation");
+
+    // Substances & Sleep
+    if (!formData.smoking?.trim())           missing.push("Smoking history");
+    if (!formData.alcoholUse?.trim())        missing.push("Alcohol use");
+    if (!formData.sleepDurationWhen?.trim()) missing.push("Sleep duration / bedtime");
+
+    // Diet & Lifestyle
+    if (!formData.favoriteFood?.trim())       missing.push("Favourite food");
+    if (!formData.exerciseRoutine?.trim())    missing.push("Exercise routine");
+    if (!formData.stressDailyWeekly?.trim())  missing.push("Stress level");
+    if (!formData.eatingHabits?.trim())       missing.push("Eating habits");
+    if (!formData.allergies?.trim())          missing.push("Allergies / food allergies");
+    if (!formData.beverages?.trim())          missing.push("Beverages");
+
+    // Medical History
+    if (!formData.currentDiagnoses?.trim())      missing.push("Current diagnoses");
+    if (!formData.pastIllnesses?.trim())          missing.push("Past major illnesses / surgeries");
+    if (!formData.familyHistoryDetailed?.trim())  missing.push("Family history");
+
+    // Sleep & Stress Assessment (radio questions)
+    if (!formData.wakesDuringNight) missing.push("Night waking (yes/no)");
+    if (!formData.wakesRested)      missing.push("Wake up feeling rested (yes/no)");
+    if (!formData.afternoonSlumps)  missing.push("Afternoon energy slumps (yes/no)");
+    if (!formData.sleepQuality)     missing.push("Sleep quality rating");
+    if (!formData.sleepHours)       missing.push("Sleep hours per night");
+
+    if (missing.length > 0) {
+      const preview = missing.slice(0, 3).join(", ");
+      const extra = missing.length > 3 ? ` and ${missing.length - 3} more field${missing.length - 3 > 1 ? "s" : ""}` : "";
+      toast.error(`Please complete all required fields before continuing. Missing: ${preview}${extra}.`);
       return;
     }
+
     onNavigate("consent");
   };
 
