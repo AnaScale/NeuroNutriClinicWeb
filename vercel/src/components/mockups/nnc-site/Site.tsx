@@ -111,6 +111,8 @@ function Nav({ onNavigate, currentScreen }: { onNavigate: (screen: any) => void,
             const y = el.getBoundingClientRect().top + window.scrollY - 100;
             window.scrollTo({ top: y, behavior: 'smooth' });
           }
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }, 100);
     } else if (anchor) {
@@ -119,6 +121,8 @@ function Nav({ onNavigate, currentScreen }: { onNavigate: (screen: any) => void,
         const y = el.getBoundingClientRect().top + window.scrollY - 100;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
