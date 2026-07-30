@@ -249,6 +249,11 @@ function Footer() {
         </div>
         <div className="border-t border-white/10 pt-7 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-[11px] text-white/20">
           <p>&copy; {new Date().getFullYear()} Neuro Nutri Clinic. All rights reserved.</p>
+          <p className="text-center">
+            <a href="https://scaleselling.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white/40 transition-colors">
+              Made &amp; Powered by Scale Selling Corporation
+            </a>
+          </p>
           <p className="md:text-right max-w-md">Disclaimer: Services are integrative and supportive, and do not replace medical diagnosis, psychiatric care, or emergency treatment.</p>
         </div>
       </div>
